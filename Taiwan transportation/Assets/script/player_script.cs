@@ -9,10 +9,6 @@ public class player_script : MonoBehaviour
     private float tem_speed=0f;
     public GameObject check_point;
     public GameObject childPlane_0,childPlane_1,childPlane_2,childPlane_3;
-    void Start()
-    {
-        
-    }
     void Update()
     {
         if(Input.GetKey(KeyCode.RightShift)||Input.GetKey(KeyCode.LeftShift))
@@ -27,8 +23,8 @@ public class player_script : MonoBehaviour
 
     void move()
     {
-        float hori=Input.GetAxis("Horizontal");
-        float ver=Input.GetAxis("Vertical");
+        float hori=Input.GetAxis("Horizontal")*Time.deltaTime;
+        float ver=Input.GetAxis("Vertical")*Time.deltaTime;
         transform.Translate(tem_speed*hori,0,0);
         transform.Translate(0,tem_speed*ver,0);
     }
@@ -52,5 +48,4 @@ public class player_script : MonoBehaviour
         tem_speed=slow_speed;
         move();
     }
-    
 }
