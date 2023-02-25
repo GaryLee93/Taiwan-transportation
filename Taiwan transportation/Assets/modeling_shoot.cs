@@ -2,12 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class shooting_childPlane : MonoBehaviour
+public class modeling_shoot : MonoBehaviour
 {
     public Transform FirePoint_childPlane;
     public GameObject bullet;
     public float shootFre=0.05f;
     private float timer;
+    objectPooler instance;
+    void Start()
+    {
+        instance=objectPooler.instance;
+    }
     void Update()
     {
         timer += Time.deltaTime;
@@ -19,8 +24,8 @@ public class shooting_childPlane : MonoBehaviour
     }
     void shoot()
     {
-        Debug.Log("shoot");
-        Instantiate(bullet,FirePoint_childPlane.position,FirePoint_childPlane.rotation);
+        instance.spawnFromPool("bullet",FirePoint_childPlane.transform.position,
+        FirePoint_childPlane.transform.rotation);
     }
     
 }

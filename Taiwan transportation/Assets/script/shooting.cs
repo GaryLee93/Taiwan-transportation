@@ -9,6 +9,11 @@ public class shooting : MonoBehaviour
     public GameObject bullet;
     public float shootFre=2.0f;
     private float timer;
+    objectPooler instance;
+    private void Start()
+    {
+        instance = objectPooler.instance;
+    }
     void Update()
     {
         timer += Time.deltaTime;
@@ -20,7 +25,7 @@ public class shooting : MonoBehaviour
     }
     void shoot()
     {
-        Instantiate(bullet,FirePoint_1.position,FirePoint_1.rotation);
-        Instantiate(bullet,FirePoint_2.position,FirePoint_2.rotation);
+        instance.spawnFromPool("bullet",FirePoint_1.transform.position,FirePoint_1.transform.rotation);
+        instance.spawnFromPool("bullet",FirePoint_2.transform.position,FirePoint_2.transform.rotation);
     }
 }
