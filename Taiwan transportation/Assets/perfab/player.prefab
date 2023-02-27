@@ -95,7 +95,6 @@ GameObject:
   - component: {fileID: 2871326757379996788}
   - component: {fileID: 2871326757379996791}
   - component: {fileID: 2871326757379996789}
-  - component: {fileID: 2871326757379996778}
   - component: {fileID: 2871326757379996790}
   m_Layer: 0
   m_Name: player
@@ -239,22 +238,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &2871326757379996778
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2871326757379996787}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0cf2e5920f617ac47b63b0d88ea395bb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  FirePoint_1: {fileID: 2871326758913974697}
-  FirePoint_2: {fileID: 2871326759176800840}
-  bullet: {fileID: 3133933876683968412, guid: 6997656e1990c6c42ab1e15b5955c022, type: 3}
-  shootFre: 0.05
 --- !u!114 &2871326757379996790
 MonoBehaviour:
   m_ObjectHideFlags: 0

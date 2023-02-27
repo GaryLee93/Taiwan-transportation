@@ -4,28 +4,21 @@ using UnityEngine;
 
 public class shooting : MonoBehaviour
 {
-    public Transform FirePoint_1;
-    public Transform FirePoint_2;
     public GameObject bullet;
-    public float shootFre=2.0f;
-    private float timer;
-    objectPooler instance;
+    public Transform firepoint;
+    public float shot_interval;
+    private float timer=0;
     private void Start()
     {
-        instance = objectPooler.instance;
+        Instantiate(bullet,firepoint.position,firepoint.rotation);
     }
-    void Update()
+    private void Update()
     {
-        timer += Time.deltaTime;
-        if(Input.GetButton("Fire1")&&timer>=shootFre)
+        if(timer>=shot_interval)
         {
-            timer-=shootFre;
-            shoot();
+            Instantiate(bullet,firepoint.position,firepoint.rotation);
+            timer-=shot_interval;
         }
-    }
-    void shoot()
-    {
-        instance.spawnFromPool("bullet",FirePoint_1.transform.position,FirePoint_1.transform.rotation);
-        instance.spawnFromPool("bullet",FirePoint_2.transform.position,FirePoint_2.transform.rotation);
+        timer+=Time.deltaTime;
     }
 }

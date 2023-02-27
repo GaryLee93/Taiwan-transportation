@@ -6,7 +6,7 @@ public class modeling_shoot : MonoBehaviour
 {
     public Transform FirePoint_childPlane;
     public GameObject bullet;
-    public float shootFre=0.05f;
+    public float shoot_interval=0.05f;
     private float timer;
     objectPooler instance;
     void Start()
@@ -15,17 +15,20 @@ public class modeling_shoot : MonoBehaviour
     }
     void Update()
     {
-        timer += Time.deltaTime;
-        if(Input.GetButton("Fire1")&&timer>=shootFre)
+        if(timer>=shoot_interval)
         {
-            timer-=shootFre;
             shoot();
+            timer-=shoot_interval;
         }
+        timer+=Time.deltaTime;
     }
     void shoot()
     {
-        instance.spawnFromPool("bullet",FirePoint_childPlane.transform.position,
-        FirePoint_childPlane.transform.rotation);
+        if(Input.GetButton("Fire1"))
+        {
+            instance.spawnFromPool(bullet.name,FirePoint_childPlane.transform.position,
+            FirePoint_childPlane.transform.rotation);
+        }
     }
     
 }

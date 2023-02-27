@@ -46,18 +46,11 @@ public class objectPooler : MonoBehaviour
             Debug.LogWarning("Pool with  tag "+tag+" doesn't exist");
             return null;
         }
-
         GameObject objectToSpawn = poolDictionary[tag].Dequeue();
 
         objectToSpawn.SetActive(true);
         objectToSpawn.transform.position=position;
         objectToSpawn.transform.rotation=rotation;
-
-        Ipooled polledObj=objectToSpawn.GetComponent<Ipooled>();
-        if(polledObj!=null)
-        {
-            polledObj.onBulletSpawn();
-        }
 
         poolDictionary[tag].Enqueue(objectToSpawn);
         return objectToSpawn;
