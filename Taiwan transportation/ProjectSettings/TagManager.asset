@@ -6,6 +6,7 @@ TagManager:
   tags:
   - border
   - enemy
+  - enemy_bullet
   layers:
   - Default
   - TransparentFX
@@ -42,6 +43,9 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: UI
+    uniqueID: 3249673273
     locked: 0
   - name: background
     uniqueID: 4272343659

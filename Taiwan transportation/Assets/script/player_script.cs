@@ -53,4 +53,16 @@ public class player_script : MonoBehaviour
         tem_speed=slow_speed;
         move();
     }
+    private void OnTriggerEnter2D(Collider2D other) 
+    {
+        if(other.gameObject.tag=="enemy"||other.gameObject.tag=="enemy_bullet")
+        {
+            die();
+        }
+    }
+    void die()
+    {
+        Debug.Log("滿身瘡痍");
+        Time.timeScale=0;
+    }
 }

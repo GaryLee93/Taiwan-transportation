@@ -21,7 +21,7 @@ public class MonsterMove : MonoBehaviour
         }
     }
 
-    public void takeDemage(int demage)
+    public void takeDemage(float demage)
     {
         HP-=demage;
         if(HP<=0)
