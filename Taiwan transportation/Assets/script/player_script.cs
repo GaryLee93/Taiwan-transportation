@@ -9,6 +9,7 @@ public class player_script : MonoBehaviour
     public float slow_speed=0.002f;
     public GameObject check_point;
     public GameObject childPlane_0,childPlane_1,childPlane_2,childPlane_3;
+    [SerializeField]private Rigidbody2D rb;
     void Update()
     {
         if(Input.GetKey(KeyCode.RightShift)||Input.GetKey(KeyCode.LeftShift))
@@ -25,13 +26,8 @@ public class player_script : MonoBehaviour
     {
         float hori=Input.GetAxisRaw("Horizontal");
         float ver=Input.GetAxisRaw("Vertical");
-        if(hori!=0&&ver!=0)
-        {
-            hori/=1.41421356237f;
-            ver/=1.41421356237f;
-        }
-        transform.Translate(hori*tem_speed*Time.deltaTime,0,0);
-        transform.Translate(0,ver*tem_speed*Time.deltaTime,0);
+        
+        rb.velocity = new Vector2(hori*tem_speed, ver*tem_speed);
     }
     void normal_mod()
     {
