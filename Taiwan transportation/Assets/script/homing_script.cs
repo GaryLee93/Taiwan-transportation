@@ -23,7 +23,6 @@ public class homing_script  : MonoBehaviour
         GameObject target=find_closest_target();
         if(target==null) 
         {
-            Debug.Log("no target");
             rb.velocity=new Vector2(0,speed);
             return ;
         }

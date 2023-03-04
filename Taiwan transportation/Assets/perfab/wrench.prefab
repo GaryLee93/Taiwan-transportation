@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 8825017412761775326}
   - component: {fileID: 1914071882998486254}
   m_Layer: 0
-  m_Name: bullet
+  m_Name: wrench
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

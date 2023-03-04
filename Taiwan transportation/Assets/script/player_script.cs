@@ -59,6 +59,5 @@ public class player_script : MonoBehaviour
     void die()
     {
         Debug.Log("滿身瘡痍");
-        Time.timeScale=0;
     }
 }
