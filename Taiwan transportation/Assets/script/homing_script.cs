@@ -20,13 +20,14 @@ public class homing_script  : MonoBehaviour
     }
     public void homing()
     {
-        Transform target=find_closest_target().transform;
+        GameObject target=find_closest_target();
         if(target==null) 
         {
             Debug.Log("no target");
+            rb.velocity=new Vector2(0,speed);
             return ;
         }
-        Vector2 direction=(Vector2)target.position-rb.position;
+        Vector2 direction=(Vector2)target.transform.position-rb.position;
         direction.Normalize();
         float rotateAmount=Vector3.Cross(direction,transform.up).z;
         rb.angularVelocity = -rotateAmount*rotateSpeed;

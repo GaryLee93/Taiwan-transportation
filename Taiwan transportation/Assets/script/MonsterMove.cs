@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class MonsterMove : MonoBehaviour
 {
+    [SerializeField] float HP=200f;
     public float speed;
     private Rigidbody2D rb;
     void Start()
@@ -17,7 +18,20 @@ public class MonsterMove : MonoBehaviour
         {
             speed*=-1;
             rb.velocity=new Vector2(speed,0);
-            Debug.Log("collision");
         }
+    }
+
+    public void takeDemage(int demage)
+    {
+        HP-=demage;
+        if(HP<=0)
+        {
+            death();
+        }
+    }
+
+    void death()
+    {
+        Destroy(gameObject);
     }
 }
