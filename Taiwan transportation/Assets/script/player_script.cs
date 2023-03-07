@@ -9,6 +9,10 @@ public class player_script : MonoBehaviour
     public float slow_speed=0.002f;
     public GameObject check_point;
     public GameObject childPlane_0,childPlane_1,childPlane_2,childPlane_3;
+    public float power=0;
+    public int palyer_num=4;
+    public int bomb_num=3; 
+    public float score=0;
     [SerializeField]private Rigidbody2D rb;
     void Update()
     {
