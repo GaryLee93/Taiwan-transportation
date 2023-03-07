@@ -26,6 +26,10 @@ public class player_script : MonoBehaviour
     {
         float hori=Input.GetAxisRaw("Horizontal");
         float ver=Input.GetAxisRaw("Vertical");
+        if(hori!=0 && ver!=0){
+            hori/=1.41421356237f;
+            ver/=1.41421356237f;
+        }
         
         rb.velocity = new Vector2(hori*tem_speed, ver*tem_speed);
     }
