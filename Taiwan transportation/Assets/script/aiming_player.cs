@@ -15,4 +15,10 @@ public class aiming_player : MonoBehaviour
         direction.Normalize();
         rb.velocity=direction*speed;
     }
+
+    void Update() {
+        if(this.transform.position.x <-8.7 || this.transform.position.x > 3 || 
+                this.transform.position.y > 7 || this.transform.position.y < -7 )
+            Destroy(this);
+    }
 }

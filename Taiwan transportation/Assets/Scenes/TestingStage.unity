@@ -803,6 +803,51 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2871326759176800840, guid: c401f68575927364eb7dd5b21d0bbdd4, type: 3}
   m_PrefabInstance: {fileID: 585680682}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1687577435
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1687577437}
+  - component: {fileID: 1687577436}
+  m_Layer: 0
+  m_Name: MonsterManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1687577436
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1687577435}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f3f5cb29a00e85499bba61321e096b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  summonTime: 3
+  monster: {fileID: 4687230899965180694, guid: c028b133c8fda8140860031605aab978, type: 3}
+--- !u!4 &1687577437
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1687577435}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1766870360
 GameObject:
   m_ObjectHideFlags: 0
@@ -873,6 +918,9 @@ MonoBehaviour:
     size: 300
   - tag: polyBall
     perfab: {fileID: 9126886430575984389, guid: e3ff93c03f38761408bbce517ce25696, type: 3}
+    size: 300
+  - tag: enemy_bullet
+    perfab: {fileID: 4835463618115493887, guid: c039c760771c0054fafd12833c2b6ad3, type: 3}
     size: 300
 --- !u!4 &1840763278
 Transform:
