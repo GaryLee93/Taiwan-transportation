@@ -2,37 +2,50 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MonsterBehavior : MonoBehaviour
+public class EnemyBehavior : MonoBehaviour
 {
     objectPooler instance;
     [SerializeField]GameObject bullet;
     [SerializeField]Rigidbody2D rb;
-    [SerializeField]float movespeed = 1f;
-    [SerializeField]float shootTime = 1f;
+    public int moveType = 0;
+    public int shootType = 0;
+    public float movespeed = 2f;
+    public Vector2 moveVector = new Vector2(0f, 0f);
+    public float shootFreq = 1f;
     float _timer = 0f;
     void Start(){
         instance=objectPooler.instance;
-        rb.velocity = Vector2.left * movespeed;
     }
     void Update(){
+        if(moveType == 1)
+            move1();
+        else if(moveType == 2)
+            move2();
+        
+        /*if(shootType == 1)
+            shoot1();*/
+        
 
-        if(_timer > shootTime){
-            behavior1();
-            _timer -= shootTime;
-        }
-        _timer += Time.deltaTime;
-        
-        
+
         if(hitBorder())
-            gameObject.SetActive(false);
+            Destroy(gameObject);
     }
 
-    void behavior1(){
+    void move1(){
+        rb.velocity = moveVector;
+    }
+
+    void move2(){
+        rb.velocity = -moveVector;
+    }
+    void shoot1(){
         instance.spawnFromPool(bullet.name,transform.GetChild(0).transform.position,
             transform.GetChild(0).transform.rotation);
     }
 
-    private bool hitBorder(){
+    
+
+    bool hitBorder(){
         return this.transform.position.x <-9 || this.transform.position.x > 3.5 || 
                 this.transform.position.y > 7 || this.transform.position.y < -7 ;
     }
