@@ -4,16 +4,6 @@ using UnityEngine;
 
 public class be_collected : MonoBehaviour
 {
-    void Start()
-    {
-        
-    }
-
-    void Update()
-    {
-        
-    }
-
     private void OnTriggerEnter2D(Collider2D other) 
     {
         if(other.gameObject.tag=="Player")

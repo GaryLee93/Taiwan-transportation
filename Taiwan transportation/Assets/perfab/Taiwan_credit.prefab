@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 3362088816283131983}
   - component: {fileID: 3522556334254747324}
   - component: {fileID: -7256057094910976752}
+  - component: {fileID: -253444207269133694}
   m_Layer: 0
   m_Name: Taiwan_credit
   m_TagString: collectable
@@ -144,3 +145,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd03427775d37444e822b340cb4c7f27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &-253444207269133694
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4530026088067764782}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f89765e0671337c478e3b2557be743f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  range: 3
+  speed: 10
+  collect_line: 3
