@@ -17,7 +17,8 @@ public class object_recycle : MonoBehaviour
     }
 
     private bool hitBorder(){
-        return this.transform.position.x <-8.7 || this.transform.position.x > 3 || 
-                this.transform.position.y > 7 || this.transform.position.y < -7 ;
+        const float XBORDER = 6.7f, YBORDER = 7.5f;
+        return this.transform.position.x <-XBORDER || this.transform.position.x > XBORDER || 
+                this.transform.position.y > YBORDER || this.transform.position.y < -YBORDER ;
     }
 }

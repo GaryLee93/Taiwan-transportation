@@ -13,7 +13,6 @@ public class EnemyBehavior : MonoBehaviour
     public Vector2 moveVector = new Vector2(0f, 0f);
     public float shootFreq = 1f;
     float shoot_timer = 0f;
-    float move_timer = 0f;
     void Start(){
         instance=objectPooler.instance;
         if(moveType == 1)
