@@ -16,10 +16,12 @@ public class collect_assistance : MonoBehaviour
     }
     void Update()
     {
-        restrict();
+        suck();
+        if(hitBorder())
+            Destroy(gameObject);
     }
     
-    void restrict()
+    void suck()
     {
         Vector2 diff=(Vector2)player.position-(Vector2)transform.position;
         float dis=diff.sqrMagnitude;
@@ -32,6 +34,11 @@ public class collect_assistance : MonoBehaviour
         {
             rb.velocity=diff*speed*5;
         }
+    }
 
+    bool hitBorder(){
+        const float XBORDER = 6.6f, YBORDER = 7.5f;
+        return this.transform.position.x < -XBORDER || this.transform.position.x > XBORDER || 
+                this.transform.position.y > YBORDER || this.transform.position.y < -YBORDER ;
     }
 }

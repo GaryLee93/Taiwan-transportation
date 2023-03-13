@@ -48,11 +48,9 @@ public class EnemyBehavior : MonoBehaviour
         }
         shoot_timer += Time.deltaTime;
     }
-
-    
-
     bool hitBorder(){
-        return this.transform.position.x <-9 || this.transform.position.x > 3.5 || 
-                this.transform.position.y > 7 || this.transform.position.y < -7 ;
+        const float XBORDER = 6.6f, YBORDER = 7.5f;
+        return this.transform.position.x < -XBORDER || this.transform.position.x > XBORDER || 
+                this.transform.position.y > YBORDER || this.transform.position.y < -YBORDER ;
     }
 }

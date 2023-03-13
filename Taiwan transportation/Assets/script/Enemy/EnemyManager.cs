@@ -9,6 +9,10 @@ public class EnemyManager : MonoBehaviour
     
     Vector2 moveVector;
     int enemyType;
+    const float RIGHTBORDER = 6.2f;
+    const float LEFTBORDER = -6.2f;
+    const float UPPERBORDER = 7.2f;
+    const float LOWERBORDER = -7.2f;
     void Start(){
         StartCoroutine(stageStart());
     }
@@ -17,7 +21,7 @@ public class EnemyManager : MonoBehaviour
         Vector3 tmp_spawnPos;
         
         for(int i=0; i<5; i++){
-            tmp_spawnPos = new Vector3(3.4f, 6f - i, 0f);
+            tmp_spawnPos = new Vector3(RIGHTBORDER, 6f - i, 0f);
             moveVector = new Vector2(-1f, 0f);
             spawnEnemy(1, tmp_spawnPos, 1, 1);
             
@@ -25,7 +29,7 @@ public class EnemyManager : MonoBehaviour
         yield return new WaitForSeconds(3f);
 
         for(int i=0; i<6; i++){
-            tmp_spawnPos = new Vector3(-7f +1.5f*i, 6.5f, 0f);
+            tmp_spawnPos = new Vector3(LEFTBORDER + 1.5f*i, 6.5f, 0f);
             moveVector = new Vector2(1f, 0f);
             spawnEnemy(0, tmp_spawnPos, 2, 1);
             
