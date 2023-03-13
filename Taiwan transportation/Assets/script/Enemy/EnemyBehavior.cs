@@ -12,35 +12,41 @@ public class EnemyBehavior : MonoBehaviour
     public float movespeed = 2f;
     public Vector2 moveVector = new Vector2(0f, 0f);
     public float shootFreq = 1f;
-    float _timer = 0f;
+    float shoot_timer = 0f;
+    float move_timer = 0f;
     void Start(){
         instance=objectPooler.instance;
+        if(moveType == 1)
+            StartCoroutine(move1());
+        else if(moveType == 2)
+            StartCoroutine(move2());
     }
     void Update(){
-        if(moveType == 1)
-            move1();
-        else if(moveType == 2)
-            move2();
-        
-        /*if(shootType == 1)
-            shoot1();*/
-        
-
-
         if(hitBorder())
             Destroy(gameObject);
     }
 
-    void move1(){
+    IEnumerator move1(){
         rb.velocity = moveVector;
+        yield return new WaitForSeconds(1f);
     }
 
-    void move2(){
-        rb.velocity = -moveVector;
+    IEnumerator move2(){
+        rb.velocity = new Vector2(0f, -1f);
+        yield return new WaitForSeconds(2f);
+
+        rb.velocity = new Vector2(0f, 0f);
+        yield return new WaitForSeconds(5f);
+        
+        rb.velocity = new Vector2(0f, -1f);
     }
     void shoot1(){
-        instance.spawnFromPool(bullet.name,transform.GetChild(0).transform.position,
+        if(shoot_timer >= shootFreq){
+            instance.spawnFromPool(bullet.name,transform.GetChild(0).transform.position,
             transform.GetChild(0).transform.rotation);
+            shoot_timer -= shootFreq;
+        }
+        shoot_timer += Time.deltaTime;
     }
 
     

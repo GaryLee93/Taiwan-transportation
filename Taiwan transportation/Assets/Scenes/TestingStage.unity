@@ -798,6 +798,36 @@ MonoBehaviour:
   bullet: {fileID: 4835463618115493887, guid: c039c760771c0054fafd12833c2b6ad3, type: 3}
   firepoint: {fileID: 1766870361}
   shot_interval: 0.5
+--- !u!1 &1429511150
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1429511151}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1429511151
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1429511150}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -9.15, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1663938531 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2871326759176800840, guid: c401f68575927364eb7dd5b21d0bbdd4, type: 3}
@@ -835,6 +865,7 @@ MonoBehaviour:
   summonTime: 3
   enemy:
   - {fileID: 4687230899965180694, guid: c028b133c8fda8140860031605aab978, type: 3}
+  - {fileID: 6527239906230257120, guid: 51691ab1db041634da1c84e548338e0c, type: 3}
 --- !u!4 &1687577437
 Transform:
   m_ObjectHideFlags: 0

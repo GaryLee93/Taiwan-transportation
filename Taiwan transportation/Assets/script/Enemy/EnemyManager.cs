@@ -19,35 +19,29 @@ public class EnemyManager : MonoBehaviour
         for(int i=0; i<5; i++){
             tmp_spawnPos = new Vector3(3.4f, 6f - i, 0f);
             moveVector = new Vector2(-1f, 0f);
-            spawnEnemy(tmp_spawnPos, 1, 1);
+            spawnEnemy(1, tmp_spawnPos, 1, 1);
             
         }
+        yield return new WaitForSeconds(3f);
+
+        for(int i=0; i<6; i++){
+            tmp_spawnPos = new Vector3(-7f +1.5f*i, 6.5f, 0f);
+            moveVector = new Vector2(1f, 0f);
+            spawnEnemy(0, tmp_spawnPos, 2, 1);
+            
+            yield return new WaitForSeconds(0.5f);
+        }
+
         
-
-        yield return new WaitForSeconds(2f);
-
-        for(int i=0; i<5; i++){
-            tmp_spawnPos = new Vector3(-9f, 6f - i, 0f);
-            moveVector = new Vector2(-1f, 0f);
-            spawnEnemy(tmp_spawnPos, 2, 1);
-        }
-
-        yield return new WaitForSeconds(2f);
-
-        for(int i=0; i<5; i++){
-            tmp_spawnPos = new Vector3(3.4f, 6f - i, 0f);
-            moveVector = new Vector2(-1f, -i +0f);
-            spawnEnemy(tmp_spawnPos, 1, 1);
-            yield return new WaitForSeconds(0.2f);
-        }
+        
     }
 
-    void spawnEnemy(Vector3 spawnPos, int moveType, int shootType){
-
-        GameObject tmpEnemy = Instantiate(enemy[0], spawnPos, transform.rotation);
+    void spawnEnemy(int ememyType, Vector3 spawnPos, int moveType, int shootType){
+        GameObject tmpEnemy = Instantiate(enemy[enemyType], spawnPos, transform.rotation);
         tmpEnemy.GetComponent<EnemyBehavior>().moveType = moveType;
         tmpEnemy.GetComponent<EnemyBehavior>().shootType = shootType;
-        tmpEnemy.GetComponent<EnemyBehavior>().moveVector = moveVector;
+        if(moveType == 1)
+            tmpEnemy.GetComponent<EnemyBehavior>().moveVector = moveVector;
         
     }
 }
