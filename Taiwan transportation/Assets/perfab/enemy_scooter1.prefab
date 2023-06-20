@@ -44,7 +44,7 @@ GameObject:
   - component: {fileID: 1587564011769075105}
   m_Layer: 0
   m_Name: enemy_scooter1
-  m_TagString: Untagged
+  m_TagString: enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -153,4 +153,5 @@ MonoBehaviour:
   moveType: 0
   shootType: 0
   movespeed: 2
+  moveVector: {x: 0, y: 0}
   shootFreq: 1

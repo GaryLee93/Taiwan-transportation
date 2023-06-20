@@ -1,24 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 public class shooting : MonoBehaviour
 {
-    public GameObject bullet;
-    public Transform firepoint;
-    public float shot_interval;
-    private float timer=0;
-    private void Start()
+    public GameObject bullet_1;
+    public GameObject bullet_2;
+    rotate_enemy ro;
+    IEnumerator rice_sea()
     {
-        Instantiate(bullet,firepoint.position,firepoint.rotation);
+        yield return new WaitForSeconds(0.5f);
     }
-    private void Update()
-    {
-        if(timer>=shot_interval)
-        {
-            Instantiate(bullet,firepoint.position,firepoint.rotation);
-            timer-=shot_interval;
-        }
-        timer+=Time.deltaTime;
-    }
+     
 }

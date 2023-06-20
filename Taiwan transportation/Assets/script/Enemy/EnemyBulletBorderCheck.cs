@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyBulletBehavior : MonoBehaviour
+public class EnemyBulletBorderCheck : MonoBehaviour
 {
     private void Update() {
         if(hitBorder())
