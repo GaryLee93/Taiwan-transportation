@@ -9,30 +9,29 @@ public class a_ba : MonoBehaviour
     public GameObject sc_bullet;
     objectPooler instance;
     Rigidbody2D rb;
-    GameObject shooter;
-    bool move_c=false,normal_atk_c=false,time_c=false;
+    GameObject player;
+    bool move_c=false,normal_atk_c=false,time_c=false,rice_c=false;
     int nor_atk_time=2,nor_shooter_num=4;
     
     void Start()
     {
         instance = objectPooler.instance;
         rb=gameObject.GetComponent<Rigidbody2D>();
-        shooter=transform.GetChild(0).gameObject;
-        StartCoroutine(rice_sea());
+        StartCoroutine(total_action());
     }
     IEnumerator total_action()
     {
-        StartCoroutine(move(new Vector2(3,5),3));
+        StartCoroutine(move(new Vector2(3,5),5));
         yield return new WaitWhile(() =>move_c==true);
         StartCoroutine(normal_attack());
         yield return new WaitWhile(() => normal_atk_c==true);
-        StartCoroutine(move(new Vector2(-3,5),3));
+        StartCoroutine(move(new Vector2(-3,5),5));
         yield return new WaitWhile(() =>move_c==true);
         StartCoroutine(normal_attack());
         yield return new WaitWhile(() => normal_atk_c==true);
-        StartCoroutine(move(new Vector2(0,6),3));
+        StartCoroutine(move(new Vector2(0,6),5));
         yield return new WaitWhile(() =>move_c==true);
-        StartCoroutine(rice_sea());
+        StartCoroutine(sc_RiceSea());
     }
     IEnumerator move(Vector2 destination,int velocity)
     {
@@ -84,18 +83,76 @@ public class a_ba : MonoBehaviour
         yield return new WaitForSeconds(second);
         time_c = false;
     }
-        
+    IEnumerator sc_RiceSea()
+    {
+        int shooter_num = 3;
+        int move_state = 0;
+        GameObject[] shooter = new GameObject[shooter_num];
+        Vector2[] ini_pos = new Vector2[shooter_num];
+        for(int i=0;i<shooter_num;i++) 
+        {
+            shooter[i] = gameObject.transform.GetChild(i).gameObject;
+            shooter[i].GetComponent<rotate_enemy>().enabled=false;
+            ini_pos[i] = shooter[i].transform.localPosition;
+        }
+
+        shooter[0].transform.localPosition = new Vector2(-0.2f,-1);
+        shooter[1].transform.localPosition = new Vector2(0.2f,-1);
+        shooter[2].transform.localPosition = new Vector2(0,-1);
+        StartCoroutine(rice_sea());
+        while(rice_c)
+        {
+            yield return new WaitForSeconds(0.7f);
+            if(move_state==0) 
+            {
+                StartCoroutine(move(new Vector2(2,3),5));
+                move_state = 1;
+            }
+            else if(move_state==1)
+            {
+                StartCoroutine(move(new Vector2(-2,3),7));
+                move_state = 2;
+            }
+            else 
+            {
+                StartCoroutine(move(new Vector2(0,5),5));
+                move_state = 0;
+            }
+            yield return new WaitWhile(() => move_c==true);
+
+            GameObject colone;
+            int layer = 0;
+            for(int i=0;i<5;i++)
+            {
+                yield return new WaitForSeconds(0.1f);
+                for(int j=0;j<shooter_num;j++)
+                {
+                    colone = Instantiate(normal_bullet_1,shooter[j].transform.position,shooter[j].transform.rotation);
+                    colone.GetComponent<SpriteRenderer>().sortingOrder = layer;
+                    layer++;
+                }
+            }
+        }
+
+        for(int i=0;i<2;i++) 
+        {
+            shooter[i].transform.localPosition = ini_pos[i];
+            shooter[i].GetComponent<rotate_enemy>().enabled=true;
+        }
+    }
     IEnumerator rice_sea()
     {
-        yield return new WaitForSeconds(2f);
+        rice_c=true;
+        yield return new WaitForSeconds(1f); 
         GameObject sc_manager = transform.GetChild(4).gameObject;
         GameObject[] sc_shooter = new GameObject[2];
         for(int i=0;i<2;i++) sc_shooter[i] = sc_manager.transform.GetChild(i).gameObject;
         sc_shooter[0].transform.position = new Vector2(-3.5f,6f);
         sc_shooter[1].transform.position = new Vector2(3.5f,6f);
 
-        StartCoroutine(timer(10));
+        StartCoroutine(timer(15));
         GameObject colone;
+        int layer=0;
         while(time_c)
         {
             yield return new WaitForSeconds(0.15f);
@@ -105,12 +162,30 @@ public class a_ba : MonoBehaviour
             colone = instance.spawnFromPool("rice",sc_shooter[0].transform.position,sc_shooter[0].transform.rotation);
             colone.transform.Rotate(new Vector3(0,0,-90),Space.Self);
             colone.GetComponent<Rigidbody2D>().velocity = new Vector3(0,-5,0);
+            colone.GetComponent<SpriteRenderer>().sortingOrder = layer;
+            layer++;
+
+            colone = instance.spawnFromPool("rice",sc_shooter[0].transform.position+new Vector3(-2,0,0),sc_shooter[0].transform.rotation);
+            colone.transform.Rotate(new Vector3(0,0,-90),Space.Self);
+            colone.GetComponent<Rigidbody2D>().velocity = new Vector3(0,-5,0);
+            colone.GetComponent<SpriteRenderer>().sortingOrder = layer;
+            layer++;
+
             colone = instance.spawnFromPool("rice",sc_shooter[1].transform.position,sc_shooter[1].transform.rotation);
             colone.transform.Rotate(new Vector3(0,0,90),Space.Self);  
-            colone.GetComponent<Rigidbody2D>().velocity = new Vector3(0,-5,0);     
+            colone.GetComponent<Rigidbody2D>().velocity = new Vector3(0,-5,0);
+            colone.GetComponent<SpriteRenderer>().sortingOrder = layer;
+            layer++;
+
+            colone = instance.spawnFromPool("rice",sc_shooter[1].transform.position+new Vector3(2,0,0),sc_shooter[0].transform.rotation);
+            colone.transform.Rotate(new Vector3(0,0,90),Space.Self);
+            colone.GetComponent<Rigidbody2D>().velocity = new Vector3(0,-5,0);
+            colone.GetComponent<SpriteRenderer>().sortingOrder = layer;
+            layer++;     
         }
         sc_shooter[0].GetComponent<Rigidbody2D>().velocity = new Vector2(0,0);
         sc_shooter[1].GetComponent<Rigidbody2D>().velocity = new Vector2(0,0);
+        rice_c = false;
     }
 
 }

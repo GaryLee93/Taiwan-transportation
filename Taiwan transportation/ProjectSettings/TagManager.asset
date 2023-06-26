@@ -57,7 +57,13 @@ TagManager:
   - name: Enemy
     uniqueID: 2559900545
     locked: 0
-  - name: bullet
+  - name: ' lower_bullet'
+    uniqueID: 1108258573
+    locked: 0
+  - name: middle_bullet
+    uniqueID: 2439074353
+    locked: 0
+  - name: higher_bullet
     uniqueID: 3396620157
     locked: 0
   - name: PlayerUI

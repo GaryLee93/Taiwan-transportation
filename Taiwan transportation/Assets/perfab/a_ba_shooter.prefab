@@ -91,12 +91,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3944956795538124825}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9888fa3e53d96c245a6b62266e0ee319, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shooter_rotate_v: 100
+  shooter_rotate_v: 150
   rotate_time: 0
 --- !u!50 &-7232384438688192251
 Rigidbody2D:
