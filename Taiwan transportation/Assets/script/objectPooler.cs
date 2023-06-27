@@ -13,7 +13,6 @@ public class objectPooler : MonoBehaviour
     }
     
     #region Singleton
-
     public static objectPooler instance;
     private void Awake()
     {
@@ -39,7 +38,7 @@ public class objectPooler : MonoBehaviour
         }
     }
 
-    public GameObject spawnFromPool(string tag,Vector2 position,Quaternion rotation)
+    public GameObject spawnFromPool(string tag,Vector2 position,Quaternion rotation,GameObject newParent)
     {
         if(!poolDictionary.ContainsKey(tag))
         {
@@ -52,6 +51,12 @@ public class objectPooler : MonoBehaviour
         objectToSpawn.transform.position=position;
         objectToSpawn.transform.rotation=rotation;
 
+        Ipooled ip = objectToSpawn.GetComponent<Ipooled>();
+        if(ip!=null)
+        {
+            ip.setParent(newParent);
+            ip.onBulletSpawn();
+        }
         poolDictionary[tag].Enqueue(objectToSpawn);
         return objectToSpawn;
     }

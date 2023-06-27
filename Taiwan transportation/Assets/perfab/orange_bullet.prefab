@@ -11,11 +11,11 @@ GameObject:
   - component: {fileID: 7672695210283990963}
   - component: {fileID: 8712016039081829893}
   - component: {fileID: 6602521957296049821}
-  - component: {fileID: 5485295423031620311}
   - component: {fileID: 2623432960967410070}
   - component: {fileID: 3011706201865622754}
+  - component: {fileID: 2983135782624429929}
   m_Layer: 0
-  m_Name: "\u6A58\u5B50\u86CB"
+  m_Name: orange_bullet
   m_TagString: enemy_bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -98,18 +98,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: afc816a23a53b984a9afdf54f9cfe5cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &5485295423031620311
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 636635565939304002}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 32435ce645696fd40aa05f6dc9f9567b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!58 &2623432960967410070
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -147,3 +135,15 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &2983135782624429929
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 636635565939304002}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8060b6e606b1b9b4fba6bdb1854fd6a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

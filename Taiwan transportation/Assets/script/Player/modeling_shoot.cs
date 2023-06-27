@@ -27,7 +27,7 @@ public class modeling_shoot : MonoBehaviour
         if(Input.GetButton("Fire1"))
         {
             instance.spawnFromPool(bullet.name,FirePoint_childPlane.transform.position,
-            FirePoint_childPlane.transform.rotation);
+            FirePoint_childPlane.transform.rotation,null);
         }
     }
     

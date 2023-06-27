@@ -42,7 +42,7 @@ public class EnemyBehavior : MonoBehaviour
     void shoot1(){
         if(shoot_timer >= shootFreq){
             instance.spawnFromPool(bullet.name,transform.GetChild(0).transform.position,
-            transform.GetChild(0).transform.rotation);
+            transform.GetChild(0).transform.rotation,gameObject);
             shoot_timer -= shootFreq;
         }
         shoot_timer += Time.deltaTime;

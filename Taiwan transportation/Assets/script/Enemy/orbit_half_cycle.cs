@@ -2,13 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class rotate_enemy : MonoBehaviour
+public class orbit_half_cycle : MonoBehaviour
 {
-    public float shooter_rotate_v = 150;
+    public float shooter_rotate_v = 300;
     public int rotate_time=0;
-    void Update()
+    public bool constraint = true;
+    private void Update() 
     {
-        if(transform.localPosition.y>0)
+        if(transform.localPosition.y>0 && constraint)
         {
             rotate_time++;
             shooter_rotate_v *= (-1);

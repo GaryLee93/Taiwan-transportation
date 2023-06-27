@@ -47,16 +47,18 @@ public class a_ba : MonoBehaviour
     {
         normal_atk_c=true;
         GameObject[] nor_shooter = new GameObject[nor_shooter_num];
-        rotate_enemy[] ro = new rotate_enemy[nor_shooter_num];
+        orbit_half_cycle[] ro = new orbit_half_cycle[nor_shooter_num];
         Vector2[] ini_pos = new Vector2[nor_shooter_num];
         for(int i=0;i<nor_shooter_num;i++)
         {
             nor_shooter[i] = transform.GetChild(i).gameObject;
-            ro[i] = nor_shooter[i].GetComponent<rotate_enemy>();
+            ro[i] = nor_shooter[i].GetComponent<orbit_half_cycle>();
             ro[i].rotate_time=0;
             ini_pos[i] = nor_shooter[i].transform.position;
             ro[i].shooter_rotate_v = Mathf.Abs(ro[i].shooter_rotate_v);
+            ro[i].enabled = true;
         }
+        GameObject colone;
         while(ro[0].rotate_time<=nor_atk_time)
         {
             yield return new WaitForSeconds(0.075f);
@@ -65,9 +67,15 @@ public class a_ba : MonoBehaviour
                 if(nor_shooter[k].activeSelf==false) nor_shooter[k].SetActive(true);
 
                 if((ro[k].shooter_rotate_v < 0) && (ro[0].rotate_time<=nor_atk_time))
-                    Instantiate(normal_bullet_1,nor_shooter[k].transform.position,transform.rotation);
+                {
+                    colone = instance.spawnFromPool("orange_bullet",nor_shooter[k].transform.position,nor_shooter[k].transform.rotation,gameObject);
+                    colone.transform.parent = gameObject.transform;
+                }
                 else if(ro[0].rotate_time<=nor_atk_time)
-                    Instantiate(normal_bullet_2,nor_shooter[k].transform.position,transform.rotation);
+                {
+                    colone = instance.spawnFromPool("red_bullet",nor_shooter[k].transform.position,nor_shooter[k].transform.rotation,gameObject);
+                    colone.transform.parent = gameObject.transform;
+                }
             }
         }
         for(int i=0;i<nor_shooter_num;i++) 
@@ -92,7 +100,7 @@ public class a_ba : MonoBehaviour
         for(int i=0;i<shooter_num;i++) 
         {
             shooter[i] = gameObject.transform.GetChild(i).gameObject;
-            shooter[i].GetComponent<rotate_enemy>().enabled=false;
+            shooter[i].GetComponent<orbit_half_cycle>().enabled=false;
             ini_pos[i] = shooter[i].transform.localPosition;
         }
 
@@ -127,7 +135,8 @@ public class a_ba : MonoBehaviour
                 yield return new WaitForSeconds(0.1f);
                 for(int j=0;j<shooter_num;j++)
                 {
-                    colone = Instantiate(normal_bullet_1,shooter[j].transform.position,shooter[j].transform.rotation);
+                    colone = instance.spawnFromPool("red_bullet",shooter[j].transform.position,
+                    shooter[j].transform.rotation,gameObject);
                     colone.GetComponent<SpriteRenderer>().sortingOrder = layer;
                     layer++;
                 }
@@ -137,7 +146,7 @@ public class a_ba : MonoBehaviour
         for(int i=0;i<2;i++) 
         {
             shooter[i].transform.localPosition = ini_pos[i];
-            shooter[i].GetComponent<rotate_enemy>().enabled=true;
+            shooter[i].GetComponent<orbit_half_cycle>().enabled=true;
         }
     }
     IEnumerator rice_sea()
@@ -159,32 +168,30 @@ public class a_ba : MonoBehaviour
             sc_shooter[0].transform.position = new Vector3((-3.5f)+(1.5f)*Mathf.Sin(Time.time*2),6,0);
             sc_shooter[1].transform.position = new Vector3((3.5f)+(1.5f)*Mathf.Sin(Time.time*2),6,0);
 
-            colone = instance.spawnFromPool("rice",sc_shooter[0].transform.position,sc_shooter[0].transform.rotation);
+            colone = instance.spawnFromPool("rice",sc_shooter[0].transform.position,sc_shooter[0].transform.rotation,gameObject);
             colone.transform.Rotate(new Vector3(0,0,-90),Space.Self);
             colone.GetComponent<Rigidbody2D>().velocity = new Vector3(0,-5,0);
             colone.GetComponent<SpriteRenderer>().sortingOrder = layer;
             layer++;
 
-            colone = instance.spawnFromPool("rice",sc_shooter[0].transform.position+new Vector3(-2,0,0),sc_shooter[0].transform.rotation);
+            colone = instance.spawnFromPool("rice",sc_shooter[0].transform.position+new Vector3(-2,0,0),sc_shooter[0].transform.rotation,gameObject);
             colone.transform.Rotate(new Vector3(0,0,-90),Space.Self);
             colone.GetComponent<Rigidbody2D>().velocity = new Vector3(0,-5,0);
             colone.GetComponent<SpriteRenderer>().sortingOrder = layer;
             layer++;
 
-            colone = instance.spawnFromPool("rice",sc_shooter[1].transform.position,sc_shooter[1].transform.rotation);
+            colone = instance.spawnFromPool("rice",sc_shooter[1].transform.position,sc_shooter[1].transform.rotation,gameObject);
             colone.transform.Rotate(new Vector3(0,0,90),Space.Self);  
             colone.GetComponent<Rigidbody2D>().velocity = new Vector3(0,-5,0);
             colone.GetComponent<SpriteRenderer>().sortingOrder = layer;
             layer++;
 
-            colone = instance.spawnFromPool("rice",sc_shooter[1].transform.position+new Vector3(2,0,0),sc_shooter[0].transform.rotation);
+            colone = instance.spawnFromPool("rice",sc_shooter[1].transform.position+new Vector3(2,0,0),sc_shooter[0].transform.rotation,gameObject);
             colone.transform.Rotate(new Vector3(0,0,90),Space.Self);
             colone.GetComponent<Rigidbody2D>().velocity = new Vector3(0,-5,0);
             colone.GetComponent<SpriteRenderer>().sortingOrder = layer;
             layer++;     
         }
-        sc_shooter[0].GetComponent<Rigidbody2D>().velocity = new Vector2(0,0);
-        sc_shooter[1].GetComponent<Rigidbody2D>().velocity = new Vector2(0,0);
         rice_c = false;
     }
 
