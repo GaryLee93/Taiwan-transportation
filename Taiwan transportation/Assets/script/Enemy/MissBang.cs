@@ -16,7 +16,7 @@ public class MissBang : MonoBehaviour
         an = gameObject.GetComponent<Animator>();
         move_instance = gameObject.GetComponent<move_certain_destination>();
         obj_instance = objectPooler.instance;
-        StartCoroutine(normal_atk_1());
+        StartCoroutine(normal_shoot_2());
     }
     IEnumerator move() // just for test
     {
@@ -88,5 +88,25 @@ public class MissBang : MonoBehaviour
         yield return new WaitWhile(() => Mathf.Abs(rb.velocity.x)>0.1f || 
         Mathf.Abs(rb.velocity.y)>0.1f);
         StartCoroutine(normal_shoot_1());
+    }
+    IEnumerator normal_shoot_2()
+    {
+        GameObject shooter = transform.GetChild(0).gameObject;
+        GameObject colone;
+        int layer = 0;
+        shooter.transform.localPosition = new Vector3(0,0,0);
+        StartCoroutine(timer(8));
+        while(time_c)
+        {
+            yield return new WaitForSeconds(0.5f);
+            for(int i=0;i<10;i++)
+            {
+                yield return new WaitForSeconds(0.05f);
+                colone = obj_instance.spawnFromPool("purple_bullet",shooter.transform.position,
+                shooter.transform.rotation,gameObject);
+                colone.GetComponent<SpriteRenderer>().sortingOrder = layer;
+                layer++;
+            }
+        }
     }
 }

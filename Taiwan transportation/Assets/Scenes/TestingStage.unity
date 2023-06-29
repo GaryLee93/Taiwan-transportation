@@ -612,7 +612,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2871326757379996787, guid: c401f68575927364eb7dd5b21d0bbdd4, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2871326757379996788, guid: c401f68575927364eb7dd5b21d0bbdd4, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.x
@@ -1125,7 +1125,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1389827575}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.11, y: -0.01, z: 0}
+  m_LocalPosition: {x: 0, y: 5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1572980999}
@@ -1317,6 +1317,9 @@ MonoBehaviour:
     size: 100
   - tag: red_bullet
     perfab: {fileID: 4835463618115493887, guid: c039c760771c0054fafd12833c2b6ad3, type: 3}
+    size: 100
+  - tag: purple_bullet
+    perfab: {fileID: 4070533836843605128, guid: ff40eb90c43601f4787ae3a5dea13169, type: 3}
     size: 100
 --- !u!4 &1840763278
 Transform:
