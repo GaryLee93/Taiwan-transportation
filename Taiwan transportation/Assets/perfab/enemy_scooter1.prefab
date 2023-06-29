@@ -42,9 +42,12 @@ GameObject:
   - component: {fileID: 4687230899965180681}
   - component: {fileID: 4687230899965180680}
   - component: {fileID: 1587564011769075105}
+  - component: {fileID: 3000483387036526713}
+  - component: {fileID: 8244831965150121685}
+  - component: {fileID: 1774956821}
   m_Layer: 0
   m_Name: enemy_scooter1
-  m_TagString: Untagged
+  m_TagString: enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -150,7 +153,54 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bullet: {fileID: 4835463618115493887, guid: c039c760771c0054fafd12833c2b6ad3, type: 3}
   rb: {fileID: 4687230899965180680}
+  sprite:
+  - {fileID: 21300000, guid: 1dfbd3540791e1a48a07ccd25ae29eb5, type: 3}
+  - {fileID: 21300000, guid: fb048fa396ec9f8438cae80591ce0e94, type: 3}
   moveType: 0
+  accelType: 0
   shootType: 0
-  movespeed: 2
-  shootFreq: 1
+  shoot_angle_diff: 0
+  accelVector: {x: 0, y: 0}
+  speedVector: {x: 0, y: 0}
+--- !u!58 &3000483387036526713
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4687230899965180694}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.512
+--- !u!114 &8244831965150121685
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4687230899965180694}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff4c721dc2acb5b44843804a706abe54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 15
+--- !u!114 &1774956821
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4687230899965180694}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8c1f6ae2dd545d4eb3be1457c2820f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rb: {fileID: 4687230899965180680}

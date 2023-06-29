@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6527239906230257127}
   m_Layer: 0
   m_Name: enemy_car1
-  m_TagString: Untagged
+  m_TagString: enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -120,8 +120,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bullet: {fileID: 4835463618115493887, guid: c039c760771c0054fafd12833c2b6ad3, type: 3}
   rb: {fileID: 6527239906230257124}
+  moveType: 0
+  shootType: 0
   movespeed: 1
-  shootTime: 1
+  speedVector: {x: 0, y: 0}
+  shootFreq: 1
 --- !u!1 &6768015559723886053
 GameObject:
   m_ObjectHideFlags: 0
