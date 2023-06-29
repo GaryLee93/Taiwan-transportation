@@ -522,57 +522,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 712467295567098635, guid: c401f68575927364eb7dd5b21d0bbdd4, type: 3}
-      propertyPath: bullet
-      value: 
-      objectReference: {fileID: 9126886430575984389, guid: e3ff93c03f38761408bbce517ce25696, type: 3}
-    - target: {fileID: 712467295567098635, guid: c401f68575927364eb7dd5b21d0bbdd4, type: 3}
-      propertyPath: shootFre
-      value: 0.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 712467295567098635, guid: c401f68575927364eb7dd5b21d0bbdd4, type: 3}
-      propertyPath: shoot_interval
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2847441570339363394, guid: c401f68575927364eb7dd5b21d0bbdd4, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2871326757121772716, guid: c401f68575927364eb7dd5b21d0bbdd4, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2871326757121772716, guid: c401f68575927364eb7dd5b21d0bbdd4, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2871326757121772716, guid: c401f68575927364eb7dd5b21d0bbdd4, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0.007
-      objectReference: {fileID: 0}
-    - target: {fileID: 2871326757121772716, guid: c401f68575927364eb7dd5b21d0bbdd4, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -0.214
-      objectReference: {fileID: 0}
-    - target: {fileID: 2871326757121772719, guid: c401f68575927364eb7dd5b21d0bbdd4, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2871326757379996784, guid: c401f68575927364eb7dd5b21d0bbdd4, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 0fa005aec5ad8ce4bb5eb46f1955c691, type: 3}
     - target: {fileID: 2871326757379996785, guid: c401f68575927364eb7dd5b21d0bbdd4, type: 3}
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2871326757379996785, guid: c401f68575927364eb7dd5b21d0bbdd4, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -4.06
+      value: -0.03
       objectReference: {fileID: 0}
     - target: {fileID: 2871326757379996785, guid: c401f68575927364eb7dd5b21d0bbdd4, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.95
+      value: -4.78
       objectReference: {fileID: 0}
     - target: {fileID: 2871326757379996785, guid: c401f68575927364eb7dd5b21d0bbdd4, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1264,11 +1224,6 @@ Transform:
   m_Father: {fileID: 596912741}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &1801418039 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2871326758913974697, guid: c401f68575927364eb7dd5b21d0bbdd4, type: 3}
-  m_PrefabInstance: {fileID: 585680682}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1840763276
 GameObject:
   m_ObjectHideFlags: 0
@@ -1549,43 +1504,3 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2060892658}
   m_CullTransparentMesh: 1
---- !u!1 &2064503172 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2871326757379996787, guid: c401f68575927364eb7dd5b21d0bbdd4, type: 3}
-  m_PrefabInstance: {fileID: 585680682}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &2064503174
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2064503172}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f7c8478f63bfd404e9005388b24aa61c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  FirePoint_childPlane: {fileID: 1663938531}
-  bullet: {fileID: 3133933876683968412, guid: 6997656e1990c6c42ab1e15b5955c022, type: 3}
-  shoot_interval: 0.05
---- !u!50 &2064503175 stripped
-Rigidbody2D:
-  m_CorrespondingSourceObject: {fileID: 2871326757379996789, guid: c401f68575927364eb7dd5b21d0bbdd4, type: 3}
-  m_PrefabInstance: {fileID: 585680682}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &2064503180
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2064503172}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f7c8478f63bfd404e9005388b24aa61c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  FirePoint_childPlane: {fileID: 1801418039}
-  bullet: {fileID: 3133933876683968412, guid: 6997656e1990c6c42ab1e15b5955c022, type: 3}
-  shoot_interval: 0.05

@@ -16,7 +16,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2871326757121772716
 Transform:
   m_ObjectHideFlags: 0
@@ -25,7 +25,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2871326757121772719}
   m_LocalRotation: {x: -0, y: -0, z: 0.0013811814, w: 0.99999905}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -0.007, y: -0.214, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 2.5}
   m_Children: []
   m_Father: {fileID: 2871326757379996785}
@@ -96,7 +96,7 @@ GameObject:
   - component: {fileID: 2871326757379996789}
   - component: {fileID: 2871326757379996790}
   - component: {fileID: 4384484177804692020}
-  - component: {fileID: 367208921764678646}
+  - component: {fileID: 2064503174}
   m_Layer: 0
   m_Name: player
   m_TagString: Player
@@ -165,7 +165,7 @@ SpriteRenderer:
   m_SortingLayerID: -830411337
   m_SortingLayer: 3
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 9c80c761c00cfed488210191f8d4c4ac, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 0fa005aec5ad8ce4bb5eb46f1955c691, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -189,9 +189,9 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.0019532442, y: 0}
+  m_Offset: {x: -0.0086045265, y: -0.21457076}
   serializedVersion: 2
-  m_Radius: 0.2519381
+  m_Radius: 0.2480185
 --- !u!50 &2871326757379996789
 Rigidbody2D:
   serializedVersion: 4
@@ -211,8 +211,8 @@ Rigidbody2D:
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
+  m_CollisionDetection: 1
+  m_Constraints: 4
 --- !u!114 &2871326757379996790
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -232,6 +232,11 @@ MonoBehaviour:
   childPlane_1: {fileID: 7439371239833420200}
   childPlane_2: {fileID: 7439371240093363143}
   childPlane_3: {fileID: 7439371240693958068}
+  power: 0
+  palyer_num: 4
+  bomb_num: 3
+  score: 0
+  rb: {fileID: 2871326757379996789}
 --- !u!114 &4384484177804692020
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -247,7 +252,7 @@ MonoBehaviour:
   FirePoint_childPlane: {fileID: 2871326758913974697}
   bullet: {fileID: 3133933876683968412, guid: 6997656e1990c6c42ab1e15b5955c022, type: 3}
   shoot_interval: 0.05
---- !u!114 &367208921764678646
+--- !u!114 &2064503174
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -405,6 +410,10 @@ PrefabInstance:
       propertyPath: bullet
       value: 
       objectReference: {fileID: 9126886430575984389, guid: e3ff93c03f38761408bbce517ce25696, type: 3}
+    - target: {fileID: 7963455946839844217, guid: 87695f716157ce543b1f3e4eed2ea1e2, type: 3}
+      propertyPath: shoot_interval
+      value: 0.1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 87695f716157ce543b1f3e4eed2ea1e2, type: 3}
 --- !u!1 &7439371240693958068 stripped
@@ -500,6 +509,10 @@ PrefabInstance:
       propertyPath: bullet
       value: 
       objectReference: {fileID: 9126886430575984389, guid: e3ff93c03f38761408bbce517ce25696, type: 3}
+    - target: {fileID: 7963455946839844217, guid: 87695f716157ce543b1f3e4eed2ea1e2, type: 3}
+      propertyPath: shoot_interval
+      value: 0.1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 87695f716157ce543b1f3e4eed2ea1e2, type: 3}
 --- !u!1 &7439371240093363143 stripped
@@ -595,6 +608,10 @@ PrefabInstance:
       propertyPath: bullet
       value: 
       objectReference: {fileID: 9126886430575984389, guid: e3ff93c03f38761408bbce517ce25696, type: 3}
+    - target: {fileID: 7963455946839844217, guid: 87695f716157ce543b1f3e4eed2ea1e2, type: 3}
+      propertyPath: shoot_interval
+      value: 0.1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 87695f716157ce543b1f3e4eed2ea1e2, type: 3}
 --- !u!1 &7439371239833420200 stripped
@@ -666,6 +683,10 @@ PrefabInstance:
       propertyPath: bullet
       value: 
       objectReference: {fileID: 9126886430575984389, guid: e3ff93c03f38761408bbce517ce25696, type: 3}
+    - target: {fileID: 7963455946839844217, guid: 87695f716157ce543b1f3e4eed2ea1e2, type: 3}
+      propertyPath: shoot_interval
+      value: 0.1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 87695f716157ce543b1f3e4eed2ea1e2, type: 3}
 --- !u!1 &2847441570339363394 stripped

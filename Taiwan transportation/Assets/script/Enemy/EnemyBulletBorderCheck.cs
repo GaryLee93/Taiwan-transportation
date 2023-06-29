@@ -6,7 +6,7 @@ public class EnemyBulletBorderCheck : MonoBehaviour
 {
     private void Update() {
         if(hitBorder())
-            Destroy(gameObject);
+            gameObject.SetActive(false);
     }
     private bool hitBorder(){
         const float XBORDER = 6.7f, YBORDER = 7.5f;
