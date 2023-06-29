@@ -61,13 +61,6 @@ public class EnemyBehavior : MonoBehaviour
         
         rb.velocity = new Vector2(0f, -1f);
     }
-    void shoot1(){
-        if(shoot_timer >= shootFreq){
-            instance.spawnFromPool(bullet.name,transform.GetChild(0).transform.position,
-            transform.GetChild(0).transform.rotation,gameObject);
-            shoot_timer -= shootFreq;
-        }
-    }
     IEnumerator accel1(){
         yield return new WaitForSeconds(accelWaitTime);
         while(gameObject!=null){
@@ -88,7 +81,7 @@ public class EnemyBehavior : MonoBehaviour
         while(gameObject!=null){
             for(int i=0; i<3; i++){
                 EnemyBulletBehavior2 newBullet = instance.spawnFromPool(bullet.name,transform.GetChild(0).transform.position,
-                    transform.GetChild(0).transform.rotation).GetComponent<EnemyBulletBehavior2>();
+                    transform.GetChild(0).transform.rotation, null).GetComponent<EnemyBulletBehavior2>();
                 newBullet.b_MoveType = 1;
                 newBullet.b_SpeedVector = new Vector2(0f, -3f);
                 newBullet.angle_diff = shoot_angle_diff;
@@ -101,7 +94,7 @@ public class EnemyBehavior : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         while(gameObject!=null){
             EnemyBulletBehavior2 newBullet = instance.spawnFromPool(bullet.name,transform.GetChild(0).transform.position,
-                transform.GetChild(0).transform.rotation).GetComponent<EnemyBulletBehavior2>();
+                transform.GetChild(0).transform.rotation, null).GetComponent<EnemyBulletBehavior2>();
             newBullet.b_MoveType = 2;
             newBullet.b_SpeedVector = new Vector2(0f, -3f);
             newBullet.angle_diff = shoot_angle_diff;
@@ -114,7 +107,7 @@ public class EnemyBehavior : MonoBehaviour
             Vector2 direction = new Vector2(0f, -1f);
             for(int i=0; i<count; i++){
                 EnemyBulletBehavior2 newBullet = instance.spawnFromPool(bullet.name,transform.GetChild(0).transform.position,
-                transform.GetChild(0).transform.rotation).GetComponent<EnemyBulletBehavior2>();
+                transform.GetChild(0).transform.rotation, null).GetComponent<EnemyBulletBehavior2>();
                 newBullet.b_MoveType = 1;
                 newBullet.b_SpeedVector = direction;
                 newBullet.angle_diff = shoot_angle_diff;

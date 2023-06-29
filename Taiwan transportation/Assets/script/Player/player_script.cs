@@ -13,7 +13,10 @@ public class player_script : MonoBehaviour
     public int palyer_num=4;
     public int bomb_num=3; 
     public float score=0;
-    [SerializeField]private Rigidbody2D rb;
+    private Rigidbody2D rb;
+    private void Start() {
+        rb = GetComponent<Rigidbody2D>();
+    }
     void Update()
     {
         if(Input.GetKey(KeyCode.RightShift)||Input.GetKey(KeyCode.LeftShift))
