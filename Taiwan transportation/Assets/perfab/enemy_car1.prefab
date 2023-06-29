@@ -123,7 +123,7 @@ MonoBehaviour:
   moveType: 0
   shootType: 0
   movespeed: 1
-  moveVector: {x: 0, y: 0}
+  speedVector: {x: 0, y: 0}
   shootFreq: 1
 --- !u!1 &6768015559723886053
 GameObject:
