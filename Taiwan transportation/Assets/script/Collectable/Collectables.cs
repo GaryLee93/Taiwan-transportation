@@ -5,21 +5,20 @@ using UnityEngine;
 public class Collectables : MonoBehaviour
 {
     public enum ColType{
-        Power,
-        Score,
-        OneUP,
-        Bomb
+        Power, Score, OneUP, Bomb
     }
     public ColType Type;
     [SerializeField] float range = 3f;
     [SerializeField] float speed = 10f;
     [SerializeField] float collect_line_height = 3f;
-    private Rigidbody2D rb;
-    private Transform player;
+    bool isCollected;
+    Rigidbody2D rb;
+    Transform playerTF;
     void Start()
     {
         rb = gameObject.GetComponent<Rigidbody2D>();
-        player = GameObject.FindGameObjectWithTag("Player").transform;
+        playerTF = Player.GetPlayer().transform;
+        isCollected = false;
     }
     void Update()
     {
@@ -28,24 +27,25 @@ public class Collectables : MonoBehaviour
             Destroy(gameObject);
     }
     
-    void suck()
-    {
-        Vector2 diff=(Vector2)player.position-(Vector2)transform.position;
-        float dis=diff.sqrMagnitude;
+    
+    
+    void suck(){
+        Vector2 diff = (Vector2)playerTF.position-(Vector2)transform.position;
+        float dis = diff.sqrMagnitude;
         diff.Normalize();
-        if(dis<range)
+        if(dis < range || playerTF.position.y > collect_line_height)
         {
-            rb.velocity=diff*speed;
+            isCollected = true;
         }
-        else if(player.position.y > collect_line_height)
+        if(isCollected)
         {
             rb.velocity=diff*speed;
         }
     }
 
-    bool hitBorder(){
-        const float XBORDER = 6.6f, YBORDER = 7.5f;
-        return this.transform.position.x < -XBORDER ||
-                this.transform.position.y > YBORDER || this.transform.position.y < -YBORDER ;
+    bool hitBorder(){   //no upper bound
+        const float XBORDER = 5.9f, YBORDER = 6.8f;
+        return this.transform.position.x > XBORDER || this.transform.position.x < -XBORDER || 
+                this.transform.position.y < -YBORDER ;
     }
 }

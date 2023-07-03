@@ -4,8 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class Player : MonoBehaviour{
-    public float speed;
-    public float slow_speed;
+    float speed;
+    float slow_speed;
     public GameObject check_point;
     public GameObject childPlane_0,childPlane_1,childPlane_2,childPlane_3;
     int power;
@@ -22,7 +22,7 @@ public class Player : MonoBehaviour{
         instance = this;
     }
 
-    public static GameObject getPlayer(){
+    public static GameObject GetPlayer(){
         return instance.gameObject;
     }
     

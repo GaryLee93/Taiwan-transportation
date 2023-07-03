@@ -8,7 +8,7 @@ public class be_collected : MonoBehaviour
     {
         if(other.gameObject.tag=="Player")
         {
-            GameObject player=Player.getPlayer();
+            GameObject player=Player.GetPlayer();
             /*
             if(gameObject.name=="1UP")
             {
