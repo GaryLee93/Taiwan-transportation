@@ -10,6 +10,7 @@ TagManager:
   - collectable
   - wrench
   - polyball
+  - player_bullet
   layers:
   - Default
   - TransparentFX

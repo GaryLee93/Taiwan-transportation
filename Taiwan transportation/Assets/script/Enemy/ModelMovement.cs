@@ -74,7 +74,7 @@ public class ModelMovement : MonoBehaviour
                 yield return new WaitForSeconds(time);
             }
             else if(type == 1){
-                while(time > 0){
+                while(time > 0.099f){
                     rb.velocity += direction;
                     time -= 0.1f;
                     yield return new WaitForSeconds(0.1f);
