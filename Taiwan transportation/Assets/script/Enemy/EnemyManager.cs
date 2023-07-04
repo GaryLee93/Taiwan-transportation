@@ -15,23 +15,5 @@ public class EnemyManager : MonoBehaviour
     const float UPPERBORDER = 7.2f;
     const float LOWERBORDER = -7.2f;
 
-    IEnumerator startStage(){
 
-        yield return new WaitForSeconds(1f);
-
-        StartCoroutine(summonMonster());
-    }
-
-    IEnumerator summonMonster(){
-        yield return new WaitForSeconds(1f);
-               
-    }
-
-    void spawnEnemy(int ememyType, int moveType, int shootType){
-        GameObject tmpEnemy = Instantiate(enemy[enemyType], enemySpawnPos, transform.rotation);
-        tmpEnemy.GetComponent<EnemyBehavior>().moveType = moveType;
-        tmpEnemy.GetComponent<EnemyBehavior>().shootType = shootType;
-        tmpEnemy.GetComponent<EnemyBehavior>().speedVector = speedVector;
-        
-    }
 }

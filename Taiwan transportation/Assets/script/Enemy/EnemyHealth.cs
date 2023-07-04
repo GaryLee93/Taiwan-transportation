@@ -14,7 +14,11 @@ public class EnemyHealth : MonoBehaviour
             health -= 5;
         }
         if(health <= 0){
-            Destroy(gameObject);
+            
         }
+    }
+
+    void die(){
+        Destroy(gameObject);
     }
 }
