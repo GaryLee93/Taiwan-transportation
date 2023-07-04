@@ -34,12 +34,10 @@ public class Stage1 : MonoBehaviour
     IEnumerator summonMonster(){
         GameObject enemy;
         enemy = Instantiate(enemies[0], new Vector2(-3f, 5f), transform.rotation);
-        enemy.GetComponent<ModelMovement>().moveList = new List<ModelMovement.fumoType>();
-        enemy.GetComponent<ModelMovement>().moveList.Add(new ModelMovement.fumoType(1, new Vector2(0, -2), 1));
+        enemy.GetComponent<ModelMovement>().setMovement(1, new Vector2(0, -2), 1);
 
-        enemy.GetComponent<ModelMovement>().accelList = new List<ModelMovement.fumoType>();
-        enemy.GetComponent<ModelMovement>().accelList.Add(new ModelMovement.fumoType(0, new Vector2(0.1f, 0), 1f));
-        enemy.GetComponent<ModelMovement>().accelList.Add(new ModelMovement.fumoType(1, new Vector2(0.1f, 0), 3f));
+        enemy.GetComponent<ModelMovement>().setAccel(0, new Vector2(0.1f, 0), 1f);
+        enemy.GetComponent<ModelMovement>().setAccel(1, new Vector2(0.1f, 0), 3f);
         
         yield return new WaitForSeconds(0.5f);
         /*

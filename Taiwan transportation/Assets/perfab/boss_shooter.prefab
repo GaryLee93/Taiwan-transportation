@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3944956795538124829}
   - component: {fileID: -5147947095577877725}
   m_Layer: 0
-  m_Name: a_ba_shooter
+  m_Name: boss_shooter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

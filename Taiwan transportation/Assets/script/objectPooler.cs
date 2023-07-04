@@ -57,6 +57,7 @@ public class objectPooler : MonoBehaviour
             ip.setParent(newParent);
             ip.onBulletSpawn();
         }
+
         poolDictionary[tag].Enqueue(objectToSpawn);
         return objectToSpawn;
     }

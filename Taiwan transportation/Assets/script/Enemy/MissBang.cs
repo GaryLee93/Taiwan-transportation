@@ -4,109 +4,124 @@ using UnityEngine;
 
 public class MissBang : MonoBehaviour
 {
+    [SerializeField] GameObject normal_bullet_1;
+    [SerializeField] GameObject backMirror;
     Rigidbody2D rb;
     Animator an;
-    move_certain_destination move_instance;
     objectPooler obj_instance;
-    public GameObject normal_bullet_1;
-    bool time_c=false,nor_sh_1_c=false; // use to check whether a courtine is over 
+    ModelMovement MM;
+    Clock clock;
     void Start()
     {
         rb = gameObject.GetComponent<Rigidbody2D>();
         an = gameObject.GetComponent<Animator>();
-        move_instance = gameObject.GetComponent<move_certain_destination>();
+        MM = GetComponent<ModelMovement>();
         obj_instance = objectPooler.instance;
-        StartCoroutine(normal_shoot_2());
+        clock = Clock.clockInstance;
+        StartCoroutine(brockenCar());
     }
-    IEnumerator move() // just for test
-    {
-        StartCoroutine(move_instance.move(new Vector2(5,5),3,rb));
-        yield return new WaitWhile(() => Mathf.Abs(rb.velocity.x)>0.1f); //check whether velocity of x_axis is still
-        StartCoroutine(move_instance.move(new Vector2(-5,5),3,rb));
-    }
-
     void Update()
     {
         an.SetFloat("x_velocity",rb.velocity.x);
     }
-    IEnumerator timer(float second)
+    IEnumerator normalShoot_1()
     {
-        time_c = true;
-        yield return new WaitForSeconds(second);
-        time_c = false;
-    }
-    IEnumerator normal_shoot_1()
-    {
-        nor_sh_1_c = true;
-        GameObject shooter = transform.GetChild(0).gameObject;
-        orbit_half_cycle or = shooter.GetComponent<orbit_half_cycle>();
-        float rotate_times = 1f;
-        GameObject colone;
-        int layer=0;
-        Queue<Vector3> tem_0 = new Queue<Vector3>(); 
-        Queue<Quaternion> tem_1 = new Queue<Quaternion>();
-        or.shooter_rotate_v = 900f;
-        or.enabled = true;
-        or.constraint = false;
-        StartCoroutine(timer(rotate_times*360/(shooter.GetComponent<orbit_half_cycle>().shooter_rotate_v)+0.05f));
-        /* (rotate_times*360/(shooter.GetComponent<rotate_enemy>().shooter_rotate_v)) is the time 
-        we need to rotate shooter and instantiate bullet*/
+        GameObject[] shooter = new GameObject[3];
+        GameObject clone,player = GameObject.FindGameObjectWithTag("Player");
+        int layer=0,bulletEachCol=5;
+        for(int i=0;i<3;i++) shooter[i] = transform.GetChild(i).gameObject;
+        shooter[0].transform.localPosition = new Vector2(0,-0.5f);
+        shooter[1].transform.localPosition = new Vector2(-0.5f,-0.5f);
+        shooter[2].transform.localPosition = new Vector2(0.5f,-0.5f);
 
-        if(!shooter.activeSelf) shooter.SetActive(true);
-        while(time_c)
+        clock.setTimer("timer",10f);
+        while(clock.checkTimer("timer"))
         {
-            yield return new WaitForSeconds(0.005f);
-            tem_0.Enqueue(shooter.transform.position);
-            tem_1.Enqueue(shooter.transform.rotation); 
-        }
-
-        while(tem_1.Count>0)
-        {
-            colone = obj_instance.spawnFromPool("orange_bullet",tem_0.Dequeue(),tem_1.Dequeue()
-            ,gameObject);
-            colone.GetComponent<SpriteRenderer>().sortingOrder = layer;
-            layer ++;
-        }
-        shooter.SetActive(false);
-        nor_sh_1_c = false;
+            Vector2 target = player.transform.position;
+            for(int i=0;i<bulletEachCol;i++)
+            {
+                yield return new WaitForSeconds(0.05f);
+                for(int j=0;j<3;j++)
+                {
+                    Vector2 dire = target-(Vector2)shooter[j].transform.position;
+                    dire.Normalize();
+                    clone = obj_instance.spawnFromPool("purple_bullet",shooter[j].transform.position,shooter[j].transform.rotation,null);
+                    clone.GetComponent<SpriteRenderer>().sortingOrder = layer;
+                    clone.GetComponent<Rigidbody2D>().velocity = dire*5;
+                    layer++;
+                }
+            }
+        } 
     }
-    IEnumerator normal_atk_1() // still need to adjust
-    {
-        StartCoroutine(move_instance.move(new Vector2(0,5),4,rb));
-        yield return new WaitWhile(() => Mathf.Abs(rb.velocity.x)>0.1f || 
-        Mathf.Abs(rb.velocity.y)>0.1f);
-        StartCoroutine(normal_shoot_1());
-        yield return new WaitWhile(() => nor_sh_1_c==true);
-
-        StartCoroutine(move_instance.move(new Vector2(4,5),6,rb));
-        yield return new WaitWhile(() => Mathf.Abs(rb.velocity.x)>0.1f || 
-        Mathf.Abs(rb.velocity.y)>0.1f);
-        StartCoroutine(normal_shoot_1());
-        yield return new WaitWhile(() => nor_sh_1_c==true);
-        
-        StartCoroutine(move_instance.move(new Vector2(-4,5),8,rb));
-        yield return new WaitWhile(() => Mathf.Abs(rb.velocity.x)>0.1f || 
-        Mathf.Abs(rb.velocity.y)>0.1f);
-        StartCoroutine(normal_shoot_1());
-    }
-    IEnumerator normal_shoot_2()
+    IEnumerator normalShoot_2()
     {
         GameObject shooter = transform.GetChild(0).gameObject;
         GameObject colone;
-        int layer = 0;
+        Vector2 dire = new Vector2(1,0);
+        int layer=0,bulletEachCircle=20;
         shooter.transform.localPosition = new Vector3(0,0,0);
-        StartCoroutine(timer(8));
-        while(time_c)
+        clock.setTimer("timer",5f);
+        while(clock.checkTimer("timer"))
         {
             yield return new WaitForSeconds(0.5f);
-            for(int i=0;i<10;i++)
+            for(int i=0;i<bulletEachCircle;i++)
             {
                 yield return new WaitForSeconds(0.05f);
                 colone = obj_instance.spawnFromPool("purple_bullet",shooter.transform.position,
                 shooter.transform.rotation,gameObject);
                 colone.GetComponent<SpriteRenderer>().sortingOrder = layer;
+                colone.GetComponent<Rigidbody2D>().velocity = 3*dire;
+                dire = ourTool.trans_matrix(dire,ourTool.eulerToRadian(360/bulletEachCircle));
                 layer++;
             }
+        }
+    }
+    IEnumerator glassRain() 
+    {
+        GameObject shooter = transform.GetChild(0).gameObject;
+        GameObject colone;
+        shooter.transform.localPosition = new Vector3(0,0,0);
+        
+        clock.setTimer("glassRain",30f);
+        while(clock.checkTimer("glassRain"))
+        {
+            Vector2 dire = new Vector2(1,0)*10;
+            colone = Instantiate(backMirror,shooter.transform.position,shooter.transform.rotation);
+            ModelMovement MM = colone.GetComponent<ModelMovement>();
+            int chose = Random.Range(1,3);
+            if(chose==1) dire = ourTool.trans_matrix(dire,ourTool.eulerToRadian(Random.Range(30,80)));
+            else if(chose==2) dire = ourTool.trans_matrix(dire,ourTool.eulerToRadian(Random.Range(100,150)));
+            MM.setMovement(1,dire,1);
+            MM.startMove();
+            yield return new WaitForSeconds(2);
+        }
+    }
+    IEnumerator brockenCar()
+    {
+        GameObject [] shooter = new GameObject[3];
+        GameObject clone;
+        int bulletEachCircle=120,layer=0;
+
+        for(int i=0;i<3;i++)
+        {
+            shooter[i] = transform.GetChild(i).gameObject;
+            shooter[i].transform.localPosition = new Vector2(0,0);
+        }
+        for(int i=0;i<3;i++)
+        {
+            yield return new WaitForSeconds(0.2f);
+            Vector2 dire = new Vector2(0,-1);
+            for(int j=0;j<bulletEachCircle;j++)
+            {
+                shooter[i].transform.Rotate(new Vector3(0,0,360/bulletEachCircle));
+                clone = obj_instance.spawnFromPool("aqua_bullet",shooter[i].transform.position,shooter[i].transform.rotation,null);
+                clone.GetComponent<SpriteRenderer>().sortingOrder = layer;
+                clone.GetComponent<Rigidbody2D>().velocity = dire*5;
+
+                dire = ourTool.trans_matrix(dire,ourTool.eulerToRadian(360/bulletEachCircle));
+                layer++;
+            }
+            
         }
     }
 }
