@@ -49,15 +49,20 @@ public class Stage1 : MonoBehaviour
     }
 
     IEnumerator summonMonster(){
-        GameObject enemy;
-        enemy = Instantiate(enemies[0], new Vector2(-3f, 5f), transform.rotation);
-        enemy.GetComponent<ModelMovement>().setMovement(1, new Vector2(0, -2), 1);
+        
 
-        enemy.GetComponent<ModelMovement>().setAccel(0, new Vector2(0.1f, 0), 1f);
-        enemy.GetComponent<ModelMovement>().setAccel(1, new Vector2(0.1f, 0), 3f);
+        Instantiate(StageObj.Collectables["1up"], new Vector2(0, 5), transform.rotation);
+        
+        GameObject enemy;
+        enemy = Instantiate(enemy_arr[0], new Vector2(-3f, 5f), transform.rotation);
+        enemy.GetComponent<ModelMovement>().setMovement(1, new Vector2(0, -2), 1.5f);
+        enemy.GetComponent<ModelMovement>().setMovement(1, new Vector2(2, 0), 1.5f);
+        //enemy.GetComponent<ModelMovement>().setAccel(0, new Vector2(0.1f, 0), 1f);
+        //enemy.GetComponent<ModelMovement>().setAccel(1, new Vector2(1f, 0), 3f);
+        enemy.GetComponent<ModelMovement>().startAll();
         
         yield return new WaitForSeconds(1f);
-        
+        /*
         for(int i=0; i<2; i++){
             enemy = spawnEnemy(new Vector2(-3f + i*6, 7f), 0, 0);
             pop_from_top(enemy);
@@ -95,24 +100,24 @@ public class Stage1 : MonoBehaviour
             enemy.transform.GetChild(0).GetComponent<BulletShooterModel>().shoot_at_player = true;
             modifyShootTime(enemy, 0.5f, 10f);
             yield return new WaitForSeconds(0.5f);
-        }
+        }*/
 
 
     }
     GameObject spawnEnemy(Vector3 enemySpawnPos, int enemyType, int shootType){
         GameObject tmpEnemy = Instantiate(enemy_arr[enemyType], enemySpawnPos, transform.rotation);
         tmpEnemy.GetComponent<EnemyBehavior>().shootType = shootType;
-        tmpEnemy.GetComponent<ModelMovement>().moveList = new List<ModelMovement.fumoType>();
-        tmpEnemy.GetComponent<ModelMovement>().accelList = new List<ModelMovement.fumoType>();
+        //tmpEnemy.GetComponent<ModelMovement>().moveList = new List<ModelMovement.fumoType>();
+        //tmpEnemy.GetComponent<ModelMovement>().accelList = new List<ModelMovement.fumoType>();
         return tmpEnemy;
     }
     void modifyMove(GameObject enemy, int type, Vector2 direction, float time){
-        List<ModelMovement.fumoType> mList = enemy.GetComponent<ModelMovement>().moveList;
-        mList.Add(new ModelMovement.fumoType(1, direction, time));
+        //List<ModelMovement.fumoType> mList = enemy.GetComponent<ModelMovement>().moveList;
+        //mList.Add(new ModelMovement.fumoType(1, direction, time));
     }
     void modifyAccel(GameObject enemy, int type, Vector2 direction, float time){
-        List<ModelMovement.fumoType> accList = enemy.GetComponent<ModelMovement>().accelList;
-        accList.Add(new ModelMovement.fumoType(1, direction, time));
+        //List<ModelMovement.fumoType> accList = enemy.GetComponent<ModelMovement>().accelList;
+        //accList.Add(new ModelMovement.fumoType(1, direction, time));
     }
 
     void modifyShoot(GameObject enemy, int type, int count, Vector2 direction, float interval, float angle_diff){

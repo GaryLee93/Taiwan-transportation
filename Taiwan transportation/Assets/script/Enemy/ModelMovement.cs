@@ -20,11 +20,12 @@ public class ModelMovement : MonoBehaviour
     private List<fumoType> accelList;
     private Rigidbody2D rb;
     private Clock clock;
-    private int move_index = 0;
-    private int accel_index = 0;
-    private bool moveButton = false,accelButton = false;
+    private int move_index = 0, accel_index = 0;
+    private bool moveButton = false, accelButton = false;
     void Start()
     {
+        if(moveList==null) moveList = new List<fumoType>();
+        if(accelList==null) accelList = new List<fumoType>();
         rb = GetComponent<Rigidbody2D>();
         clock = Clock.clockInstance;
     }
@@ -36,17 +37,17 @@ public class ModelMovement : MonoBehaviour
     }
     public void setAccel(int type,Vector2 dire,float time)
     {
-        if(moveList==null) accelList = new List<fumoType>();
+        if(accelList==null) accelList = new List<fumoType>();
         fumoType tem = new fumoType(type,dire,time);
         accelList.Add(tem);
     }
-    public void startMove()
+    public void startAll()
     {
+        clock = Clock.clockInstance;
         moveButton = true;
-    }
-    public void startAccel()
-    {
-        moveButton = true;
+        accelButton = true;
+        clock.setTimer("moveTimer",moveList[move_index].time);
+        clock.setTimer("accelTimer",accelList[accel_index].time);
     }
     private void Update() 
     {
@@ -55,29 +56,36 @@ public class ModelMovement : MonoBehaviour
             int type = moveList[move_index].type;
             Vector2 direction = moveList[move_index].direction;
             float time = moveList[move_index].time;
-    
-            if(clock.checkTimer("moveTimer"))  return;
-            else if(type == 0)
+            
+            if(clock.checkTimer("moveTimer"))
             {
-                // do nothing
+                if(type == 0)
+                {
+                    // do nothing
+                }
+                else if(type == 1)
+                {
+                    rb.velocity = direction;
+                }
+                else if(type == 2)
+                {
+                    Debug.Log("move2");
+                }
+                else if(type == 3)
+                {
+                    Debug.Log("move3");  
+                }
             }
-            else if(type == 1)
+            else 
             {
-                rb.velocity = direction;
-            }
-            else if(type == 2)
-            {
-                Debug.Log("3sec");
-            }
-            else if(type == 3)
-            {
-                Debug.Log("5sec");  
-            }
- 
-            if(type == -1) move_index = 0;
-            else move_index++;
-            clock.setTimer("moveTimer",time);
+                if(type == -1) 
+                    move_index = 0;
+                else
+                    move_index++;
 
+
+            }
+            
             if(move_index==moveList.Count) moveButton=false;
         }
 
@@ -87,30 +95,30 @@ public class ModelMovement : MonoBehaviour
             Vector2 direction = accelList[accel_index].direction;
             float time = accelList[accel_index].time;
 
-            if(clock.checkTimer("accelTimer")) return;
-            else if(type == 0)
+            if(clock.checkTimer("accelTimer"))
             {
-                // do nothing
-            }
-            else if(type == 1)
-            {
-                while(time > 0)
+                if(type == 0)
+                {
+                    // do nothing
+                }
+                else if(type == 1)
                 {
                     rb.velocity += direction*Time.deltaTime;
                 }
+                else if(type == 2)
+                {
+                    Debug.Log("3sec");
+                }
+                else if(type == 3)
+                {
+                    Debug.Log("5sec");
+                }
             }
-            else if(type == 2)
+            else 
             {
-                Debug.Log("3sec");
+                if(type == -1) accel_index = 0;
+                else accel_index++;
             }
-            else if(type == 3)
-            {
-                Debug.Log("5sec");
-            }
-
-            if(type == -1) accel_index = 0;
-            else accel_index++;
-            clock.setTimer("accelTimer",time);
 
             if(accel_index == accelList.Count) accelButton = false;
         }

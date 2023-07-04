@@ -48,7 +48,7 @@ public class BulletShooterModel : MonoBehaviour
         }
     }
 
-    public void shoot_circle_bullet(){
+    public void shoot_circle_bullet(){/*
         Vector2 tmp_direction;
         if(shoot_at_player == true){
             tmp_direction = aiming_player();
@@ -64,10 +64,10 @@ public class BulletShooterModel : MonoBehaviour
             newBullet.moveList = new List<ModelMovement.fumoType>();
             newBullet.moveList.Add(new ModelMovement.fumoType(1, rotateVector(tmp_direction, Random.Range(-shoot_angle_diff, shoot_angle_diff)), 1));
             tmp_direction = rotateVector(tmp_direction, 360/shoot_count);
-        }
+        }*/
     }
 
-    public void shoot_sector_bullet(){
+    public void shoot_sector_bullet(){/*
         if(shoot_count > 1){
             Vector2 tmp_direction;
             if(shoot_at_player == true){
@@ -99,8 +99,9 @@ public class BulletShooterModel : MonoBehaviour
             
             newBullet.moveList = new List<ModelMovement.fumoType>();
             newBullet.moveList.Add(new ModelMovement.fumoType(1, rotateVector(tmp_direction, Random.Range(-shoot_angle_diff, shoot_angle_diff)), 1));
-        }
+        }*/
     }
+    
 
     public Vector2 aiming_player(){
         return GameObject.FindGameObjectWithTag("Player").transform.position - transform.position;

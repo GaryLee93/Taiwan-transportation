@@ -92,7 +92,7 @@ public class MissBang : MonoBehaviour
             if(chose==1) dire = ourTool.trans_matrix(dire,ourTool.eulerToRadian(Random.Range(30,80)));
             else if(chose==2) dire = ourTool.trans_matrix(dire,ourTool.eulerToRadian(Random.Range(100,150)));
             MM.setMovement(1,dire,1);
-            MM.startMove();
+            MM.startAll();
             yield return new WaitForSeconds(2);
         }
     }

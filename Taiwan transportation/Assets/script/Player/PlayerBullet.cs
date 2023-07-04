@@ -14,7 +14,6 @@ public class PlayerBullet : MonoBehaviour, Ipooled
     int bulletDamage;
     Rigidbody2D rb;
     private void Start(){
-        rb = GetComponent<Rigidbody2D>();
         if(bulletType == BType.Straight){
             bulletDamage = 5;
         }
@@ -27,7 +26,7 @@ public class PlayerBullet : MonoBehaviour, Ipooled
     }
     public void onBulletSpawn(){
         if(bulletType == BType.Straight){
-            rb.velocity = new Vector2(0,bulletSpeed);
+            GetComponent<Rigidbody2D>().velocity = new Vector2(0,bulletSpeed);
         }
     }
     private void OnTriggerEnter2D(Collider2D other){
