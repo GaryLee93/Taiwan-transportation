@@ -8,7 +8,6 @@ public class MissBang : MonoBehaviour
     [SerializeField] GameObject backMirror;
     Rigidbody2D rb;
     Animator an;
-    objectPooler obj_instance;
     ModelMovement MM;
     Clock clock;
     void Start()
@@ -16,7 +15,6 @@ public class MissBang : MonoBehaviour
         rb = gameObject.GetComponent<Rigidbody2D>();
         an = gameObject.GetComponent<Animator>();
         MM = GetComponent<ModelMovement>();
-        obj_instance = objectPooler.instance;
         clock = Clock.clockInstance;
         StartCoroutine(brockenCar());
     }
@@ -45,7 +43,7 @@ public class MissBang : MonoBehaviour
                 {
                     Vector2 dire = target-(Vector2)shooter[j].transform.position;
                     dire.Normalize();
-                    clone = obj_instance.spawnFromPool("purple_bullet",shooter[j].transform.position,shooter[j].transform.rotation,null);
+                    clone = objectPooler.spawnFromPool("purple_bullet",shooter[j].transform.position,shooter[j].transform.rotation,null);
                     clone.GetComponent<SpriteRenderer>().sortingOrder = layer;
                     clone.GetComponent<Rigidbody2D>().velocity = dire*5;
                     layer++;
@@ -67,7 +65,7 @@ public class MissBang : MonoBehaviour
             for(int i=0;i<bulletEachCircle;i++)
             {
                 yield return new WaitForSeconds(0.05f);
-                colone = obj_instance.spawnFromPool("purple_bullet",shooter.transform.position,
+                colone = objectPooler.spawnFromPool("purple_bullet",shooter.transform.position,
                 shooter.transform.rotation,gameObject);
                 colone.GetComponent<SpriteRenderer>().sortingOrder = layer;
                 colone.GetComponent<Rigidbody2D>().velocity = 3*dire;
@@ -114,7 +112,7 @@ public class MissBang : MonoBehaviour
             for(int j=0;j<bulletEachCircle;j++)
             {
                 shooter[i].transform.Rotate(new Vector3(0,0,360/bulletEachCircle));
-                clone = obj_instance.spawnFromPool("aqua_bullet",shooter[i].transform.position,shooter[i].transform.rotation,null);
+                clone = objectPooler.spawnFromPool("aqua_bullet",shooter[i].transform.position,shooter[i].transform.rotation,null);
                 clone.GetComponent<SpriteRenderer>().sortingOrder = layer;
                 clone.GetComponent<Rigidbody2D>().velocity = dire*5;
 

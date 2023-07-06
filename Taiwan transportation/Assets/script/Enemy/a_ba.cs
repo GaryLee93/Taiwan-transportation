@@ -7,7 +7,6 @@ public class a_ba : MonoBehaviour
     public GameObject normal_bullet_1;
     public GameObject normal_bullet_2;
     public GameObject sc_bullet;
-    objectPooler instance;
     Rigidbody2D rb;
     GameObject player;
     bool move_c=false,normal_atk_c=false,time_c=false,rice_c=false;
@@ -15,7 +14,6 @@ public class a_ba : MonoBehaviour
     
     void Start()
     {
-        instance = objectPooler.instance;
         rb=gameObject.GetComponent<Rigidbody2D>();
         StartCoroutine(total_action());
     }
@@ -68,12 +66,12 @@ public class a_ba : MonoBehaviour
 
                 if((ro[k].shooter_rotate_v < 0) && (ro[0].rotate_time<=nor_atk_time))
                 {
-                    colone = instance.spawnFromPool("orange_bullet",nor_shooter[k].transform.position,nor_shooter[k].transform.rotation,gameObject);
+                    colone = objectPooler.spawnFromPool("orange_bullet",nor_shooter[k].transform.position,nor_shooter[k].transform.rotation,gameObject);
                     colone.transform.parent = gameObject.transform;
                 }
                 else if(ro[0].rotate_time<=nor_atk_time)
                 {
-                    colone = instance.spawnFromPool("red_bullet",nor_shooter[k].transform.position,nor_shooter[k].transform.rotation,gameObject);
+                    colone = objectPooler.spawnFromPool("red_bullet",nor_shooter[k].transform.position,nor_shooter[k].transform.rotation,gameObject);
                     colone.transform.parent = gameObject.transform;
                 }
             }
@@ -135,7 +133,7 @@ public class a_ba : MonoBehaviour
                 yield return new WaitForSeconds(0.1f);
                 for(int j=0;j<shooter_num;j++)
                 {
-                    colone = instance.spawnFromPool("red_bullet",shooter[j].transform.position,
+                    colone = objectPooler.spawnFromPool("red_bullet",shooter[j].transform.position,
                     shooter[j].transform.rotation,gameObject);
                     colone.GetComponent<SpriteRenderer>().sortingOrder = layer;
                     layer++;
@@ -168,25 +166,25 @@ public class a_ba : MonoBehaviour
             sc_shooter[0].transform.position = new Vector3((-3.5f)+(1.5f)*Mathf.Sin(Time.time*2),6,0);
             sc_shooter[1].transform.position = new Vector3((3.5f)+(1.5f)*Mathf.Sin(Time.time*2),6,0);
 
-            colone = instance.spawnFromPool("rice",sc_shooter[0].transform.position,sc_shooter[0].transform.rotation,gameObject);
+            colone = objectPooler.spawnFromPool("rice",sc_shooter[0].transform.position,sc_shooter[0].transform.rotation,gameObject);
             colone.transform.Rotate(new Vector3(0,0,-90),Space.Self);
             colone.GetComponent<Rigidbody2D>().velocity = new Vector3(0,-5,0);
             colone.GetComponent<SpriteRenderer>().sortingOrder = layer;
             layer++;
 
-            colone = instance.spawnFromPool("rice",sc_shooter[0].transform.position+new Vector3(-2,0,0),sc_shooter[0].transform.rotation,gameObject);
+            colone = objectPooler.spawnFromPool("rice",sc_shooter[0].transform.position+new Vector3(-2,0,0),sc_shooter[0].transform.rotation,gameObject);
             colone.transform.Rotate(new Vector3(0,0,-90),Space.Self);
             colone.GetComponent<Rigidbody2D>().velocity = new Vector3(0,-5,0);
             colone.GetComponent<SpriteRenderer>().sortingOrder = layer;
             layer++;
 
-            colone = instance.spawnFromPool("rice",sc_shooter[1].transform.position,sc_shooter[1].transform.rotation,gameObject);
+            colone = objectPooler.spawnFromPool("rice",sc_shooter[1].transform.position,sc_shooter[1].transform.rotation,gameObject);
             colone.transform.Rotate(new Vector3(0,0,90),Space.Self);  
             colone.GetComponent<Rigidbody2D>().velocity = new Vector3(0,-5,0);
             colone.GetComponent<SpriteRenderer>().sortingOrder = layer;
             layer++;
 
-            colone = instance.spawnFromPool("rice",sc_shooter[1].transform.position+new Vector3(2,0,0),sc_shooter[0].transform.rotation,gameObject);
+            colone = objectPooler.spawnFromPool("rice",sc_shooter[1].transform.position+new Vector3(2,0,0),sc_shooter[0].transform.rotation,gameObject);
             colone.transform.Rotate(new Vector3(0,0,90),Space.Self);
             colone.GetComponent<Rigidbody2D>().velocity = new Vector3(0,-5,0);
             colone.GetComponent<SpriteRenderer>().sortingOrder = layer;

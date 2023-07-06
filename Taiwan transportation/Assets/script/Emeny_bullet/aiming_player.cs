@@ -18,4 +18,8 @@ public class aiming_player : MonoBehaviour,Ipooled
     {
         transform.parent = newParent.transform;
     }
+
+    public void poolDespawn(){
+        gameObject.SetActive(false);
+    }
 }

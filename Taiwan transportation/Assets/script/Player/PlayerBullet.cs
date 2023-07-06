@@ -2,8 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerBullet : MonoBehaviour, Ipooled
-{
+public class PlayerBullet : MonoBehaviour, Ipooled{
     enum BType{
         Straight,
         Homing,
@@ -38,13 +37,13 @@ public class PlayerBullet : MonoBehaviour, Ipooled
             }
         }
     }
-    public void setParent(GameObject p){
-        return;
-    }
-    
+    public void poolDespawn()
+    {
+        gameObject.SetActive(false);
+    }    
     private void Update() {
         if(hitBorder())
-            gameObject.SetActive(false);
+            poolDespawn();
     }
     private bool hitBorder(){
         const float XBORDER = 6.7f, YBORDER = 7.5f;
