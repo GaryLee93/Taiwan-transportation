@@ -8,7 +8,6 @@ public class MissBang : MonoBehaviour
     [SerializeField] GameObject backMirror;
     Rigidbody2D rb;
     Animator an;
-    ModelMovement MM;
     Clock clock;
     int HP=100,limitHP=20,section=0;
     bool actionChecker=false;
@@ -18,7 +17,6 @@ public class MissBang : MonoBehaviour
     {
         rb = gameObject.GetComponent<Rigidbody2D>();
         an = gameObject.GetComponent<Animator>();
-        MM = GetComponent<ModelMovement>();
         clock = Clock.clockInstance;
         for(int i=0;i<6;i++)sectionCheck[i] = false;
         section=0;
@@ -164,7 +162,7 @@ public class MissBang : MonoBehaviour
                     if(j>1)
                     {
                         shooter[i].transform.Rotate(new Vector3(0,0,360/bulletEachCircle));
-                        clone = obj_instance.spawnFromPool("aqua_bullet",shooter[i].transform.position,shooter[i].transform.rotation,null);
+                        clone = objectPooler.spawnFromPool("aqua_bullet",shooter[i].transform.position,shooter[i].transform.rotation,null);
                         clone.GetComponent<SpriteRenderer>().sortingOrder = layer;
                         clone.GetComponent<Rigidbody2D>().velocity = dire*3;
                     }
