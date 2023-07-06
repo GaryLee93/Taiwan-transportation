@@ -39,7 +39,7 @@ public class backMirrorBehavior : MonoBehaviour
                 for(int i=0;i<=15;i++)
                 {
                     shooter.transform.Rotate(new Vector3(0,0,(360/20)));
-                    colone = objInstance.spawnFromPool("glass",transform.position,transform.rotation,null);
+                    colone = objectPooler.spawnFromPool("glass",transform.position,transform.rotation,null);
                     colone.transform.Rotate(new Vector3(0,0,Random.Range(0,360)));
                     colone.GetComponent<Rigidbody2D>().velocity = dire*Random.Range(3f, 5f);
                     dire = trans_matrix(dire,eulerToRadian(360/20));

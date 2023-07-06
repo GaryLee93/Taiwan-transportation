@@ -14,7 +14,7 @@ public class Clock : MonoBehaviour
         clockInstance = this;    
     }
     #endregion
-    void Update()
+    void FixedUpdate()
     {
         List<string> tem = new List<string>();
         if(timers != null)
@@ -22,7 +22,7 @@ public class Clock : MonoBehaviour
             foreach(var timer in timers) tem.Add(timer.Key);
             for(int i=0;i<tem.Count;i++) 
             {
-                timers[tem[i]] = timers[tem[i]] - Time.deltaTime;
+                timers[tem[i]] = timers[tem[i]] - Time.fixedDeltaTime;
                 if(timers[tem[i]]<=0) timers.Remove(tem[i]);
             }
         }

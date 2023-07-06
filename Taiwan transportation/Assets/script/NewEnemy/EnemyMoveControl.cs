@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ModelMovement : MonoBehaviour
+public class EnemyMoveControl : MonoBehaviour
 {
     public class fumoType
     {

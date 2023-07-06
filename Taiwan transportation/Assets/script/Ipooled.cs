@@ -1,6 +1,6 @@
 using UnityEngine;
-public interface Ipooled  
+public interface Ipooled
 {
     void onBulletSpawn();
-    void setParent(GameObject P);
+    void poolDespawn();
 }

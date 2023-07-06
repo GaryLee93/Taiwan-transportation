@@ -10,9 +10,7 @@ public class straight_move : MonoBehaviour,Ipooled
         rb.velocity = 3*transform.localPosition.normalized;
         gameObject.transform.parent = null;
     }
-    public void setParent(GameObject p)
-    {
-        transform.parent = p.transform;
+    public void poolDespawn(){
+        gameObject.SetActive(false);
     }
-
 }

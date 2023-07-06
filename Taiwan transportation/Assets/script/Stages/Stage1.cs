@@ -44,24 +44,26 @@ public class Stage1 : MonoBehaviour
     }
 
     IEnumerator startStage(){
-        yield return new WaitForSeconds(1f);
-        StartCoroutine(summonMonster());
-    }
-
-    IEnumerator summonMonster(){
-        
-
-        Instantiate(StageObj.Collectables["1up"], new Vector2(0, 5), transform.rotation);
+        yield return new WaitForSeconds(summonTime);
         
         GameObject enemy;
-        enemy = Instantiate(enemy_arr[0], new Vector2(-3f, 5f), transform.rotation);
-        enemy.GetComponent<ModelMovement>().setMovement(1, new Vector2(0, -2), 1.5f);
-        enemy.GetComponent<ModelMovement>().setMovement(1, new Vector2(2, 0), 1.5f);
-        //enemy.GetComponent<ModelMovement>().setAccel(0, new Vector2(0.1f, 0), 1f);
-        //enemy.GetComponent<ModelMovement>().setAccel(1, new Vector2(1f, 0), 3f);
-        enemy.GetComponent<ModelMovement>().startAll();
+        for(int j=0; j<=10; j++){
+            for(int i=0; i<=10; i++){
+                enemy = Instantiate(StageObj.Enemies["scooter"], new Vector2(-5 +i, 7.1f), transform.rotation);
+                enemy.GetComponent<Rigidbody2D>().velocity = new Vector2(0, -2f);
+                yield return new WaitForSeconds(0.1f);
+            }
+            yield return new WaitForSeconds(0.7f);
+            for(int i=0; i<=10; i++){
+                enemy = Instantiate(StageObj.Enemies["scooter"], new Vector2(-5 +i, 7.1f), transform.rotation);
+                enemy.GetComponent<Rigidbody2D>().velocity = new Vector2(0, -2f);
+                yield return new WaitForSeconds(0.1f);
+            }
+            yield return new WaitForSeconds(5f);
+        }
         
-        yield return new WaitForSeconds(1f);
+
+
         /*
         for(int i=0; i<2; i++){
             enemy = spawnEnemy(new Vector2(-3f + i*6, 7f), 0, 0);

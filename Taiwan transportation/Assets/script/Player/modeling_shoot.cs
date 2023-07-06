@@ -4,30 +4,28 @@ using UnityEngine;
 
 public class modeling_shoot : MonoBehaviour
 {
-    public Transform FirePoint_childPlane;
     public GameObject bullet;
-    public float shoot_interval=0.05f;
+    [SerializeField] float shoot_interval=0.05f;
     private float timer;
-    objectPooler instance;
     void Start()
     {
-        instance=objectPooler.instance;
+        timer = 0;
     }
-    void Update()
-    {
+    void FixedUpdate()
+    {   
         if(timer>=shoot_interval)
         {
             shoot();
             timer-=shoot_interval;
         }
-        timer+=Time.deltaTime;
+        timer+=Time.fixedDeltaTime;
     }
     void shoot()
     {
         if(Input.GetButton("Fire1"))
         {
-            instance.spawnFromPool(bullet.name,FirePoint_childPlane.transform.position,
-            FirePoint_childPlane.transform.rotation,null);
+            objectPooler.spawnFromPool(bullet.name,transform.position,
+            transform.rotation,null);
         }
     }
     

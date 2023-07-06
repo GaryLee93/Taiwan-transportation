@@ -134,6 +134,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42833309df675f64db45a7aaa42b42f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  graze_text: {fileID: 0}
 --- !u!1 &2871326757121772719
 GameObject:
   m_ObjectHideFlags: 0
@@ -231,6 +232,8 @@ GameObject:
   - component: {fileID: 2871326757379996790}
   - component: {fileID: 4384484177804692020}
   - component: {fileID: 2064503174}
+  - component: {fileID: 7848270531034377445}
+  - component: {fileID: 8994499888216250251}
   m_Layer: 0
   m_Name: player
   m_TagString: Player
@@ -360,19 +363,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffeeb187d5da4a84fa0115a3e536b4cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 10
-  slow_speed: 3
   check_point: {fileID: 2871326757121772719}
   childPlane_0: {fileID: 2847441570339363394}
   childPlane_1: {fileID: 7439371239833420200}
   childPlane_2: {fileID: 7439371240093363143}
   childPlane_3: {fileID: 7439371240693958068}
   power: 0
-  remain_life: 0
-  bomb_count: 0
-  score: 0
-  grazeDetect: {fileID: 1416213162}
+  score_text: {fileID: 0}
   power_text: {fileID: 0}
+  remain_life_text: {fileID: 0}
 --- !u!114 &4384484177804692020
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -389,6 +388,36 @@ MonoBehaviour:
   bullet: {fileID: 3133933876683968412, guid: 6997656e1990c6c42ab1e15b5955c022, type: 3}
   shoot_interval: 0.05
 --- !u!114 &2064503174
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2871326757379996787}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7c8478f63bfd404e9005388b24aa61c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  FirePoint_childPlane: {fileID: 2871326759176800840}
+  bullet: {fileID: 3133933876683968412, guid: 6997656e1990c6c42ab1e15b5955c022, type: 3}
+  shoot_interval: 0.05
+--- !u!114 &7848270531034377445
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2871326757379996787}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7c8478f63bfd404e9005388b24aa61c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  FirePoint_childPlane: {fileID: 2871326759176800840}
+  bullet: {fileID: 3133933876683968412, guid: 6997656e1990c6c42ab1e15b5955c022, type: 3}
+  shoot_interval: 0.05
+--- !u!114 &8994499888216250251
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -825,13 +854,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 87695f716157ce543b1f3e4eed2ea1e2, type: 3}
---- !u!1 &2847441570339363394 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4676131433004289072, guid: 87695f716157ce543b1f3e4eed2ea1e2, type: 3}
-  m_PrefabInstance: {fileID: 7449184435452270194}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &4222192760642285648 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6771421751505020450, guid: 87695f716157ce543b1f3e4eed2ea1e2, type: 3}
+  m_PrefabInstance: {fileID: 7449184435452270194}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2847441570339363394 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4676131433004289072, guid: 87695f716157ce543b1f3e4eed2ea1e2, type: 3}
   m_PrefabInstance: {fileID: 7449184435452270194}
   m_PrefabAsset: {fileID: 0}

@@ -38,14 +38,14 @@ public class objectPooler : MonoBehaviour
         }
     }
 
-    public GameObject spawnFromPool(string tag,Vector2 position,Quaternion rotation,GameObject newParent)
+    public static GameObject spawnFromPool(string tag,Vector2 position,Quaternion rotation,GameObject newParent)
     {
-        if(!poolDictionary.ContainsKey(tag))
+        if(!instance.poolDictionary.ContainsKey(tag))
         {
             Debug.LogWarning("Pool with  tag "+tag+" doesn't exist");
             return null;
         }
-        GameObject objectToSpawn = poolDictionary[tag].Dequeue();
+        GameObject objectToSpawn = instance.poolDictionary[tag].Dequeue();
 
         objectToSpawn.SetActive(true);
         objectToSpawn.transform.position=position;
@@ -54,11 +54,10 @@ public class objectPooler : MonoBehaviour
         Ipooled ip = objectToSpawn.GetComponent<Ipooled>();
         if(ip!=null)
         {
-            ip.setParent(newParent);
             ip.onBulletSpawn();
         }
 
-        poolDictionary[tag].Enqueue(objectToSpawn);
+        instance.poolDictionary[tag].Enqueue(objectToSpawn);
         return objectToSpawn;
     }
 }
