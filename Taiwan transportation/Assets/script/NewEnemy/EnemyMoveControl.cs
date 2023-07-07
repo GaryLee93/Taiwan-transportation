@@ -4,13 +4,11 @@ using UnityEngine;
 
 public class EnemyMoveControl : MonoBehaviour
 {
-    public class fumoType
-    {
+    public class fumoType{
         public int type;
         public Vector2 direction;
         public float time;
-        public fumoType(int type, Vector2 direction, float time)
-        {
+        public fumoType(int type, Vector2 direction, float time){
             this.type = type;
             this.direction = direction;
             this.time = time;

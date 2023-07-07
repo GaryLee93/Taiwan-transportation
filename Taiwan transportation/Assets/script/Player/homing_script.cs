@@ -6,8 +6,8 @@ using UnityEngine;
 public class homing_script  : MonoBehaviour
 {
     public string target_tag;
-    public float speed=5f;
-    public float rotateSpeed=200f;
+    public float speed;
+    public float rotateSpeed;
     private Rigidbody2D rb;
     void Start()
     {

@@ -5,10 +5,7 @@ using UnityEngine.UI;
 
 public class GrazeDetect : MonoBehaviour
 {
-    public static GrazeDetect instance;
-    [SerializeField] Text graze_text;
-    private void Awake(){
-        instance = this;
+    private void Start(){
         grazeCount = 0;
         refreshGrazeText();
     }
@@ -29,6 +26,9 @@ public class GrazeDetect : MonoBehaviour
     }
 
     void refreshGrazeText(){
-        graze_text.text = "Graze: " + grazeCount;
+        if(StageObj.StageTexts == null){
+            Debug.Log("null 1");
+        }
+        StageObj.StageTexts["graze"].GetComponent<Text>().text = "Graze: " + grazeCount;
     }
 }

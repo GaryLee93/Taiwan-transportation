@@ -4,21 +4,25 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class Player : MonoBehaviour{
-    [SerializeField] GameObject check_point;
-    [SerializeField] GameObject childPlane;
-    [SerializeField] GameObject wrenchShooter;
-    [SerializeField] int power;
-    [SerializeField] int powerMode;
-    [SerializeField] Text score_text;
-    [SerializeField] Text power_text;
-    [SerializeField] Text remain_life_text;
-    float move_speed;
-    float slow_speed;
-    int remain_life;
-    int bomb_count;
-    int score;
-    Rigidbody2D rb;
     
+    [Header("要拉的東西")]
+    [SerializeField] GameObject check_point;
+    [SerializeField] GameObject backChildPlane;
+    [SerializeField] GameObject frontChildPlane;
+    [SerializeField] Sprite middleSprite;
+    [SerializeField] Sprite leftSprite;
+    [SerializeField] Sprite rightSprite;
+
+    [Header("各種屬性")]
+    [SerializeField] int power = 0;
+    [SerializeField] int powerMode = 0;
+    [SerializeField] float move_speed = 10f;
+    [SerializeField] float slow_speed = 3f;
+    [SerializeField] int remain_life = 3;
+    [SerializeField] int bomb_count = 3;
+    [SerializeField] int score = 0;
+    Rigidbody2D rb;
+    int lastPM;
     List<GameObject> shooterList;
 
     public static Player instance;
@@ -38,130 +42,162 @@ public class Player : MonoBehaviour{
         bomb_count = 3;
         score = 0;
 
-        move_speed = 10;
-        slow_speed = 3;
-
+        lastPM = 0;
         shooterList = new List<GameObject>();
         
-        powerMode = -1;
-        
-        changePowerMod(0);
+        changePowerMod();
         refreshScoreText();
         refreshPowerText();
         refreshLifeText();
     }
     void Update(){
-        normal_mod();        
-    }
+        player_move();
 
-    void move(float tem_speed){
-        float hori=Input.GetAxisRaw("Horizontal");
-        float ver=Input.GetAxisRaw("Vertical");
-        if(hori!=0 && ver!=0){
-            hori/=Mathf.Sqrt(2);
-            ver/=Mathf.Sqrt(2);
+        if(lastPM!=powerMode){
+            changePowerMod();
         }
-        rb.velocity = new Vector2(hori*tem_speed, ver*tem_speed);
+
+        lastPM = powerMode;
+
     }
-    void normal_mod(){
+    void player_move(){
         if(Input.GetKey(KeyCode.RightShift)||Input.GetKey(KeyCode.LeftShift)){
             check_point.SetActive(true);
-            move(slow_speed);
+            float hori=Input.GetAxisRaw("Horizontal");
+            float ver=Input.GetAxisRaw("Vertical");
+            if(hori!=0 && ver!=0){
+                hori/=Mathf.Sqrt(2);
+                ver/=Mathf.Sqrt(2);
+            }
+            rb.velocity = new Vector2(hori *slow_speed, ver *slow_speed);
+
+            if(hori >0){
+                GetComponent<SpriteRenderer>().sprite = rightSprite;
+            }
+            else if(hori <0){
+                GetComponent<SpriteRenderer>().sprite = leftSprite;
+            }
+            else{
+                GetComponent<SpriteRenderer>().sprite = middleSprite;
+            }
         }
         else{
             check_point.SetActive(false);
-            move(move_speed);
+            float hori=Input.GetAxisRaw("Horizontal");
+            float ver=Input.GetAxisRaw("Vertical");
+            if(hori!=0 && ver!=0){
+                hori/=Mathf.Sqrt(2);
+                ver/=Mathf.Sqrt(2);
+            }
+            rb.velocity = new Vector2(hori *move_speed, ver *move_speed);
+
+            if(hori >0){
+                GetComponent<SpriteRenderer>().sprite = rightSprite;
+            }
+            else if(hori <0){
+                GetComponent<SpriteRenderer>().sprite = leftSprite;
+            }
+            else{
+                GetComponent<SpriteRenderer>().sprite = middleSprite;
+            }
         }
     }
-    void changePowerMod(int newPowerMode){
-        if(newPowerMode == powerMode){
-            return;
+    void changePowerMod(){
+        GameObject tmp_shooter;
+        if(powerMode == 0){
+            destroyAllShooter();
+            for(int i=0; i<2; i++){
+                tmp_shooter = Instantiate(frontChildPlane, transform);
+                tmp_shooter.GetComponent<childPlane>().setPosition
+                    (new Vector2(-0.3f +i*0.6f, 1f), new Vector2(-0.2f +i*0.4f, 1f), 0f);
+                shooterList.Add(tmp_shooter);
+            }
         }
-        else{
-            powerMode = newPowerMode;
-            GameObject tmp_shooter;
-            if(powerMode == 0){
-                destroyAllShooter();
-                for(int i=0; i<2; i++){
-                    tmp_shooter = Instantiate(wrenchShooter, transform);
-                    tmp_shooter.transform.localPosition = new Vector3(-0.4f + i*0.8f, 1f, 0f);
-                    shooterList.Add(tmp_shooter);
-                }
-            }
-            else if(powerMode == 1){
-                destroyAllShooter();
-                for(int i=0; i<2; i++){
-                    tmp_shooter = Instantiate(wrenchShooter, transform);
-                    tmp_shooter.transform.localPosition = new Vector3(-0.4f + i*0.8f, 1f, 0f);
-                    shooterList.Add(tmp_shooter);
-                }
+        else if(powerMode == 1){
+            destroyAllShooter();
+            for(int i=0; i<2; i++){
+                tmp_shooter = Instantiate(frontChildPlane, transform);
+                tmp_shooter.GetComponent<childPlane>().setPosition
+                    (new Vector2(-0.3f +i*0.6f, 1f), new Vector2(-0.2f +i*0.4f, 1f), 0f);
+                shooterList.Add(tmp_shooter);
 
-                for(int i=0; i<2; i++){
-                    tmp_shooter = Instantiate(childPlane, transform);
-                    tmp_shooter.transform.localPosition = new Vector3(-1.5f + i*3f, -1f, 0f);
-                    shooterList.Add(tmp_shooter);
-                }
-            }
-            else if(powerMode == 2){
-                destroyAllShooter();
-                tmp_shooter = Instantiate(wrenchShooter, transform);
-                tmp_shooter.transform.localPosition = new Vector3(0, 1.2f, 0f);
+                tmp_shooter = Instantiate(backChildPlane, transform);
+                tmp_shooter.GetComponent<childPlane>().setPosition
+                    (new Vector2(-1f +i*2f, -0.3f), new Vector2(-0.5f +i*1f, -0.5f), 0.15f);
+                tmp_shooter.GetComponent<childPlane>().setRotate(-60 +120*i);
                 shooterList.Add(tmp_shooter);
-                for(int i=0; i<2; i++){
-                    tmp_shooter = Instantiate(wrenchShooter, transform);
-                    tmp_shooter.transform.localPosition = new Vector3(-0.7f + i*1.4f, 1f, 0f);
-                    shooterList.Add(tmp_shooter);
-                }
-                for(int i=0; i<2; i++){
-                    tmp_shooter = Instantiate(childPlane, transform);
-                    tmp_shooter.transform.localPosition = new Vector3(-1.5f + i*3f, -1f, 0f);
-                    shooterList.Add(tmp_shooter);
-                }
             }
-            else if(powerMode == 3){
-                destroyAllShooter();
-                tmp_shooter = Instantiate(wrenchShooter, transform);
-                tmp_shooter.transform.localPosition = new Vector3(0, 1.2f, 0f);
+        }
+        else if(powerMode == 2){
+            destroyAllShooter();
+            tmp_shooter = Instantiate(frontChildPlane, transform);
+                tmp_shooter.GetComponent<childPlane>().setPosition
+                    (new Vector2(0, 1), new Vector2(0, 1), 0);
                 shooterList.Add(tmp_shooter);
-                
-                for(int i=0; i<2; i++){
-                    tmp_shooter = Instantiate(wrenchShooter, transform);
-                    tmp_shooter.transform.localPosition = new Vector3(-0.7f + i*1.4f, 1f, 0f);
-                    shooterList.Add(tmp_shooter);
-                }
-                for(int i=0; i<2; i++){
-                    tmp_shooter = Instantiate(childPlane, transform);
-                    tmp_shooter.transform.localPosition = new Vector3(-1.5f + i*3f, -1f, 0f);
-                    shooterList.Add(tmp_shooter);
-                }
-                for(int i=0; i<2; i++){
-                    tmp_shooter = Instantiate(childPlane, transform);
-                    tmp_shooter.transform.localPosition = new Vector3(-2f + i*4f, -0.2f, 0f);
-                    shooterList.Add(tmp_shooter);
-                }
+
+            for(int i=0; i<2; i++){
+                tmp_shooter = Instantiate(frontChildPlane, transform);
+                tmp_shooter.GetComponent<childPlane>().setPosition
+                    (new Vector2(-0.5f +i*1f, 0.7f), new Vector2(-0.3f +i*0.6f, 0.7f), 0f);
+                shooterList.Add(tmp_shooter);
+
+                tmp_shooter = Instantiate(backChildPlane, transform);
+                tmp_shooter.GetComponent<childPlane>().setPosition
+                    (new Vector2(-1f +i*2f, -0.3f), new Vector2(-0.5f +i*1f, -0.5f), 0.15f);
+                tmp_shooter.GetComponent<childPlane>().setRotate(-60 +120*i);
+                shooterList.Add(tmp_shooter);
             }
-            else if(powerMode == 4){
-                destroyAllShooter();
-                for(int i=0; i<2; i++){
-                    tmp_shooter = Instantiate(wrenchShooter, transform);
-                    tmp_shooter.transform.localPosition = new Vector3(-0.3f + i*0.6f, 1f, 0f);
-                    shooterList.Add(tmp_shooter);
-                }
-                for(int i=0; i<2; i++){
-                    tmp_shooter = Instantiate(wrenchShooter, transform);
-                    tmp_shooter.transform.localPosition = new Vector3(-0.9f + i*1.8f, 0.8f, 0f);
-                    shooterList.Add(tmp_shooter);
-                }
-                for(int i=0; i<2; i++){
-                    tmp_shooter = Instantiate(childPlane, transform);
-                    tmp_shooter.transform.localPosition = new Vector3(-1.5f + i*3f, -1f, 0f);
-                    shooterList.Add(tmp_shooter);
-                }
-                for(int i=0; i<2; i++){
-                    tmp_shooter = Instantiate(childPlane, transform);
-                    tmp_shooter.transform.localPosition = new Vector3(-2f + i*4f, -0.2f, 0f);
-                    shooterList.Add(tmp_shooter);
-                }
+        }
+        else if(powerMode == 3){
+            destroyAllShooter();
+            tmp_shooter = Instantiate(frontChildPlane, transform);
+                tmp_shooter.GetComponent<childPlane>().setPosition
+                    (new Vector2(0, 1), new Vector2(0, 1), 0);
+                shooterList.Add(tmp_shooter);
+
+            for(int i=0; i<2; i++){
+                tmp_shooter = Instantiate(frontChildPlane, transform);
+                tmp_shooter.GetComponent<childPlane>().setPosition
+                    (new Vector2(-0.5f +i*1f, 0.7f), new Vector2(-0.3f +i*0.6f, 0.7f), 0f);
+                shooterList.Add(tmp_shooter);
+
+                tmp_shooter = Instantiate(backChildPlane, transform);
+                tmp_shooter.GetComponent<childPlane>().setPosition
+                    (new Vector2(-1f +i*2f, -0.3f), new Vector2(-0.5f +i*1f, -0.35f), 0.15f);
+                tmp_shooter.GetComponent<childPlane>().setRotate(-60 +120*i);
+                shooterList.Add(tmp_shooter);
+
+                tmp_shooter = Instantiate(backChildPlane, transform);
+                tmp_shooter.GetComponent<childPlane>().setPosition
+                    (new Vector2(-0.4f +i*0.8f, -0.9f), new Vector2(-0.2f +i*0.4f, -0.6f), 0.15f);
+                tmp_shooter.GetComponent<childPlane>().setRotate(-60 +120*i);
+                shooterList.Add(tmp_shooter);
+            }
+        }
+        else if(powerMode == 4){
+            destroyAllShooter();
+            for(int i=0; i<2; i++){
+                tmp_shooter = Instantiate(frontChildPlane, transform);
+                tmp_shooter.GetComponent<childPlane>().setPosition
+                    (new Vector2(-0.2f +i*0.4f, 1f), new Vector2(-0.1f +i*0.2f, 1f), 0f);
+                shooterList.Add(tmp_shooter);
+
+                tmp_shooter = Instantiate(frontChildPlane, transform);
+                tmp_shooter.GetComponent<childPlane>().setPosition
+                    (new Vector2(-0.6f +i*1.2f, 0.7f), new Vector2(-0.3f +i*0.6f, 0.7f), 0f);
+                shooterList.Add(tmp_shooter);
+
+                tmp_shooter = Instantiate(backChildPlane, transform);
+                tmp_shooter.GetComponent<childPlane>().setPosition
+                    (new Vector2(-1f +i*2f, -0.3f), new Vector2(-0.5f +i*1f, -0.35f), 0.15f);
+                tmp_shooter.GetComponent<childPlane>().setRotate(-60 +120*i);
+                shooterList.Add(tmp_shooter);
+
+                tmp_shooter = Instantiate(backChildPlane, transform);
+                tmp_shooter.GetComponent<childPlane>().setPosition
+                    (new Vector2(-0.4f +i*0.8f, -0.9f), new Vector2(-0.2f +i*0.4f, -0.6f), 0.15f);
+                tmp_shooter.GetComponent<childPlane>().setRotate(-60 +120*i);
+                shooterList.Add(tmp_shooter);
             }
         }
     }
@@ -194,7 +230,10 @@ public class Player : MonoBehaviour{
                 }
                 int newPowerMode = power /100;
 
-                changePowerMod(newPowerMode);
+                if(newPowerMode != powerMode){
+                    powerMode = newPowerMode;
+                    changePowerMod();
+                }
                 refreshPowerText();
                 Destroy(other.gameObject);
             }
@@ -220,19 +259,21 @@ public class Player : MonoBehaviour{
         if(this.power < 0){
             this.power = 0;
         }
-        changePowerMod(power /100);
+        powerMode = this.power /100;
+        changePowerMod();
         refreshPowerText();
     }
 
     void refreshScoreText(){
-        score_text.text = "Score: " + score;
+        
+        StageObj.StageTexts["score"].GetComponent<Text>().text = "Score: " + score;
     }
 
     void refreshLifeText(){
-        remain_life_text.text = "Life: " + remain_life;
+        StageObj.StageTexts["remainlife"].GetComponent<Text>().text = "Life: " + remain_life;
     }
 
     void refreshPowerText(){
-        power_text.text = "Power: " + power;
+        StageObj.StageTexts["power"].GetComponent<Text>().text = "Power: " + power;
     }
 }
