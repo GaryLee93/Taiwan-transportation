@@ -10,6 +10,13 @@ public class ourTool
         float new_b = orign.x*Mathf.Sin(radian) + orign.y*Mathf.Cos(radian);
         return new Vector2(new_a,new_b);
     }
+    public static Vector2 rotate_vector(Vector2 orign,float angle)
+    {
+        float radian = eulerToRadian(angle);
+        float new_a = orign.x*Mathf.Cos(radian) - orign.y*Mathf.Sin(radian);
+        float new_b = orign.x*Mathf.Sin(radian) + orign.y*Mathf.Cos(radian);
+        return new Vector2(new_a,new_b);
+    }
     public static Vector2 vectorToPlayer(GameObject obj)
     {
         GameObject player = GameObject.FindGameObjectWithTag("Player");

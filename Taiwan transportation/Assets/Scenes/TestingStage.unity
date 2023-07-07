@@ -960,6 +960,14 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4472641233181627464, guid: 9f960ea5843e8424b88a7a8ef608882f, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 5.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 4472641233181627464, guid: 9f960ea5843e8424b88a7a8ef608882f, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.76
+      objectReference: {fileID: 0}
     - target: {fileID: 4472641233181627466, guid: 9f960ea5843e8424b88a7a8ef608882f, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -1072,22 +1080,22 @@ MonoBehaviour:
   pools:
   - tag: wrench
     perfab: {fileID: 3133933876683968412, guid: 6997656e1990c6c42ab1e15b5955c022, type: 3}
-    size: 300
+    size: 100
   - tag: polyBall
     perfab: {fileID: 9126886430575984389, guid: e3ff93c03f38761408bbce517ce25696, type: 3}
-    size: 300
+    size: 100
   - tag: enemy_bullet
     perfab: {fileID: 4835463618115493887, guid: c039c760771c0054fafd12833c2b6ad3, type: 3}
-    size: 300
+    size: 200
   - tag: rice
     perfab: {fileID: 2908090500941688148, guid: 56c8c82883038fb48b371114c0308bd4, type: 3}
     size: 100
   - tag: orange_bullet
     perfab: {fileID: 636635565939304002, guid: b093458ebda700748ac87ef45a446de7, type: 3}
-    size: 100
+    size: 150
   - tag: red_bullet
     perfab: {fileID: 4835463618115493887, guid: c039c760771c0054fafd12833c2b6ad3, type: 3}
-    size: 100
+    size: 150
   - tag: purple_bullet
     perfab: {fileID: 4070533836843605128, guid: ff40eb90c43601f4787ae3a5dea13169, type: 3}
     size: 100
@@ -1096,7 +1104,7 @@ MonoBehaviour:
     size: 50
   - tag: aqua_bullet
     perfab: {fileID: 616258292391850972, guid: 8609f14b414c5474d894187e4e896935, type: 3}
-    size: 600
+    size: 900
 --- !u!4 &1840763278
 Transform:
   m_ObjectHideFlags: 0
@@ -1386,6 +1394,10 @@ PrefabInstance:
     - target: {fileID: 7127380755122180719, guid: df00e3fec1f9c384f843c9d6adb33153, type: 3}
       propertyPath: m_Name
       value: "\u8E66\u8E66\u59D0"
+      objectReference: {fileID: 0}
+    - target: {fileID: 7127380755122180719, guid: df00e3fec1f9c384f843c9d6adb33153, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: df00e3fec1f9c384f843c9d6adb33153, type: 3}

@@ -9,9 +9,9 @@ public class MissBang : MonoBehaviour
     Rigidbody2D rb;
     Animator an;
     Clock clock;
-    int HP=100,limitHP=20,section=0;
+    int HP=100,limitHP=20,section=0,state=0;
     bool actionChecker=false;
-    public enum Section {setPos,normalAtk_1,glassRain,normalAtk_2,brockenCar,end}
+    private enum State {idle,setPos,normalAtk_1,glassRain,normalAtk_2,brockenCar,sleep}
     bool[] sectionCheck = new bool[6]; //check whether a section is actived
     void Start()
     {
@@ -20,48 +20,23 @@ public class MissBang : MonoBehaviour
         clock = Clock.clockInstance;
         for(int i=0;i<6;i++)sectionCheck[i] = false;
         section=0;
-        actived();
+        state = (int)State.idle;
+        active();
     }
     void Update()
     {
         an.SetFloat("x_velocity",rb.velocity.x);
-        if(actionChecker)
-        {
-            if(section==0 && !sectionCheck[(int)Section.setPos]) setPos();
-            if(section==1 && !sectionCheck[(int)Section.normalAtk_1])
-            {
-                Debug.Log("1");
-                StartCoroutine(normalAtk_1());
-            }
-
-            if(section==2 && !sectionCheck[(int)Section.glassRain])
-            {
-                Debug.Log("2");
-                StartCoroutine(glassRain());
-            }
-            
-            if(section==3 && !sectionCheck[(int)Section.normalAtk_2])
-            {
-                StartCoroutine(normalAtk_2());
-            }
-
-            if(section==4 && !sectionCheck[(int)Section.brockenCar])
-            {
-                StartCoroutine(brockenCar());
-            }
-
-            if(section == (int)Section.end)actionChecker = false;
-        }
+        action();
     }
     void setPos() // not complete yet
     {
-        sectionCheck[(int)Section.setPos] = true;
-        transform.position = new Vector2(0,5);
-        section++;
+        sectionCheck[(int)State.setPos] = true;
+        transform.position = new Vector2(0,4);
+        state = (int)State.idle; 
     }
     IEnumerator normalAtk_1()
     {
-        sectionCheck[(int)Section.normalAtk_1] = true;
+        sectionCheck[(int)State.normalAtk_1] = true;
         GameObject[] shooter = new GameObject[3];
         GameObject clone,player = GameObject.FindGameObjectWithTag("Player");
         int layer=0,bulletEachCol=10;
@@ -89,12 +64,12 @@ public class MissBang : MonoBehaviour
                 }
             }
         }
+        state = (int)State.idle;
         section++;
-        Debug.Log("too fast");
     }
     IEnumerator normalAtk_2()
     {
-        sectionCheck[(int)Section.normalAtk_2] = true;
+        sectionCheck[(int)State.normalAtk_2] = true;
         GameObject shooter = transform.GetChild(0).gameObject;
         GameObject colone;
         Vector2 dire = new Vector2(1,0);
@@ -103,7 +78,6 @@ public class MissBang : MonoBehaviour
         clock.setTimer("timer",5f);
         while(clock.checkTimer("timer"))
         {
-            yield return new WaitForSeconds(0.5f);
             for(int i=0;i<bulletEachCircle;i++)
             {
                 yield return new WaitForSeconds(0.05f);
@@ -115,16 +89,17 @@ public class MissBang : MonoBehaviour
                 layer++;
             }
         }
+        state = (int)State.idle;
         section++;
     }
     IEnumerator glassRain() 
     {
-        sectionCheck[(int)Section.glassRain] = true;
+        sectionCheck[(int)State.glassRain] = true;
         GameObject shooter = transform.GetChild(0).gameObject;
         GameObject colone;
         shooter.transform.localPosition = new Vector3(0,0,0);
         
-        clock.setTimer("glassRain",30f);
+        clock.setTimer("glassRain",5f);
         while(clock.checkTimer("glassRain"))
         {
             Vector2 dire = new Vector2(1,0)*10;
@@ -135,11 +110,12 @@ public class MissBang : MonoBehaviour
             colone.GetComponent<Rigidbody2D>().velocity = dire;
             yield return new WaitForSeconds(2);
         }
+        state = (int)State.idle;
         section++;
     }
     IEnumerator brockenCar()
     {
-        sectionCheck[(int)Section.brockenCar] = true;
+        sectionCheck[(int)State.brockenCar] = true;
         GameObject [] shooter = new GameObject[3];
         GameObject clone;
         int bulletEachCircle=100,layer=0;
@@ -179,10 +155,56 @@ public class MissBang : MonoBehaviour
                 }
             }
         }
+        state = (int)State.idle;
         section++;
     }
-    public void actived()
+    void stateMachine()
     {
+        if(state == (int)State.idle)
+        {
+            setPos();
+            if(section==0) state = (int)State.normalAtk_1;
+            else if(section==1) state = (int)State.glassRain;
+            else if(section==2) state = (int)State.normalAtk_2;
+            else if(section==3) state = (int)State.brockenCar;
+            else if(section==4) state = (int)State.sleep;
+        }
+    }
+    void action()
+    {
+        if(actionChecker)
+        {
+            if(state==(int)State.normalAtk_1 && !sectionCheck[(int)State.normalAtk_1])
+            {
+                StartCoroutine(normalAtk_1());
+            }
+
+            if(state==(int)State.glassRain && !sectionCheck[(int)State.glassRain])
+            {
+                StartCoroutine(glassRain());
+            }
+            
+            if(state==(int)State.normalAtk_2 && !sectionCheck[(int)State.normalAtk_2])
+            {
+                StartCoroutine(normalAtk_2());
+            }
+
+            if(state==(int)State.brockenCar && !sectionCheck[(int)State.brockenCar])
+            {
+                StartCoroutine(brockenCar());
+            }
+
+            if(state == (int)State.sleep)actionChecker = false;
+            stateMachine();
+        }
+    }
+    public void active()
+    {
+        state = (int)State.idle;
         actionChecker = true;
+    }
+    public bool isRun()
+    {
+        return actionChecker;
     }
 }

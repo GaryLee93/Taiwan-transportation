@@ -9,188 +9,181 @@ public class a_ba : MonoBehaviour
     public GameObject sc_bullet;
     Rigidbody2D rb;
     GameObject player;
-    bool move_c=false,normal_atk_c=false,time_c=false,rice_c=false;
-    int nor_atk_time=2,nor_shooter_num=4;
-    
+    Clock clock;
+    bool actionChecker=false;
+    bool[] sectionCheck = new bool[5];
+    int HP=100,limitHP=20,state,section=0;
+    private enum State{idle,setPos,normalAttack,riceSea,sleep}
     void Start()
     {
+        clock = Clock.clockInstance;
         rb=gameObject.GetComponent<Rigidbody2D>();
-        StartCoroutine(total_action());
+        state = (int)State.sleep;
+        section=0;
+        actionChecker=false;
+        for(int i=0;i<5;i++) sectionCheck[i] = false;
+        active();
     }
-    IEnumerator total_action()
+    void Update() 
     {
-        StartCoroutine(move(new Vector2(3,5),5));
-        yield return new WaitWhile(() =>move_c==true);
-        StartCoroutine(normal_attack());
-        yield return new WaitWhile(() => normal_atk_c==true);
-        StartCoroutine(move(new Vector2(-3,5),5));
-        yield return new WaitWhile(() =>move_c==true);
-        StartCoroutine(normal_attack());
-        yield return new WaitWhile(() => normal_atk_c==true);
-        StartCoroutine(move(new Vector2(0,6),5));
-        yield return new WaitWhile(() =>move_c==true);
-        StartCoroutine(sc_RiceSea());
-    }
-    IEnumerator move(Vector2 destination,int velocity)
+        action();
+    }    
+    IEnumerator normal_attack(float time)
     {
-        move_c=true;
-        Vector2 v = destination-(Vector2)transform.position;
-        Vector2 dir = v.normalized;
-        rb.velocity=dir.normalized*velocity;
-        yield return new WaitForSeconds(v.magnitude/velocity);
-        rb.velocity=new Vector2(0f,0f);
-        move_c=false;
-    }
-    IEnumerator normal_attack()
-    {
-        normal_atk_c=true;
-        GameObject[] nor_shooter = new GameObject[nor_shooter_num];
-        orbit_half_cycle[] ro = new orbit_half_cycle[nor_shooter_num];
-        Vector2[] ini_pos = new Vector2[nor_shooter_num];
-        for(int i=0;i<nor_shooter_num;i++)
-        {
-            nor_shooter[i] = transform.GetChild(i).gameObject;
-            ro[i] = nor_shooter[i].GetComponent<orbit_half_cycle>();
-            ro[i].rotate_time=0;
-            ini_pos[i] = nor_shooter[i].transform.position;
-            ro[i].shooter_rotate_v = Mathf.Abs(ro[i].shooter_rotate_v);
-            ro[i].enabled = true;
-        }
-        GameObject colone;
-        while(ro[0].rotate_time<=nor_atk_time)
-        {
-            yield return new WaitForSeconds(0.075f);
-            for(int k=0;k<nor_shooter_num;k++)
-            {
-                if(nor_shooter[k].activeSelf==false) nor_shooter[k].SetActive(true);
+        sectionCheck[(int)State.normalAttack] = true;
+        int colNum=8,oritation=1,bulletEachCol=6;
+        float bulletInterval=0.4f,openAngle=120f;
+        GameObject shooter = transform.GetChild(0).gameObject,clone;
+        Vector2 ini_pos = shooter.transform.position;
+        Vector2 dire;
+        Transform tem = shooter.transform;
 
-                if((ro[k].shooter_rotate_v < 0) && (ro[0].rotate_time<=nor_atk_time))
+        tem.localPosition = new Vector2(0,0);
+        clock.setTimer("timer",time);
+        while(clock.checkTimer("timer") && HP>limitHP)
+        {
+            yield return new WaitForSeconds(0.5f);
+            if(oritation>0) dire = ourTool.rotate_vector(new Vector2(0,-1),-45f);
+            else dire = ourTool.rotate_vector(new Vector2(0,-1),45f+openAngle/(2*colNum));
+            for(int i=0;i<colNum;i++)
+            {
+                if(i==colNum-1 && oritation>0) break;
+                for(int j=0;j<bulletEachCol;j++)
                 {
-                    colone = objectPooler.spawnFromPool("orange_bullet",nor_shooter[k].transform.position,nor_shooter[k].transform.rotation,gameObject);
-                    colone.transform.parent = gameObject.transform;
+                    if(oritation>0)
+                    {
+                        clone = objectPooler.spawnFromPool("red_bullet",(Vector2)tem.position+dire*(bulletInterval*j),tem.rotation,null);
+                        clone.GetComponent<Rigidbody2D>().velocity = dire*5;
+                    }
+                    else 
+                    {
+                        clone = objectPooler.spawnFromPool("orange_bullet",(Vector2)tem.position+dire*(bulletInterval*j),tem.rotation,null);
+                        clone.GetComponent<Rigidbody2D>().velocity = dire*5;
+                    } 
                 }
-                else if(ro[0].rotate_time<=nor_atk_time)
-                {
-                    colone = objectPooler.spawnFromPool("red_bullet",nor_shooter[k].transform.position,nor_shooter[k].transform.rotation,gameObject);
-                    colone.transform.parent = gameObject.transform;
-                }
+                dire = ourTool.rotate_vector(dire,(openAngle/colNum)*oritation);
             }
+            oritation*=-1;
         }
-        for(int i=0;i<nor_shooter_num;i++) 
-        {
-            if(nor_shooter[i].activeSelf==true) nor_shooter[i].SetActive(false);
-            nor_shooter[i].transform.position = ini_pos[i];
-        }
-        normal_atk_c=false;
+        shooter.SetActive(false);
+        shooter.transform.position = ini_pos;
+        section++;
+        state = (int)State.idle;
     }
-    IEnumerator timer(int second)
+    IEnumerator riceAdditoin(float time)
     {
-        time_c = true;
-        yield return new WaitForSeconds(second);
-        time_c = false;
-    }
-    IEnumerator sc_RiceSea()
-    {
-        int shooter_num = 3;
-        int move_state = 0;
-        GameObject[] shooter = new GameObject[shooter_num];
-        Vector2[] ini_pos = new Vector2[shooter_num];
-        for(int i=0;i<shooter_num;i++) 
+        GameObject shooter = transform.GetChild(0).gameObject,colone;
+        Vector2 ini_pos = shooter.transform.position,dire;
+        Transform shooterTrans = shooter.transform;
+        int colNum=3,bulletEachCol=5;
+        float bulletInterval=0.4f,openAngle=30f;
+        shooterTrans.localPosition = new Vector2(0,0);
+        clock.setTimer("addTimer",time);
+        while(clock.checkTimer("addTimer") && HP>limitHP)
         {
-            shooter[i] = gameObject.transform.GetChild(i).gameObject;
-            shooter[i].GetComponent<orbit_half_cycle>().enabled=false;
-            ini_pos[i] = shooter[i].transform.localPosition;
-        }
-
-        shooter[0].transform.localPosition = new Vector2(-0.2f,-1);
-        shooter[1].transform.localPosition = new Vector2(0.2f,-1);
-        shooter[2].transform.localPosition = new Vector2(0,-1);
-        StartCoroutine(rice_sea());
-        while(rice_c)
-        {
-            yield return new WaitForSeconds(0.7f);
-            if(move_state==0) 
-            {
-                StartCoroutine(move(new Vector2(2,3),5));
-                move_state = 1;
-            }
-            else if(move_state==1)
-            {
-                StartCoroutine(move(new Vector2(-2,3),7));
-                move_state = 2;
-            }
-            else 
-            {
-                StartCoroutine(move(new Vector2(0,5),5));
-                move_state = 0;
-            }
-            yield return new WaitWhile(() => move_c==true);
-
-            GameObject colone;
+            yield return new WaitForSeconds(0.8f);
+            dire = ourTool.rotate_vector(new Vector2(0,-1),-(openAngle/2));
             int layer = 0;
-            for(int i=0;i<5;i++)
+            for(int i=0;i<colNum;i++)
             {
-                yield return new WaitForSeconds(0.1f);
-                for(int j=0;j<shooter_num;j++)
+                for(int j=0;j<bulletEachCol;j++)
                 {
-                    colone = objectPooler.spawnFromPool("red_bullet",shooter[j].transform.position,
-                    shooter[j].transform.rotation,gameObject);
+                    colone = objectPooler.spawnFromPool("red_bullet",(Vector2)shooterTrans.position+dire*(1+bulletInterval*j),shooterTrans.rotation,null);
                     colone.GetComponent<SpriteRenderer>().sortingOrder = layer;
+                    colone.GetComponent<Rigidbody2D>().velocity = dire*5;
                     layer++;
                 }
+                dire = ourTool.rotate_vector(dire,openAngle/(colNum-1));
             }
         }
-
-        for(int i=0;i<2;i++) 
-        {
-            shooter[i].transform.localPosition = ini_pos[i];
-            shooter[i].GetComponent<orbit_half_cycle>().enabled=true;
-        }
+        shooter.transform.localPosition = ini_pos;
     }
-    IEnumerator rice_sea()
+    IEnumerator rice_sea(float time)
     {
-        rice_c=true;
+        sectionCheck[(int)State.riceSea] = true;
         yield return new WaitForSeconds(1f); 
         GameObject sc_manager = transform.GetChild(4).gameObject;
         GameObject[] sc_shooter = new GameObject[2];
-        for(int i=0;i<2;i++) sc_shooter[i] = sc_manager.transform.GetChild(i).gameObject;
-        sc_shooter[0].transform.position = new Vector2(-3.5f,6f);
-        sc_shooter[1].transform.position = new Vector2(3.5f,6f);
+        Transform[] tem = new Transform[2];
+        for(int i=0;i<2;i++) 
+        {
+            sc_shooter[i] = sc_manager.transform.GetChild(i).gameObject;
+            tem[i] = sc_shooter[i].transform;
+        }
+        sc_shooter[0].transform.localPosition = new Vector2(-3.5f,5f);
+        sc_shooter[1].transform.localPosition = new Vector2(3.5f,5f);
 
-        StartCoroutine(timer(15));
+        clock.setTimer("timer",time);
         GameObject colone;
-        int layer=0;
-        while(time_c)
+        int layer=0,correct=-1;
+        while(clock.checkTimer("timer") && HP>limitHP)
         {
             yield return new WaitForSeconds(0.15f);
-            sc_shooter[0].transform.position = new Vector3((-3.5f)+(1.5f)*Mathf.Sin(Time.time*2),6,0);
-            sc_shooter[1].transform.position = new Vector3((3.5f)+(1.5f)*Mathf.Sin(Time.time*2),6,0);
+            sc_shooter[0].transform.position = new Vector3((-3.5f)+(1.5f)*Mathf.Sin(Time.time*2),tem[0].position.y,0);
+            sc_shooter[1].transform.position = new Vector3((3.5f)+(1.5f)*Mathf.Sin(Time.time*2),tem[1].position.y,0);
+            for(int i=0;i<2;i++)
+            {
+                colone = objectPooler.spawnFromPool("rice",tem[i].position,tem[i].rotation,gameObject);
+                colone.transform.Rotate(new Vector3(0,0,90*correct),Space.Self);
+                colone.GetComponent<Rigidbody2D>().velocity = new Vector3(0,-5,0);
+                colone.GetComponent<SpriteRenderer>().sortingOrder = layer;
+                layer++;
 
-            colone = objectPooler.spawnFromPool("rice",sc_shooter[0].transform.position,sc_shooter[0].transform.rotation,gameObject);
-            colone.transform.Rotate(new Vector3(0,0,-90),Space.Self);
-            colone.GetComponent<Rigidbody2D>().velocity = new Vector3(0,-5,0);
-            colone.GetComponent<SpriteRenderer>().sortingOrder = layer;
-            layer++;
-
-            colone = objectPooler.spawnFromPool("rice",sc_shooter[0].transform.position+new Vector3(-2,0,0),sc_shooter[0].transform.rotation,gameObject);
-            colone.transform.Rotate(new Vector3(0,0,-90),Space.Self);
-            colone.GetComponent<Rigidbody2D>().velocity = new Vector3(0,-5,0);
-            colone.GetComponent<SpriteRenderer>().sortingOrder = layer;
-            layer++;
-
-            colone = objectPooler.spawnFromPool("rice",sc_shooter[1].transform.position,sc_shooter[1].transform.rotation,gameObject);
-            colone.transform.Rotate(new Vector3(0,0,90),Space.Self);  
-            colone.GetComponent<Rigidbody2D>().velocity = new Vector3(0,-5,0);
-            colone.GetComponent<SpriteRenderer>().sortingOrder = layer;
-            layer++;
-
-            colone = objectPooler.spawnFromPool("rice",sc_shooter[1].transform.position+new Vector3(2,0,0),sc_shooter[0].transform.rotation,gameObject);
-            colone.transform.Rotate(new Vector3(0,0,90),Space.Self);
-            colone.GetComponent<Rigidbody2D>().velocity = new Vector3(0,-5,0);
-            colone.GetComponent<SpriteRenderer>().sortingOrder = layer;
-            layer++;     
+                colone = objectPooler.spawnFromPool("rice",tem[i].position+new Vector3(2,0,0)*correct,tem[i].rotation,gameObject);
+                colone.transform.Rotate(new Vector3(0,0,90*correct),Space.Self);
+                colone.GetComponent<Rigidbody2D>().velocity = new Vector3(0,-5,0);
+                colone.GetComponent<SpriteRenderer>().sortingOrder = layer;
+                layer++;
+                correct*=(-1);
+            }   
         }
-        rice_c = false;
+        section++;
+        state = (int)State.idle;
     }
+    void setPos() // not complete yet
+    {
+        sectionCheck[(int)State.setPos] = true;
+        transform.position = new Vector2(0,4);
+        state = (int)State.idle; 
+    }
+    void stateMachine()
+    {
+        if(state==(int)State.idle)
+        {
+            setPos();
+            if(section==0) state = (int)State.normalAttack;
+            else if(section==1) state = (int)State.riceSea;
+            else if(section==2) state = (int)State.sleep;
+        }
+    }
+    void action()
+    {
+        if(actionChecker)
+        {
+            if(state == (int)State.normalAttack && !sectionCheck[(int)State.normalAttack])
+            {
+                StartCoroutine(normal_attack(5f));
+            }
+            else if(state == (int)State.riceSea && !sectionCheck[(int)State.riceSea])
+            {
+                StartCoroutine(rice_sea(5f));
+                StartCoroutine(riceAdditoin(5f));
+            }
+            else if(state == (int)State.sleep)
+            {
+                actionChecker = false;
+            }
 
+            stateMachine();
+        }
+    }
+    public void active()
+    {
+        actionChecker = true;
+        state = (int)State.idle;
+    }
+    public bool isRun()
+    {
+        return actionChecker;
+    }
 }
