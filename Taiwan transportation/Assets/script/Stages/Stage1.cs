@@ -48,16 +48,12 @@ public class Stage1 : MonoBehaviour
         
         GameObject enemy;
         for(int j=0; j<=10; j++){
-            for(int i=0; i<=10; i++){
-                enemy = Instantiate(StageObj.Enemies["scooter"], new Vector2(-5 +i, 7.1f), transform.rotation);
-                enemy.GetComponent<Rigidbody2D>().velocity = new Vector2(0, -2f);
-                yield return new WaitForSeconds(0.1f);
-            }
-            yield return new WaitForSeconds(0.7f);
-            for(int i=0; i<=10; i++){
-                enemy = Instantiate(StageObj.Enemies["scooter"], new Vector2(-5 +i, 7.1f), transform.rotation);
-                enemy.GetComponent<Rigidbody2D>().velocity = new Vector2(0, -2f);
-                yield return new WaitForSeconds(0.1f);
+            for(int k=0; k<=5; k++){
+                for(int i=0; i<=2; i++){
+                    enemy = Instantiate(StageObj.Enemies["scooter"], new Vector2(-5 +5*i, 7.1f), transform.rotation);
+                    enemy.GetComponent<Rigidbody2D>().velocity = new Vector2(0, -2f);
+                    yield return new WaitForSeconds(0.1f);
+                }
             }
             yield return new WaitForSeconds(5f);
         }

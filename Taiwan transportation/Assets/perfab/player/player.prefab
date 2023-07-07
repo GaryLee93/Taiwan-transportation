@@ -302,7 +302,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -830411337
   m_SortingLayer: 3
-  m_SortingOrder: 1
+  m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 0fa005aec5ad8ce4bb5eb46f1955c691, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -364,14 +364,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   check_point: {fileID: 2871326757121772719}
-  childPlane_0: {fileID: 2847441570339363394}
-  childPlane_1: {fileID: 7439371239833420200}
-  childPlane_2: {fileID: 7439371240093363143}
-  childPlane_3: {fileID: 7439371240693958068}
-  power: 0
+  childPlane: {fileID: 0}
+  wrenchShooter: {fileID: 0}
   score_text: {fileID: 0}
   power_text: {fileID: 0}
   remain_life_text: {fileID: 0}
+  power: 0
+  powerMode: 0
+  move_speed: 10
+  slow_speed: 3
+  remain_life: 3
+  bomb_count: 3
+  score: 0
 --- !u!114 &4384484177804692020
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -384,7 +388,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7c8478f63bfd404e9005388b24aa61c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FirePoint_childPlane: {fileID: 2871326758913974697}
   bullet: {fileID: 3133933876683968412, guid: 6997656e1990c6c42ab1e15b5955c022, type: 3}
   shoot_interval: 0.05
 --- !u!114 &2064503174
@@ -399,7 +402,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7c8478f63bfd404e9005388b24aa61c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FirePoint_childPlane: {fileID: 2871326759176800840}
   bullet: {fileID: 3133933876683968412, guid: 6997656e1990c6c42ab1e15b5955c022, type: 3}
   shoot_interval: 0.05
 --- !u!114 &7848270531034377445
@@ -414,7 +416,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7c8478f63bfd404e9005388b24aa61c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FirePoint_childPlane: {fileID: 2871326759176800840}
   bullet: {fileID: 3133933876683968412, guid: 6997656e1990c6c42ab1e15b5955c022, type: 3}
   shoot_interval: 0.05
 --- !u!114 &8994499888216250251
@@ -429,7 +430,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7c8478f63bfd404e9005388b24aa61c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FirePoint_childPlane: {fileID: 2871326759176800840}
   bullet: {fileID: 3133933876683968412, guid: 6997656e1990c6c42ab1e15b5955c022, type: 3}
   shoot_interval: 0.05
 --- !u!1 &2871326758913974696
@@ -586,11 +586,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6771421751505020450, guid: 87695f716157ce543b1f3e4eed2ea1e2, type: 3}
   m_PrefabInstance: {fileID: 2871326757159455108}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &7439371240693958068 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4676131433004289072, guid: 87695f716157ce543b1f3e4eed2ea1e2, type: 3}
-  m_PrefabInstance: {fileID: 2871326757159455108}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2871326758949873655
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -680,11 +675,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 87695f716157ce543b1f3e4eed2ea1e2, type: 3}
---- !u!1 &7439371240093363143 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4676131433004289072, guid: 87695f716157ce543b1f3e4eed2ea1e2, type: 3}
-  m_PrefabInstance: {fileID: 2871326758949873655}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &8800574965394473429 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6771421751505020450, guid: 87695f716157ce543b1f3e4eed2ea1e2, type: 3}
@@ -779,11 +769,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 87695f716157ce543b1f3e4eed2ea1e2, type: 3}
---- !u!1 &7439371239833420200 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4676131433004289072, guid: 87695f716157ce543b1f3e4eed2ea1e2, type: 3}
-  m_PrefabInstance: {fileID: 2871326759226510744}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &8800574965117774778 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6771421751505020450, guid: 87695f716157ce543b1f3e4eed2ea1e2, type: 3}
@@ -857,10 +842,5 @@ PrefabInstance:
 --- !u!4 &4222192760642285648 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6771421751505020450, guid: 87695f716157ce543b1f3e4eed2ea1e2, type: 3}
-  m_PrefabInstance: {fileID: 7449184435452270194}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &2847441570339363394 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4676131433004289072, guid: 87695f716157ce543b1f3e4eed2ea1e2, type: 3}
   m_PrefabInstance: {fileID: 7449184435452270194}
   m_PrefabAsset: {fileID: 0}
