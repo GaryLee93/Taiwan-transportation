@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 9126886430575984384}
   - component: {fileID: 9126886430575984390}
   - component: {fileID: 5719550837767350679}
-  - component: {fileID: -6504211167057086937}
   - component: {fileID: -8652075884149173614}
   m_Layer: 0
   m_Name: polyBall
@@ -72,11 +71,11 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -830411337
-  m_SortingLayer: 3
+  m_SortingLayerID: 2091220557
+  m_SortingLayer: 6
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 9a8a85fc33c336143bc0312cd53504e3, type: 3}
-  m_Color: {r: 0.40943396, g: 0.60605973, b: 1, a: 0.627451}
+  m_Color: {r: 0.61698115, g: 0.7463451, b: 1, a: 0.78431374}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -123,21 +122,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.17
---- !u!114 &-6504211167057086937
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9126886430575984389}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9cc77facff3f1f9438db441cae22621e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  target_tag: enemy
-  speed: 20
-  rotateSpeed: 720
 --- !u!114 &-8652075884149173614
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -152,3 +136,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletType: 1
   bulletSpeed: 25
+  bulletDamage: 1

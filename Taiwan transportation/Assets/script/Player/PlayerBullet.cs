@@ -4,23 +4,11 @@ using UnityEngine;
 
 public class PlayerBullet : MonoBehaviour, Ipooled{
     enum BType{
-        Straight, Homing, BombBullet
+        Straight, Homing,
     }
     [SerializeField] BType bulletType;
     [SerializeField] float bulletSpeed;
-    int bulletDamage;
-    Rigidbody2D rb;
-    private void Start(){
-        if(bulletType == BType.Straight){
-            bulletDamage = 5;
-        }
-        else if(bulletType == BType.Homing){
-            bulletDamage = 1;
-        }
-        else if(bulletType == BType.BombBullet){
-            bulletDamage = 100;
-        }
-    }
+    [SerializeField] int bulletDamage;
     private void Update(){
         if(bulletType == BType.Homing){
             GameObject target = find_closest_enemy();
@@ -44,10 +32,8 @@ public class PlayerBullet : MonoBehaviour, Ipooled{
     private void OnTriggerEnter2D(Collider2D other){
         if(other.gameObject.tag == "enemy"){
             normalEnemy hitEnemy = other.gameObject.GetComponent<normalEnemy>();
-            if(bulletType != BType.BombBullet){
-                hitEnemy.takeDamage(bulletDamage);
-                poolDespawn();
-            }
+            hitEnemy.takeDamage(bulletDamage);
+            poolDespawn();
         }
     }
     public void poolDespawn(){

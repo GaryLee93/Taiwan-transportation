@@ -134,7 +134,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42833309df675f64db45a7aaa42b42f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  graze_text: {fileID: 0}
 --- !u!1 &3909308229610190467
 GameObject:
   m_ObjectHideFlags: 0
@@ -206,7 +205,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -830411337
   m_SortingLayer: 3
-  m_SortingOrder: 5
+  m_SortingOrder: 10
   m_Sprite: {fileID: -2413806693520163455, guid: ebe73ca9363db456bacf42c025bb4847, type: 3}
   m_Color: {r: 0.9339623, g: 0.17093267, b: 0.17093267, a: 1}
   m_FlipX: 0
@@ -305,7 +304,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -830411337
   m_SortingLayer: 3
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 76d9648cef03b68489d7d3d5078b6d32, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -369,16 +368,14 @@ MonoBehaviour:
   check_point: {fileID: 3909308229610190467}
   backChildPlane: {fileID: 4676131433004289072, guid: 87695f716157ce543b1f3e4eed2ea1e2, type: 3}
   frontChildPlane: {fileID: 6599438536435490656, guid: a425eadb9ebdf434fae6d0ead698a89b, type: 3}
+  loudSpark: {fileID: 8715262105749197222, guid: b0157b02e3121cd479adabb2b74c8982, type: 3}
   middleSprite: {fileID: 21300000, guid: 76d9648cef03b68489d7d3d5078b6d32, type: 3}
   leftSprite: {fileID: 21300000, guid: 0ef65f2b4bc578548a8af86c0a990385, type: 3}
   rightSprite: {fileID: 21300000, guid: 0fa005aec5ad8ce4bb5eb46f1955c691, type: 3}
-  score_text: {fileID: 0}
-  power_text: {fileID: 0}
-  remain_life_text: {fileID: 0}
-  power: 0
-  powerMode: 4
-  move_speed: 10
+  power: 400
+  powerMode: 0
+  normal_speed: 10
   slow_speed: 3
-  remain_life: 0
-  bomb_count: 0
+  remain_life: 3
+  bomb_count: 3
   score: 0

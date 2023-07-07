@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 3746710929855526705}
   - component: {fileID: 3546218513854993921}
   - component: {fileID: 2308577659654133782}
-  - component: {fileID: -1006532908229905156}
   - component: {fileID: -3432137387572366963}
   m_Layer: 0
   m_Name: wrench
@@ -72,11 +71,11 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -830411337
-  m_SortingLayer: 3
+  m_SortingLayerID: 2091220557
+  m_SortingLayer: 6
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 10ac321eaa99f06489e354f76c7ade1a, type: 3}
-  m_Color: {r: 0, g: 0, b: 0, a: 0.39215687}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.5882353}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -133,20 +132,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.4, y: 3.4}
   m_EdgeRadius: 0
---- !u!114 &-1006532908229905156
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3133933876683968412}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4221c988befff0944a83984ee68d3e81, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 40
-  rb: {fileID: 3546218513854993921}
 --- !u!114 &-3432137387572366963
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -160,4 +145,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bulletType: 0
-  bulletSpeed: 35
+  bulletSpeed: 45
+  bulletDamage: 1

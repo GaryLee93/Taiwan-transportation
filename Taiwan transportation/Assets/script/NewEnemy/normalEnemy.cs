@@ -14,10 +14,14 @@ public class normalEnemy : MonoBehaviour{
             XBORDER = 6.1f;
             YBORDER = 7.1f;
         }
+        if(enemyType == EnemyType.Car){
+            XBORDER = 7f;
+            YBORDER = 8f;
+        }
     }
     private void Update() {
         if(hitBorder()){
-            gameObject.SetActive(false);
+            Destroy(gameObject);
         }
     }
     public void takeDamage(int damage){
@@ -30,7 +34,7 @@ public class normalEnemy : MonoBehaviour{
     void die(){
         GameObject cb;
         for(int i=0; i<Random.Range(1, 5); i++){
-            cb = Instantiate(StageObj.Collectables["score"], transform.position, transform.rotation);
+            cb = Instantiate(StageObj.Collectables["power"], transform.position, transform.rotation);
             cb.transform.Translate(Random.Range(-1f, 1f), Random.Range(-1f, 1f), 0);
             cb.GetComponent<Rigidbody2D>().velocity = new Vector2(0f, Random.Range(3f, 5f));
         }

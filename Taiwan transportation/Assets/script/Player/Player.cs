@@ -9,6 +9,7 @@ public class Player : MonoBehaviour{
     [SerializeField] GameObject check_point;
     [SerializeField] GameObject backChildPlane;
     [SerializeField] GameObject frontChildPlane;
+    [SerializeField] GameObject loudSpark;
     [SerializeField] Sprite middleSprite;
     [SerializeField] Sprite leftSprite;
     [SerializeField] Sprite rightSprite;
@@ -16,13 +17,15 @@ public class Player : MonoBehaviour{
     [Header("各種屬性")]
     [SerializeField] int power = 0;
     [SerializeField] int powerMode = 0;
-    [SerializeField] float move_speed = 10f;
+    [SerializeField] float normal_speed = 10f;
     [SerializeField] float slow_speed = 3f;
     [SerializeField] int remain_life = 3;
     [SerializeField] int bomb_count = 3;
     [SerializeField] int score = 0;
+    float current_speed;
     Rigidbody2D rb;
-    int lastPM;
+    bool isBombing;
+    GameObject bombObj = null;
     List<GameObject> shooterList;
 
     public static Player instance;
@@ -37,70 +40,61 @@ public class Player : MonoBehaviour{
     void Start(){
         rb = GetComponent<Rigidbody2D>();
 
-        remain_life = 4;
-        power = 0;
-        bomb_count = 3;
-        score = 0;
-
-        lastPM = 0;
+        current_speed = normal_speed;
         shooterList = new List<GameObject>();
         
         changePowerMod();
         refreshScoreText();
         refreshPowerText();
         refreshLifeText();
+        refreshBombText();
     }
     void Update(){
         player_move();
 
-        if(lastPM!=powerMode){
-            changePowerMod();
+        if(Input.GetKey(KeyCode.X) && !isBombing){
+            loudSparkBomb();
         }
 
-        lastPM = powerMode;
-
+        if(isBombing && bombObj == null){
+            isBombing = false;
+        }
+        
+        if(power/100!=powerMode){
+            powerMode = power/100;
+            changePowerMod();
+        }
     }
     void player_move(){
         if(Input.GetKey(KeyCode.RightShift)||Input.GetKey(KeyCode.LeftShift)){
             check_point.SetActive(true);
-            float hori=Input.GetAxisRaw("Horizontal");
-            float ver=Input.GetAxisRaw("Vertical");
-            if(hori!=0 && ver!=0){
-                hori/=Mathf.Sqrt(2);
-                ver/=Mathf.Sqrt(2);
-            }
-            rb.velocity = new Vector2(hori *slow_speed, ver *slow_speed);
-
-            if(hori >0){
-                GetComponent<SpriteRenderer>().sprite = rightSprite;
-            }
-            else if(hori <0){
-                GetComponent<SpriteRenderer>().sprite = leftSprite;
-            }
-            else{
-                GetComponent<SpriteRenderer>().sprite = middleSprite;
-            }
+            current_speed = slow_speed;
+            changeVelocity();
         }
         else{
             check_point.SetActive(false);
-            float hori=Input.GetAxisRaw("Horizontal");
-            float ver=Input.GetAxisRaw("Vertical");
-            if(hori!=0 && ver!=0){
-                hori/=Mathf.Sqrt(2);
-                ver/=Mathf.Sqrt(2);
-            }
-            rb.velocity = new Vector2(hori *move_speed, ver *move_speed);
-
-            if(hori >0){
-                GetComponent<SpriteRenderer>().sprite = rightSprite;
-            }
-            else if(hori <0){
-                GetComponent<SpriteRenderer>().sprite = leftSprite;
-            }
-            else{
-                GetComponent<SpriteRenderer>().sprite = middleSprite;
-            }
+            if(isBombing)
+                current_speed = slow_speed;
+            else
+                current_speed = normal_speed;
+            changeVelocity();
         }
+    }
+    void changeVelocity(){
+        float hori=Input.GetAxisRaw("Horizontal");
+        float ver=Input.GetAxisRaw("Vertical");
+        if(hori!=0 && ver!=0){
+            hori/=Mathf.Sqrt(2);
+            ver/=Mathf.Sqrt(2);
+        }
+        rb.velocity = new Vector2(hori *current_speed, ver *current_speed);
+
+        if(hori ==0)
+            GetComponent<SpriteRenderer>().sprite = middleSprite;
+        else if(hori <0)
+            GetComponent<SpriteRenderer>().sprite = leftSprite;
+        else
+            GetComponent<SpriteRenderer>().sprite = rightSprite;
     }
     void changePowerMod(){
         GameObject tmp_shooter;
@@ -221,6 +215,7 @@ public class Player : MonoBehaviour{
             }
             else if(cb.Type == Collectables.ColType.Bomb){
                 bomb_count++;
+                refreshBombText();
                 Destroy(other.gameObject);
             }
             else if(cb.Type == Collectables.ColType.Power){
@@ -264,6 +259,16 @@ public class Player : MonoBehaviour{
         refreshPowerText();
     }
 
+    void loudSparkBomb(){
+        if(bomb_count >0){
+            bomb_count --;
+            refreshBombText();
+            GameObject tmpobj = Instantiate(loudSpark, transform);
+            tmpobj.transform.localPosition = new Vector3(0, 7, 0);
+            bombObj = tmpobj;
+            isBombing = true;
+        }
+    }
     void refreshScoreText(){
         
         StageObj.StageTexts["score"].GetComponent<Text>().text = "Score: " + score;
@@ -275,5 +280,8 @@ public class Player : MonoBehaviour{
 
     void refreshPowerText(){
         StageObj.StageTexts["power"].GetComponent<Text>().text = "Power: " + power;
+    }
+    void refreshBombText(){
+        StageObj.StageTexts["bomb"].GetComponent<Text>().text = "Bomb: " + bomb_count;
     }
 }

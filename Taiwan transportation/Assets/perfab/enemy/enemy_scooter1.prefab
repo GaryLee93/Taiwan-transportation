@@ -64,7 +64,6 @@ GameObject:
   - component: {fileID: 4687230899965180682}
   - component: {fileID: 4687230899965180681}
   - component: {fileID: 4687230899965180680}
-  - component: {fileID: 1587564011769075105}
   - component: {fileID: 3000483387036526713}
   - component: {fileID: 1774956821}
   - component: {fileID: -1134910733697035476}
@@ -162,23 +161,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &1587564011769075105
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4687230899965180694}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0ad7cf56e6fb85c4bb234b31752339d8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bullet: {fileID: 4835463618115493887, guid: c039c760771c0054fafd12833c2b6ad3, type: 3}
-  shootType: 0
-  shootInterval: 1
-  shoot_angle_diff: 0
-  shoot_direction: {x: 0, y: 0}
 --- !u!58 &3000483387036526713
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -219,7 +201,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c889b61586238ea47b1becbe4151f104, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  collectables:
-  - {fileID: 2517695039314938420, guid: 8672df898677c794187fa7f2776a7f4a, type: 3}
-  - {fileID: 4530026088067764782, guid: e540aaa55d2f0ab41a64ea44b837b409, type: 3}
+  enemyType: 0
   health: 30
