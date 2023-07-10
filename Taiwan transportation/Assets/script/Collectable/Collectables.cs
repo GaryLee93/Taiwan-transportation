@@ -30,16 +30,19 @@ public class Collectables : MonoBehaviour
     
     
     void suck(){
-        Vector2 diff = (Vector2)playerTF.position-(Vector2)transform.position;
-        float dis = diff.sqrMagnitude;
-        diff.Normalize();
-        if(dis < range || playerTF.position.y > collect_line_height)
-        {
-            isCollected = true;
-        }
-        if(isCollected)
-        {
-            rb.velocity=diff*speed;
+        if(Player.GetPlayer().GetComponent<Rigidbody2D>().simulated == true){
+            Vector2 diff = (Vector2)playerTF.position-(Vector2)transform.position;
+            float dis = diff.sqrMagnitude;
+            diff.Normalize();
+            if(dis < range || playerTF.position.y > collect_line_height)
+            {
+                isCollected = true;
+            }
+
+            if(isCollected)
+            {
+                rb.velocity=diff*speed;
+            }
         }
     }
 

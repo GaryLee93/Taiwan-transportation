@@ -15,18 +15,14 @@ public class modeling_shoot : MonoBehaviour
     {   
         if(timer>=shoot_interval)
         {
-            shoot();
+            if(Input.GetKey(KeyCode.Z)) shoot();
             timer-=shoot_interval;
         }
         timer+=Time.fixedDeltaTime;
     }
-    void shoot()
-    {
-        if(Input.GetButton("Fire1"))
-        {
-            objectPooler.spawnFromPool(bullet.name,transform.position,
-            transform.rotation,null);
-        }
+    public void shoot(){
+        objectPooler.spawnFromPool(bullet.name,transform.position,
+        transform.rotation,null);
     }
     
 }

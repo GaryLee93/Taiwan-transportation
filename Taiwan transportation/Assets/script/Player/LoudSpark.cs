@@ -32,8 +32,8 @@ public class LoudSpark : MonoBehaviour{
     void FixedUpdate(){
         if(main_timer <= fadeTime +holdTime){
             if(shoot_timer >= shootInterval){
-                GameObject tmp = Instantiate(LSparkCircle, Player.GetPlayer().transform);
-                tmp.transform.localPosition = new Vector3(0, 0.5f, 0);
+                GameObject tmp = Instantiate(LSparkCircle, transform);
+                tmp.transform.localPosition = new Vector3(0, -6f, 0);
                 shoot_timer -= shootInterval;
             }
         }

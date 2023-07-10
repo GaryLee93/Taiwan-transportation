@@ -25,6 +25,8 @@ public class Player : MonoBehaviour{
     float current_speed;
     Rigidbody2D rb;
     bool isBombing;
+    bool isRespawning;
+    float respawnTimer;
     GameObject bombObj = null;
     List<GameObject> shooterList;
 
@@ -42,6 +44,8 @@ public class Player : MonoBehaviour{
 
         current_speed = normal_speed;
         shooterList = new List<GameObject>();
+
+        transform.position = new Vector3(0, -5, 0);
         
         changePowerMod();
         refreshScoreText();
@@ -53,11 +57,24 @@ public class Player : MonoBehaviour{
         player_move();
 
         if(Input.GetKey(KeyCode.X) && !isBombing){
-            loudSparkBomb();
+            if(!isRespawning || isRespawning && respawnTimer >= 1.5f){
+                loudSparkBomb();
+            }
         }
-
-        if(isBombing && bombObj == null){
+        if(isBombing && bombObj == null)
             isBombing = false;
+        
+        if(isRespawning){
+            if(respawnTimer >= 0.5f && respawnTimer < 1.5f){
+                transform.Translate(0, 2.5f *Time.deltaTime, 0);
+            }
+            else if(respawnTimer >= 1.5f && respawnTimer < 5f){
+                rb.simulated = true;
+            }
+            else if(respawnTimer >= 5f){
+                isRespawning = false;
+            }
+            respawnTimer += Time.deltaTime;
         }
         
         if(power/100!=powerMode){
@@ -73,11 +90,14 @@ public class Player : MonoBehaviour{
         }
         else{
             check_point.SetActive(false);
-            if(isBombing)
+            if(isBombing){
                 current_speed = slow_speed;
-            else
+                changeVelocity();
+            }
+            else{
                 current_speed = normal_speed;
-            changeVelocity();
+                changeVelocity();
+            }
         }
     }
     void changeVelocity(){
@@ -203,7 +223,8 @@ public class Player : MonoBehaviour{
     }
     private void OnTriggerEnter2D(Collider2D other){
         if(other.gameObject.tag=="enemy" || other.gameObject.tag=="enemy_bullet"){
-            be_hit();
+            if(!isBombing && !isRespawning)
+                be_hit();
         }
         if(other.tag == "collectable"){
             Collectables cb = other.gameObject.GetComponent<Collectables>();
@@ -242,14 +263,6 @@ public class Player : MonoBehaviour{
     }
     void be_hit(){
         Debug.Log("被彈");
-        remain_life --;
-        if(remain_life < 0){
-            remain_life = 0;
-            Debug.Log("滿身瘡痍");
-        }
-        refreshLifeText();
-        
-
         this.power -= 100;
         if(this.power < 0){
             this.power = 0;
@@ -257,6 +270,39 @@ public class Player : MonoBehaviour{
         powerMode = this.power /100;
         changePowerMod();
         refreshPowerText();
+
+        bomb_count = 3;
+        refreshBombText();
+
+        remain_life --;
+        GameObject tmp;
+        for(int i=0; i<25; i++){
+            tmp = Instantiate(StageObj.Collectables["power"], transform.position, transform.rotation);
+            tmp.GetComponent<Rigidbody2D>().velocity = Random.Range(6f, 6.5f) * 
+                new Vector2(Random.Range(-0.3f, 0.3f), 1).normalized;
+            if(transform.position.x > 3.5f){
+                tmp.GetComponent<Rigidbody2D>().velocity += new Vector2(-3f, 0f);
+            }
+            else if(transform.position.x < -3.5f){
+                tmp.GetComponent<Rigidbody2D>().velocity += new Vector2(3f, 0f);
+            }
+        }
+        if(remain_life < 0){
+            remain_life = 0;
+            Debug.Log("滿身瘡痍");
+            StartCoroutine(respawn());
+        }
+        else{
+            StartCoroutine(respawn());
+        }
+        refreshLifeText();
+    }
+    IEnumerator respawn(){
+        rb.simulated = false;
+        isRespawning = true;
+        respawnTimer = 0;
+        yield return new WaitForSeconds(0.5f);
+        transform.position = new Vector3(0, -7.5f, 0);
     }
 
     void loudSparkBomb(){
