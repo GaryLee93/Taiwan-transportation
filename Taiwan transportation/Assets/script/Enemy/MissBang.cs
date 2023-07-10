@@ -9,18 +9,22 @@ public class MissBang : MonoBehaviour
     Rigidbody2D rb;
     Animator an;
     Clock clock;
+    Vector2 oriPos = new Vector2(0,4);
+    EnemyMoveControl EMC;
     int HP=100,limitHP=20,section=0,state=0;
     bool actionChecker=false;
     private enum State {idle,setPos,normalAtk_1,glassRain,normalAtk_2,brockenCar,sleep}
-    bool[] sectionCheck = new bool[6]; //check whether a section is actived
+    bool[] sectionCheck = new bool[7]; //check whether a section is actived
     void Start()
     {
-        rb = gameObject.GetComponent<Rigidbody2D>();
-        an = gameObject.GetComponent<Animator>();
+        rb = GetComponent<Rigidbody2D>();
+        an = GetComponent<Animator>();
+        EMC = GetComponent<EnemyMoveControl>();
+        oriPos = new Vector2(0,4);
         clock = Clock.clockInstance;
-        for(int i=0;i<6;i++)sectionCheck[i] = false;
+        for(int i=0;i<7;i++)sectionCheck[i] = false;
         section=0;
-        state = (int)State.idle;
+        state = (int)State.sleep;
         active();
     }
     void Update()
@@ -30,52 +34,48 @@ public class MissBang : MonoBehaviour
     }
     void setPos() // not complete yet
     {
-        sectionCheck[(int)State.setPos] = true;
-        transform.position = new Vector2(0,4);
+        EMC.slowDownMove(oriPos - (Vector2)transform.position,0.5f);
         state = (int)State.idle; 
     }
-    IEnumerator normalAtk_1()
+    IEnumerator normalAtk_1(float time)
     {
-        sectionCheck[(int)State.normalAtk_1] = true;
-        GameObject[] shooter = new GameObject[3];
-        GameObject clone,player = GameObject.FindGameObjectWithTag("Player");
-        int layer=0,bulletEachCol=10;
-        for(int i=0;i<3;i++) shooter[i] = transform.GetChild(i).gameObject;
-        shooter[0].transform.localPosition = new Vector2(0,-0.5f);
-        shooter[1].transform.localPosition = new Vector2(-0.25f,-0.5f);
-        shooter[2].transform.localPosition = new Vector2(0.25f,-0.5f);
+        yield return new WaitWhile(() => EMC.isMove()==true);
+        GameObject shooter = transform.GetChild(0).gameObject;
+        GameObject clone;
+        int layer=0,bulletEachCol=5;
+        float bulletInterval = 0.4f;
+        shooter.transform.localPosition = new Vector2(0,0);
 
-        clock.setTimer("timer",5f);
+        clock.setTimer("timer",time);
+        
         while(clock.checkTimer("timer") && HP>limitHP)
         {
             yield return new WaitForSeconds(1f);
-            Vector2 target = player.transform.position;
-            for(int i=0;i<bulletEachCol;i++)
+            Vector2 dire = ourTool.vectorToPlayer(shooter);
+            Transform t = shooter.transform;
+            dire.Normalize();
+            for(int k=0;k<bulletEachCol;k++)
             {
-                yield return new WaitForSeconds(0.1f);
-                for(int j=0;j<3;j++)
-                {
-                    Vector2 dire = target-(Vector2)shooter[j].transform.position;
-                    dire.Normalize();
-                    clone = objectPooler.spawnFromPool("purple_bullet",shooter[j].transform.position,shooter[j].transform.rotation,null);
-                    clone.GetComponent<SpriteRenderer>().sortingOrder = layer;
-                    clone.GetComponent<Rigidbody2D>().velocity = dire*5;
-                    layer++;
-                }
+                clone = objectPooler.spawnFromPool("red_bullet",(Vector2)t.position+(dire*(1+bulletInterval*k)),t.rotation,null);
+                clone.GetComponent<SpriteRenderer>().sortingOrder = layer;
+                clone.GetComponent<Rigidbody2D>().velocity = dire*5;
+                layer++;
             }
         }
-        state = (int)State.idle;
+
+        // finish
+        setPos();
         section++;
     }
-    IEnumerator normalAtk_2()
+    IEnumerator normalAtk_2(float time)
     {
-        sectionCheck[(int)State.normalAtk_2] = true;
+        yield return new WaitWhile(() => EMC.isMove()==true);
         GameObject shooter = transform.GetChild(0).gameObject;
         GameObject colone;
         Vector2 dire = new Vector2(1,0);
         int layer=0,bulletEachCircle=20;
         shooter.transform.localPosition = new Vector3(0,0,0);
-        clock.setTimer("timer",5f);
+        clock.setTimer("timer",time);
         while(clock.checkTimer("timer"))
         {
             for(int i=0;i<bulletEachCircle;i++)
@@ -89,17 +89,18 @@ public class MissBang : MonoBehaviour
                 layer++;
             }
         }
-        state = (int)State.idle;
+        setPos();
         section++;
     }
-    IEnumerator glassRain() 
+    IEnumerator glassRain(float time) 
     {
+        yield return new WaitWhile(() => EMC.isMove()==true);
         sectionCheck[(int)State.glassRain] = true;
         GameObject shooter = transform.GetChild(0).gameObject;
         GameObject colone;
         shooter.transform.localPosition = new Vector3(0,0,0);
         
-        clock.setTimer("glassRain",5f);
+        clock.setTimer("glassRain",time);
         while(clock.checkTimer("glassRain"))
         {
             Vector2 dire = new Vector2(1,0)*10;
@@ -110,11 +111,12 @@ public class MissBang : MonoBehaviour
             colone.GetComponent<Rigidbody2D>().velocity = dire;
             yield return new WaitForSeconds(2);
         }
-        state = (int)State.idle;
+        setPos();
         section++;
     }
-    IEnumerator brockenCar()
+    IEnumerator brockenCar(float time)
     {
+        yield return new WaitWhile(() => EMC.isMove()==true);
         sectionCheck[(int)State.brockenCar] = true;
         GameObject [] shooter = new GameObject[3];
         GameObject clone;
@@ -125,7 +127,8 @@ public class MissBang : MonoBehaviour
             shooter[i] = transform.GetChild(i).gameObject;
             shooter[i].transform.localPosition = new Vector2(0,0);
         }
-        for(int k=0;k<5;k++)
+        clock.setTimer("timer",time);
+        while(clock.checkTimer("timer"))
         {
             yield return new WaitForSeconds(1f);
             Vector2 dire = new Vector2(0,-1);
@@ -155,14 +158,13 @@ public class MissBang : MonoBehaviour
                 }
             }
         }
-        state = (int)State.idle;
+        setPos();
         section++;
     }
     void stateMachine()
     {
         if(state == (int)State.idle)
         {
-            setPos();
             if(section==0) state = (int)State.normalAtk_1;
             else if(section==1) state = (int)State.glassRain;
             else if(section==2) state = (int)State.normalAtk_2;
@@ -176,31 +178,31 @@ public class MissBang : MonoBehaviour
         {
             if(state==(int)State.normalAtk_1 && !sectionCheck[(int)State.normalAtk_1])
             {
-                StartCoroutine(normalAtk_1());
+                sectionCheck[(int)State.normalAtk_1] = true;
+                StartCoroutine(normalAtk_1(5f));
             }
-
-            if(state==(int)State.glassRain && !sectionCheck[(int)State.glassRain])
+            else if(state==(int)State.glassRain && !sectionCheck[(int)State.glassRain])
             {
-                StartCoroutine(glassRain());
+                sectionCheck[(int)State.glassRain] = true;
+                StartCoroutine(glassRain(5f));
             }
-            
-            if(state==(int)State.normalAtk_2 && !sectionCheck[(int)State.normalAtk_2])
+            else if(state==(int)State.normalAtk_2 && !sectionCheck[(int)State.normalAtk_2])
             {
-                StartCoroutine(normalAtk_2());
+                sectionCheck[(int)State.normalAtk_2] = true;
+                StartCoroutine(normalAtk_2(5f));
             }
-
-            if(state==(int)State.brockenCar && !sectionCheck[(int)State.brockenCar])
+            else if(state==(int)State.brockenCar && !sectionCheck[(int)State.brockenCar])
             {
-                StartCoroutine(brockenCar());
+                sectionCheck[(int)State.brockenCar] = true;
+                StartCoroutine(brockenCar(5f));
             }
-
-            if(state == (int)State.sleep)actionChecker = false;
+            else if(state == (int)State.sleep)actionChecker = false;
             stateMachine();
         }
     }
     public void active()
     {
-        state = (int)State.idle;
+        setPos();
         actionChecker = true;
     }
     public bool isRun()

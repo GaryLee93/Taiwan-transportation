@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 8712016039081829893}
   - component: {fileID: 2623432960967410070}
   - component: {fileID: 3011706201865622754}
-  - component: {fileID: 2983135782624429929}
   - component: {fileID: -5932407445580976931}
   m_Layer: 0
   m_Name: orange_bullet
@@ -123,18 +122,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &2983135782624429929
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 636635565939304002}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8060b6e606b1b9b4fba6bdb1854fd6a4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &-5932407445580976931
 MonoBehaviour:
   m_ObjectHideFlags: 0
