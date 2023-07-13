@@ -8,9 +8,8 @@ TagManager:
   - enemy
   - enemy_bullet
   - collectable
-  - wrench
-  - polyball
   - player_bullet
+  - boss
   layers:
   - Default
   - TransparentFX

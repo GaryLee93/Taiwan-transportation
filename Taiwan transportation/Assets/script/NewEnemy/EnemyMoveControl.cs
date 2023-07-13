@@ -43,7 +43,7 @@ public class EnemyMoveControl : MonoBehaviour
     {
         if(slowMoveCheck)
         {
-            Debug.Log("can't set");
+            Debug.LogWarning("can't set");
             return ;
         }
         MoveCheck = true;

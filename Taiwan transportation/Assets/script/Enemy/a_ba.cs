@@ -2,26 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class a_ba : MonoBehaviour
+public class a_ba : abstractBoss
 {
-    public GameObject normal_bullet_1;
-    public GameObject normal_bullet_2;
-    public GameObject sc_bullet;
-    Rigidbody2D rb;
     GameObject player;
-    Clock clock;
-    bool actionChecker=false;
-    bool[] sectionCheck = new bool[5];
-    int HP=100,limitHP=20,state,section=0;
-    private enum State{idle,setPos,normalAttack,riceSea,sleep}
+    Vector2 oriPos;
+
+    bool[,] sectionCheck = new bool[(int)SpellCard.spellCardNum,2]; 
+    string[,] spellCardName = new string[(int)SpellCard.spellCardNum,2];
+    private enum SpellCard{riceSea,spellCardNum}
     void Start()
     {
-        clock = Clock.clockInstance;
-        rb=gameObject.GetComponent<Rigidbody2D>();
-        state = (int)State.sleep;
-        section=0;
-        actionChecker=false;
-        for(int i=0;i<5;i++) sectionCheck[i] = false;
         active();
     }
     void Update() 
@@ -30,7 +20,7 @@ public class a_ba : MonoBehaviour
     }    
     IEnumerator normal_attack(float time)
     {
-        sectionCheck[(int)State.normalAttack] = true;
+        yield return new WaitWhile(() => isMove()==true);
         int colNum=8,oritation=1,bulletEachCol=6;
         float bulletInterval=0.4f,openAngle=120f;
         GameObject shooter = transform.GetChild(0).gameObject,clone;
@@ -39,8 +29,8 @@ public class a_ba : MonoBehaviour
         Transform tem = shooter.transform;
 
         tem.localPosition = new Vector2(0,0);
-        clock.setTimer("timer",time);
-        while(clock.checkTimer("timer") && HP>limitHP)
+        setTimer("normal_attack",time);
+        while(checkTimer("normal_attack") && currentHp>lowHp)
         {
             yield return new WaitForSeconds(0.5f);
             if(oritation>0) dire = ourTool.rotate_vector(new Vector2(0,-1),-45f);
@@ -67,20 +57,26 @@ public class a_ba : MonoBehaviour
         }
         shooter.SetActive(false);
         shooter.transform.position = ini_pos;
-        section++;
-        state = (int)State.idle;
+
+        resetPos();
     }
     IEnumerator riceAdditoin(float time)
     {
+        yield return new WaitWhile(() => recoverCheck==true);
+        yield return new WaitWhile(() => isMove()==true);
         GameObject shooter = transform.GetChild(0).gameObject,colone;
-        Vector2 ini_pos = shooter.transform.position,dire;
+        Transform player_t=GameObject.FindGameObjectWithTag("Player").transform;
+        Vector2 dire;
         Transform shooterTrans = shooter.transform;
         int colNum=3,bulletEachCol=5;
         float bulletInterval=0.4f,openAngle=30f;
         shooterTrans.localPosition = new Vector2(0,0);
-        clock.setTimer("addTimer",time);
-        while(clock.checkTimer("addTimer") && HP>limitHP)
+
+        setTimer("riceAdditoin",time);
+        while(checkTimer("riceAdditoin") && currentHp>lowHp)
         {
+            slowDownMove(new Vector2(player_t.position.x,transform.position.y)-(Vector2)transform.position,1f);
+            yield return new WaitWhile(()=> isMove()==true);
             yield return new WaitForSeconds(0.8f);
             dire = ourTool.rotate_vector(new Vector2(0,-1),-(openAngle/2));
             int layer = 0;
@@ -96,13 +92,12 @@ public class a_ba : MonoBehaviour
                 dire = ourTool.rotate_vector(dire,openAngle/(colNum-1));
             }
         }
-        shooter.transform.localPosition = ini_pos;
     }
     IEnumerator rice_sea(float time)
     {
-        sectionCheck[(int)State.riceSea] = true;
-        yield return new WaitForSeconds(1f); 
-        GameObject sc_manager = transform.GetChild(4).gameObject;
+        yield return new WaitWhile(() => recoverCheck==true);
+        yield return new WaitWhile(() => isMove()==true);
+        GameObject sc_manager = transform.GetChild(2).gameObject;
         GameObject[] sc_shooter = new GameObject[2];
         Transform[] tem = new Transform[2];
         for(int i=0;i<2;i++) 
@@ -113,10 +108,10 @@ public class a_ba : MonoBehaviour
         sc_shooter[0].transform.localPosition = new Vector2(-3.5f,5f);
         sc_shooter[1].transform.localPosition = new Vector2(3.5f,5f);
 
-        clock.setTimer("timer",time);
+        setTimer("rice_sea",time);
         GameObject colone;
         int layer=0,correct=-1;
-        while(clock.checkTimer("timer") && HP>limitHP)
+        while(checkTimer("rice_sea") && currentHp>lowHp)
         {
             yield return new WaitForSeconds(0.15f);
             sc_shooter[0].transform.position = new Vector3((-3.5f)+(1.5f)*Mathf.Sin(Time.time*2),tem[0].position.y,0);
@@ -137,53 +132,57 @@ public class a_ba : MonoBehaviour
                 correct*=(-1);
             }   
         }
+
+        resetPos();
         section++;
-        state = (int)State.idle;
     }
-    void setPos() // not complete yet
+    protected override void resetPos() // not complete yet
     {
-        sectionCheck[(int)State.setPos] = true;
-        transform.position = new Vector2(0,4);
-        state = (int)State.idle; 
+        if(useCard) sp.retriveTitle();
+        startRecover();
+        slowDownMove(oriPos-(Vector2)transform.position,0.5f);
+        useCard = !useCard;
     }
-    void stateMachine()
+    void RiceSea()
     {
-        if(state==(int)State.idle)
+        if(!sectionCheck[(int)SpellCard.riceSea,0] && !useCard)
         {
-            setPos();
-            if(section==0) state = (int)State.normalAttack;
-            else if(section==1) state = (int)State.riceSea;
-            else if(section==2) state = (int)State.sleep;
+            StartCoroutine(normal_attack(10f));
+            sectionCheck[(int)SpellCard.riceSea,0] = true;
+        }
+        else if(!sectionCheck[(int)SpellCard.riceSea,1] && useCard)
+        {
+            sp.startSmallize("稻符「黃金雨」",1f,0.75f);
+            bp.startMove(1f,0.75f);
+            StartCoroutine(riceAdditoin(10f));
+            StartCoroutine(rice_sea(10f));
+            sectionCheck[(int)SpellCard.riceSea,1] = true;
         }
     }
     void action()
     {
-        if(actionChecker)
+        if(actionCheck)
         {
-            if(state == (int)State.normalAttack && !sectionCheck[(int)State.normalAttack])
+            if(section==(int)SpellCard.riceSea)
             {
-                StartCoroutine(normal_attack(5f));
+                RiceSea();
             }
-            else if(state == (int)State.riceSea && !sectionCheck[(int)State.riceSea])
-            {
-                StartCoroutine(rice_sea(5f));
-                StartCoroutine(riceAdditoin(5f));
-            }
-            else if(state == (int)State.sleep)
-            {
-                actionChecker = false;
-            }
-
-            stateMachine();
+            else if(section==(int)SpellCard.spellCardNum) actionCheck = false;
         }
     }
-    public void active()
+    public override void active()
     {
-        actionChecker = true;
-        state = (int)State.idle;
-    }
-    public bool isRun()
-    {
-        return actionChecker;
+        oriPos = new Vector2(0,4);
+        for(int i=0;i<(int)SpellCard.spellCardNum;i++)
+        {
+            sectionCheck[i,0] = false;
+            sectionCheck[i,1] = false;
+        }
+        spellCardName[0,0] = "normal_attack";
+        spellCardName[0,1] = "rice_sea";
+        init(1050,262);
+        slowDownMove(oriPos-(Vector2)transform.position,0.5f);
+        useCard = false;
+        actionCheck = true;
     }
 }

@@ -35,6 +35,17 @@ public class PlayerBullet : MonoBehaviour, Ipooled{
             hitEnemy.takeDamage(bulletDamage);
             poolDespawn();
         }
+        if(other.gameObject.tag == "boss")
+        {
+            abstractBoss hitBoss = other.GetComponent<abstractBoss>();
+            if(hitBoss==null)
+            {
+                Debug.Log("shit");
+                return;
+            }
+            hitBoss.takeDamage(bulletDamage);
+            poolDespawn();
+        }
     }
     public void poolDespawn(){
         gameObject.SetActive(false);
@@ -47,13 +58,27 @@ public class PlayerBullet : MonoBehaviour, Ipooled{
         Vector2 position=transform.position;
         foreach(GameObject target in targets)
         {
-           Vector2 diff=(Vector2)target.transform.position-position;
-           float tem_dis=diff.sqrMagnitude;
-           if(tem_dis<distance)
-           {
+            Vector2 diff=(Vector2)target.transform.position-position;
+            float tem_dis=diff.sqrMagnitude;
+            if(tem_dis<distance)
+            {
                 closest_target=target;
                 distance=tem_dis;
-           }
+            }
+        }
+        if(closest_target==null)
+        {
+            targets = GameObject.FindGameObjectsWithTag("boss");
+            foreach(GameObject target in targets)
+            {
+                Vector2 diff=(Vector2)target.transform.position-position;
+                float tem_dis=diff.sqrMagnitude;
+                if(tem_dis<distance)
+                {
+                        closest_target=target;
+                        distance=tem_dis;
+                }
+            }
         }
         return closest_target;
     }
