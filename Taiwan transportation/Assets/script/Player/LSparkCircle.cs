@@ -19,8 +19,7 @@ public class LSparkCircle : MonoBehaviour
     }
     void OnTriggerEnter2D(Collider2D other){
         if(other.gameObject.tag == "enemy"){
-            normalEnemy hitEnemy = other.gameObject.GetComponent<normalEnemy>();
-                hitEnemy.takeDamage(damage);
+            other.gameObject.GetComponent<AbsNormalEnemy>().takeDamage(damage);
         }
     }
     private bool hitBorder(){

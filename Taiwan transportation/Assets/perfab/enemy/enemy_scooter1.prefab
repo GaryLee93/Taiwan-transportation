@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4687230898376053667}
-  - component: {fileID: 1112443527}
   m_Layer: 0
   m_Name: BulletShooter
   m_TagString: Untagged
@@ -31,28 +30,6 @@ Transform:
   m_Father: {fileID: 4687230899965180682}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1112443527
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4687230898376053666}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 377b42fe31b9f0744af9c2b006231201, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bullet: {fileID: 4835463618115493887, guid: c039c760771c0054fafd12833c2b6ad3, type: 3}
-  start_time: 0
-  end_time: 0
-  shoot_type: 0
-  shoot_angle_diff: 0
-  shoot_direction: {x: 0, y: 0}
-  shoot_interval: 1
-  shoot_count: 0
-  sector_angle: 0
-  shoot_at_player: 0
 --- !u!1 &4687230899965180694
 GameObject:
   m_ObjectHideFlags: 0
@@ -66,7 +43,7 @@ GameObject:
   - component: {fileID: 4687230899965180680}
   - component: {fileID: 3000483387036526713}
   - component: {fileID: 1774956821}
-  - component: {fileID: -1134910733697035476}
+  - component: {fileID: 6960329061792088307}
   m_Layer: 0
   m_Name: enemy_scooter1
   m_TagString: enemy
@@ -184,12 +161,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4687230899965180694}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c8c1f6ae2dd545d4eb3be1457c2820f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &-1134910733697035476
+--- !u!114 &6960329061792088307
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -198,8 +175,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4687230899965180694}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c889b61586238ea47b1becbe4151f104, type: 3}
+  m_Script: {fileID: 11500000, guid: 6ce07469ba1e65443bd6f9f60085d19f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyType: 0
-  health: 30
+  health: 20

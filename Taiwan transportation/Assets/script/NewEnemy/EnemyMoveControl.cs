@@ -49,23 +49,15 @@ public class EnemyMoveControl : MonoBehaviour
         MoveCheck = true;
         slowMoveCheck = true;
         timer = time;
-        slowMoveAccel = countAccel(displace,time);
+        slowMoveAccel = displace*(-2f)/(time*time);
         rb.velocity = iniVelcity(displace,time);
     }
     public bool isMove()
     {
         return MoveCheck;
     }
-    Vector2 countAccel(Vector2 d,float t)
-    {
-        return d*(-2f)/(t*t);
-    }
-    Vector2 iniVelcity(Vector2 d,float t)
-    {
-        Vector2 a = countAccel(d,t);
-        float x,y;
-        x = -a.x*t;
-        y = -a.y*t;
-        return new Vector2(x,y);
+    Vector2 iniVelcity(Vector2 d,float t){
+        Vector2 a = d*(-2f)/(t*t);
+        return new Vector2(a.x*t,-a.y*t);
     }
 }
