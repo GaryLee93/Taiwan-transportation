@@ -15,7 +15,8 @@ public class modeling_shoot : MonoBehaviour
     {   
         if(timer>=shoot_interval)
         {
-            if(Input.GetKey(KeyCode.Z)) shoot();
+            if(Input.GetKey(KeyCode.Z)) 
+                shoot();
             timer-=shoot_interval;
         }
         timer+=Time.fixedDeltaTime;

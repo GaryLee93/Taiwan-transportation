@@ -2,23 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BulletShooterModel : MonoBehaviour
+public class EnemyBulletShooter : MonoBehaviour
 {
-    objectPooler instance;
     [SerializeField] GameObject bullet;
-    public float start_time;
-    public float end_time;
-    public int shoot_type;
-    public float shoot_angle_diff;
-    public Vector2 shoot_direction;
-    public float shoot_interval;
-    public int shoot_count;
-    public float sector_angle;
-    public bool shoot_at_player;
+    float start_time;
+    float end_time;
+    int shoot_type;
+    float shoot_angle_diff;
+    Vector2 shoot_direction;
+    float shoot_interval;
+    int shoot_count;
+    float sector_angle;
+    bool shoot_at_player;
     float s_timer;
     void Start(){
         s_timer = 0;
-        instance=objectPooler.instance;
         if(shoot_type == 1){
             StartCoroutine(circle_shoot());
         }

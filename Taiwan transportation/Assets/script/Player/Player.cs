@@ -316,7 +316,6 @@ public class Player : MonoBehaviour{
         }
     }
     void refreshScoreText(){
-        
         StageObj.StageTexts["score"].GetComponent<Text>().text = "Score: " + score;
     }
 

@@ -31,8 +31,7 @@ public class PlayerBullet : MonoBehaviour, Ipooled{
     }
     private void OnTriggerEnter2D(Collider2D other){
         if(other.gameObject.tag == "enemy"){
-            normalEnemy hitEnemy = other.gameObject.GetComponent<normalEnemy>();
-            hitEnemy.takeDamage(bulletDamage);
+            other.gameObject.GetComponent<AbsNormalEnemy>().takeDamage(bulletDamage);
             poolDespawn();
         }
     }
