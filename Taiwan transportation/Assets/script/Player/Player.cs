@@ -125,6 +125,12 @@ public class Player : MonoBehaviour{
                 tmp_shooter.GetComponent<childPlane>().setPosition
                     (new Vector2(-0.3f +i*0.6f, 1f), new Vector2(-0.2f +i*0.4f, 1f), 0f);
                 shooterList.Add(tmp_shooter);
+
+                tmp_shooter = Instantiate(backChildPlane, transform);
+                tmp_shooter.GetComponent<childPlane>().setPosition
+                    (new Vector2(-1f +i*2f, -0.3f), new Vector2(-0.5f +i*1f, -0.5f), 0.15f);
+                tmp_shooter.GetComponent<childPlane>().setRotate(-60 +120*i);
+                shooterList.Add(tmp_shooter);
             }
         }
         else if(powerMode == 1){
@@ -141,13 +147,18 @@ public class Player : MonoBehaviour{
                 tmp_shooter.GetComponent<childPlane>().setRotate(-60 +120*i);
                 shooterList.Add(tmp_shooter);
             }
+            tmp_shooter = Instantiate(backChildPlane, transform);
+            tmp_shooter.GetComponent<childPlane>().setPosition
+                (new Vector2(0f, -1f), new Vector2(0f, -0.8f), 0.15f);
+            tmp_shooter.GetComponent<childPlane>().setRotate(60f);
+            shooterList.Add(tmp_shooter);
         }
         else if(powerMode == 2){
             destroyAllShooter();
             tmp_shooter = Instantiate(frontChildPlane, transform);
-                tmp_shooter.GetComponent<childPlane>().setPosition
-                    (new Vector2(0, 1), new Vector2(0, 1), 0);
-                shooterList.Add(tmp_shooter);
+            tmp_shooter.GetComponent<childPlane>().setPosition
+                (new Vector2(0, 1), new Vector2(0, 1), 0);
+            shooterList.Add(tmp_shooter);
 
             for(int i=0; i<2; i++){
                 tmp_shooter = Instantiate(frontChildPlane, transform);
@@ -161,6 +172,11 @@ public class Player : MonoBehaviour{
                 tmp_shooter.GetComponent<childPlane>().setRotate(-60 +120*i);
                 shooterList.Add(tmp_shooter);
             }
+            tmp_shooter = Instantiate(backChildPlane, transform);
+            tmp_shooter.GetComponent<childPlane>().setPosition
+                (new Vector2(0f, -1f), new Vector2(0f, -0.8f), 0.15f);
+            tmp_shooter.GetComponent<childPlane>().setRotate(60f);
+            shooterList.Add(tmp_shooter);
         }
         else if(powerMode == 3){
             destroyAllShooter();

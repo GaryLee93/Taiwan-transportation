@@ -87,7 +87,7 @@ MonoBehaviour:
   moveSpeed: 20
   XscaleSpeed: 3
   YscaleSpeed: 1
-  damage: 20
+  damage: 40
 --- !u!1 &4825820070341565028
 GameObject:
   m_ObjectHideFlags: 0

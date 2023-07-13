@@ -4,12 +4,15 @@ using UnityEngine;
 
 public class NormalScooter : AbsNormalEnemy
 {
-    enum MoveType{ TurnCircle, StopMove}
+    enum MoveType{Straight, TurnCircle, StopMove}
+    enum ShootType{Circle, Sector}
     MoveType moveType;
+    ShootType shootType;
     float move_timer, turn_delay, turn_time, turn_radius, turn_angle;
     Vector2 init_speed, new_speed;
     float slow_time, hold_time;
-    float shoot_timer;
+    
+    EnemyBulletShooter shooter;
     void Update(){
         if(hitBorder()){
             Destroy(gameObject);
@@ -40,6 +43,7 @@ public class NormalScooter : AbsNormalEnemy
         }
         move_timer += Time.fixedDeltaTime;
     }
+    #region Moving
     public void setTurnCircle(Vector2 initVel, float radius, float delayTime, float angle){
         moveType = MoveType.TurnCircle;
         move_timer = 0;
@@ -56,6 +60,58 @@ public class NormalScooter : AbsNormalEnemy
         slow_time = slowTime;
         hold_time = holdTime;
         new_speed = newVel;
+    }
+    public void setStraightMove(Vector2 vel){
+        moveType = MoveType.Straight;
+        GetComponent<Rigidbody2D>().velocity = vel;
+    }
+    #endregion
+
+    public void setShootCircle(Vector2 direction, int count, bool aim, float delay, float interval, int number){
+        StartCoroutine(startShootCircle(direction, count, aim, delay, interval, number));
+    }
+    IEnumerator startShootCircle(Vector2 direction, int count, bool aim, float delay, float interval, int number){
+        shooter = GetComponentInChildren<EnemyBulletShooter>();
+        yield return new WaitForSeconds(delay);
+        YieldInstruction wtime = new WaitForSeconds(interval);
+
+        if(number <0){
+            while(true){
+                shooter.shoot_circle_bullet(direction, count, aim);
+                number --;
+                yield return wtime;
+            }
+        }
+        else{
+            while(number>0){
+                shooter.shoot_circle_bullet(direction, count, aim);
+                number --;
+                yield return wtime;
+            }
+        }
+    }
+    public void setShootSector(Vector2 direction, int count, float angle, bool aim, float delay, float interval, int number){
+        StartCoroutine(startShootSector(direction, count, angle, aim, delay, interval, number));
+    }
+    IEnumerator startShootSector(Vector2 direction, int count, float angle, bool aim, float delay, float interval, int number){
+        shooter = GetComponentInChildren<EnemyBulletShooter>();
+        yield return new WaitForSeconds(delay);
+        YieldInstruction wtime = new WaitForSeconds(interval);
+
+        if(number <0){
+            while(true){
+                shooter.shoot_sector_bullet(direction, count, angle, aim);
+                number --;
+                yield return wtime;
+            }
+        }
+        else{
+            while(number>0){
+                shooter.shoot_sector_bullet(direction, count, angle, aim);
+                number --;
+                yield return wtime;
+            }
+        }
     }
     public override void die(){
         summonDrop(5, "score");

@@ -40,6 +40,7 @@ public class Stage1 : MonoBehaviour
         for(int i=0; i<3; i++){
             enemy = Instantiate(StageObj.Enemies["scooter"], new Vector2(-4 +i*4f , 7f), transform.rotation);
             enemy.GetComponent<NormalScooter>().setStopMove(new Vector2(0, -3), 1, 3, new Vector2(0, -2));
+            enemy.GetComponent<NormalScooter>().setShootSector(new Vector2(0, -1.5f), 5, 60f, false, 0.4f, 0.2f, 5);
             yield return delayTime;
         }
         yield return delayOneSec;
@@ -48,6 +49,8 @@ public class Stage1 : MonoBehaviour
         for(int i=0; i<5; i++){
             enemy = Instantiate(StageObj.Enemies["scooter"], new Vector2(-4, 7f), transform.rotation);
             enemy.GetComponent<NormalScooter>().setTurnCircle(new Vector2(0, -3f), 2f, 0.5f, 90f);
+            enemy.GetComponent<NormalScooter>().setShootCircle(
+                ourTool.vectorToPlayer(enemy).normalized *2, 3, true, 0.3f, 1f, 1);
             yield return delayTime;
         }
         yield return delayOneSec;
@@ -55,6 +58,8 @@ public class Stage1 : MonoBehaviour
         for(int i=0; i<5; i++){
             enemy = Instantiate(StageObj.Enemies["scooter"], new Vector2(4, 7f), transform.rotation);
             enemy.GetComponent<NormalScooter>().setTurnCircle(new Vector2(0, -3f), 2f, 0.5f, -90f);
+            enemy.GetComponent<NormalScooter>().setShootCircle(
+                ourTool.vectorToPlayer(enemy).normalized *2, 3, true, 0.3f, 1f, 1);
             yield return delayTime;
         }
         yield return delayOneSec;

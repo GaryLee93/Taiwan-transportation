@@ -146,4 +146,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletType: 0
   bulletSpeed: 40
-  bulletDamage: 1
+  bulletDamage: 2
