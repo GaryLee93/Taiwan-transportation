@@ -2,17 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyBullet : MonoBehaviour
+public class EnemyBullet : MonoBehaviour, Ipooled
 {
     public bool isGrazed;
-    void Start()
-    {
-        
-    }
+    public void onBulletSpawn(){
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+    }
+    public void poolDespawn(){
+        gameObject.SetActive(false);
     }
 }

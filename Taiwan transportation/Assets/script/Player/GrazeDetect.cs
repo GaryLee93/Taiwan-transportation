@@ -26,9 +26,6 @@ public class GrazeDetect : MonoBehaviour
     }
 
     void refreshGrazeText(){
-        if(StageObj.StageTexts == null){
-            Debug.Log("null 1");
-        }
         StageObj.StageTexts["graze"].GetComponent<Text>().text = "Graze: " + grazeCount;
     }
 }

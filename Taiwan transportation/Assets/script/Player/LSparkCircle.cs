@@ -21,6 +21,12 @@ public class LSparkCircle : MonoBehaviour
         if(other.gameObject.tag == "enemy"){
             other.gameObject.GetComponent<AbsNormalEnemy>().takeDamage(damage);
         }
+        else if(other.gameObject.tag == "boss"){
+            other.gameObject.GetComponent<abstractBoss>().takeDamage(damage);
+        }
+        else if(other.gameObject.tag == "enemy_bullet"){
+            other.gameObject.GetComponent<Ipooled>().poolDespawn();
+        }
     }
     private bool hitBorder(){
         const float XBORDER = 6.7f, YBORDER = 8f;

@@ -6,16 +6,9 @@ public class NormalScooter : AbsNormalEnemy
 {
     enum MoveType{ TurnCircle, StopMove}
     MoveType moveType;
-    float move_timer;
-    float turn_delay;
-    float turn_time;
-    float turn_radius;
-    float turn_angle;
-    Vector2 init_speed;
-    float slow_time;
-    float hold_time;
-    Vector2 new_speed;
-
+    float move_timer, turn_delay, turn_time, turn_radius, turn_angle;
+    Vector2 init_speed, new_speed;
+    float slow_time, hold_time;
     float shoot_timer;
     void Update(){
         if(hitBorder()){
