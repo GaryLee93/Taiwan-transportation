@@ -4,7 +4,7 @@ using UnityEngine;
 
 public abstract class abstractBoss : MonoBehaviour
 {
-    private bool MoveCheck;
+    private bool MoveCheck,noDemageMode;
     private Vector2 moveAccel;
     private Dictionary<string,float> timers;
     protected bool actionCheck,recoverCheck,useCard;
@@ -27,15 +27,16 @@ public abstract class abstractBoss : MonoBehaviour
             }
         }  
         #endregion
+        
+        #region noDemageMode
+        if(noDemageMode&&!checkTimer("OPMode")) noDemageMode = false;
+        #endregion
         recover();
         slowDown(moveAccel);
     }
     void slowDown(Vector2 accel) //slowDown to velocity is zero
     {
-        if(checkTimer("Move"))
-        {
-            rb.velocity += accel*Time.fixedDeltaTime;
-        }
+        if(checkTimer("Move")) rb.velocity += accel*Time.fixedDeltaTime;
         else 
         {
             rb.velocity = new Vector2(0f,0f);
@@ -47,18 +48,15 @@ public abstract class abstractBoss : MonoBehaviour
     {
         if(recoverCheck)
         {
-            if(GetComponent<BoxCollider2D>().enabled)
-            {
-                GetComponent<BoxCollider2D>().enabled = false;
-            }
-            currentHp += 8;
+            float recoverValue = ((float)MaxHp)/0.5f;
+            currentHp += (int)recoverValue;
             healthBar.setHP(currentHp);
             if(currentHp>=MaxHp)
             {
                 currentHp = MaxHp;
                 healthBar.setHP(MaxHp);
                 recoverCheck = false;
-                GetComponent<BoxCollider2D>().enabled = true;
+                noDemageMode = false;
             }
         }
         else return;
@@ -102,6 +100,7 @@ public abstract class abstractBoss : MonoBehaviour
     }
     protected void startRecover()
     {
+        noDemageMode = true;
         recoverCheck = true;
     }
     protected bool checkTimer(string name)
@@ -119,8 +118,14 @@ public abstract class abstractBoss : MonoBehaviour
     }
     public void takeDamage(int damage)
     {
+        if(noDemageMode) return;
         currentHp -= damage;
         healthBar.setHP(currentHp);
+    }
+    public void OPMode(float time)
+    {
+        noDemageMode = true;
+        setTimer("OPMode",time);
     }
     public abstract void active();
 }

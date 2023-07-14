@@ -13,7 +13,6 @@ public class FPScounter : MonoBehaviour
     private void Start() 
     {
         Application.targetFrameRate=60;
-
     }
     private void Update()
     {
