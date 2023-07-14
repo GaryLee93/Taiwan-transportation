@@ -16,7 +16,7 @@ public abstract class AbsNormalEnemy : MonoBehaviour
         GameObject cb;
         for(int i=0; i<count; i++){
             cb = Instantiate(StageObj.Collectables[type], transform.position, transform.rotation);
-            cb.GetComponent<Rigidbody2D>().velocity = new Vector2(Random.Range(-1f, 1f), Random.Range(3f, 5f));
+            cb.GetComponent<Rigidbody2D>().velocity = new Vector2(Random.Range(-1f, 1f), Random.Range(3.5f, 5f));
         }
     }
     public abstract void die();

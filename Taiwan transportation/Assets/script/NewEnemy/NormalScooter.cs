@@ -37,9 +37,13 @@ public class NormalScooter : AbsNormalEnemy
             else if(move_timer <= slow_time+hold_time){
                 GetComponent<Rigidbody2D>().velocity = Vector2.zero;
             }
+            else if(move_timer <= 2*slow_time+hold_time){
+                GetComponent<Rigidbody2D>().velocity = init_speed*(move_timer-slow_time-hold_time)/slow_time;
+            }
             else{
                 GetComponent<Rigidbody2D>().velocity = new_speed;
             }
+
         }
         move_timer += Time.fixedDeltaTime;
     }
@@ -114,8 +118,8 @@ public class NormalScooter : AbsNormalEnemy
         }
     }
     public override void die(){
-        summonDrop(5, "score");
-        summonDrop(3, "power");
+        summonDrop(Random.Range(1, 5), "score");
+        summonDrop(Random.Range(1, 3), "power");
         Destroy(gameObject);
     }
    
