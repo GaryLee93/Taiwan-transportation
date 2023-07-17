@@ -42,7 +42,7 @@ public class a_ba : abstractBoss
                 {
                     if(oritation>0)
                     {
-                        clone = objectPooler.spawnFromPool("red_bullet",(Vector2)tem.position+dire*(bulletInterval*j),tem.rotation);
+                        clone = objectPooler.spawnFromPool("red_mid_round",(Vector2)tem.position+dire*(bulletInterval*j),tem.rotation);
                         clone.GetComponent<Rigidbody2D>().velocity = dire*5;
                     }
                     else 

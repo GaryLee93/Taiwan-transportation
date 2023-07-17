@@ -11,10 +11,18 @@ PrefabInstance:
       propertyPath: shooterBullet
       value: 
       objectReference: {fileID: 419098679712936940, guid: 647a675751ab5404fad81f1a7306e556, type: 3}
+    - target: {fileID: 1398741518589168456, guid: c028b133c8fda8140860031605aab978, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4687230899965180681, guid: c028b133c8fda8140860031605aab978, type: 3}
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: 5342d34450fcdc2429a29fa58be9d69a, type: 3}
+    - target: {fileID: 4687230899965180681, guid: c028b133c8fda8140860031605aab978, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4687230899965180682, guid: c028b133c8fda8140860031605aab978, type: 3}
       propertyPath: m_RootOrder
       value: 0

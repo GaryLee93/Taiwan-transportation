@@ -12,8 +12,6 @@ GameObject:
   - component: {fileID: 9057698087112095365}
   - component: {fileID: 4107756901737128899}
   - component: {fileID: -3208371801505371332}
-  - component: {fileID: 2244301805294530337}
-  - component: {fileID: 4649336864997130408}
   - component: {fileID: 8858130771340297808}
   m_Layer: 0
   m_Name: red_mid_round
@@ -123,34 +121,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.21333334
---- !u!114 &2244301805294530337
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4835463618115493887}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f5fc9f8a5cafd904cb9c2aa9323506cc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  b_SpeedVector: {x: 0, y: 0}
-  angle_diff: 0
-  b_MoveType: 0
---- !u!114 &4649336864997130408
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4835463618115493887}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c8c1f6ae2dd545d4eb3be1457c2820f8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Radius: 0.18
 --- !u!114 &8858130771340297808
 MonoBehaviour:
   m_ObjectHideFlags: 0
