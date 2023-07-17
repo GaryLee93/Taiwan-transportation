@@ -36,7 +36,12 @@ public class MissBang : abstractBoss
         {
             if(section==(int)SpellCard.brockenCar) BrockenCar();
             else if(section==(int)SpellCard.glassRain) GlassRain();
-            else if(section==(int)SpellCard.spellCardNum) actionCheck = false;
+            else if(section==(int)SpellCard.spellCardNum) 
+            {
+                actionCheck = false;
+                deadAnimation.Play();
+                clock.concellSpellCardTimer();
+            }
         }
     }
     void GlassRain()
@@ -133,12 +138,10 @@ public class MissBang : abstractBoss
         }
 
         //finish
-        resetPos();
         section++;
         useCard = false;
         sp.retriveTitle();
         StageObj.eraseAllBullet();
-        deadAnimation.Play();
     }
     IEnumerator brockenCar(float time)
     {

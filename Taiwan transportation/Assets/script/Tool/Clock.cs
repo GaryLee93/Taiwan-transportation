@@ -64,4 +64,10 @@ public class Clock : MonoBehaviour
         remainTime.text = spellCardTimer.ToString("f2");
         spellCardCount = true;
     } 
+    public void concellSpellCardTimer()
+    {
+        remainTime.enabled = false;
+        spellCardTimer = 0f;
+        spellCardCount = false;
+    }
 }
