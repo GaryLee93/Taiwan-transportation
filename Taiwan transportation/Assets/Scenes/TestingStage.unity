@@ -1464,7 +1464,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   summonTime: 1
   time_text: {fileID: 0}
-  next_stage: Stage_2
   stageTimer: 0
 --- !u!4 &1316187510
 Transform:
@@ -2584,6 +2583,10 @@ PrefabInstance:
       propertyPath: m_Text
       value: "\u3110\u3110"
       objectReference: {fileID: 0}
+    - target: {fileID: 2591474509141659030, guid: 9844cc2ba2b6df748b0f9138fa432d21, type: 3}
+      propertyPath: m_FontData.m_MaxSize
+      value: 88
+      objectReference: {fileID: 0}
     - target: {fileID: 2591474509187570870, guid: 9844cc2ba2b6df748b0f9138fa432d21, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -2683,11 +2686,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 7127380754649383178, guid: df00e3fec1f9c384f843c9d6adb33153, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7127380754649383178, guid: df00e3fec1f9c384f843c9d6adb33153, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7127380755122180705, guid: df00e3fec1f9c384f843c9d6adb33153, type: 3}
       propertyPath: m_RootOrder
@@ -2739,7 +2742,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7127380755122180719, guid: df00e3fec1f9c384f843c9d6adb33153, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: df00e3fec1f9c384f843c9d6adb33153, type: 3}
