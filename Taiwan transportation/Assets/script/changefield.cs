@@ -22,7 +22,7 @@ public class changefield : MonoBehaviour
         {
             t=false;
             vp.Play();
-            clock.setTimer("flame",0.05f); 
+            clock.setTimer("flame",0.1f); 
             f=true;
         }
         if(f && !clock.checkTimer("flame"))

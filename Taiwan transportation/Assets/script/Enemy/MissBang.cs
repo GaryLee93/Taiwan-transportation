@@ -16,6 +16,7 @@ public class MissBang : abstractBoss
     {
         deadAnimation = GetComponent<VideoPlayer>();
         an = GetComponent<Animator>();
+        clock = Clock.clockInstance;
         for(int i=0;i<(int)SpellCard.spellCardNum;i++)
         {
             sectionCheck[i,0] = false;
