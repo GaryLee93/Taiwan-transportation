@@ -7,7 +7,7 @@ public class objectPooler : MonoBehaviour
     [System.Serializable]
     public class pool
     {
-        public string tag;
+        public string name;
         public GameObject perfab;
         public int size;
     }
@@ -34,7 +34,7 @@ public class objectPooler : MonoBehaviour
                 obj.SetActive(false);
                 objectPool.Enqueue(obj);
             }
-            poolDictionary.Add(p.tag,objectPool);
+            poolDictionary.Add(p.name,objectPool);
         }
     }
 
@@ -42,11 +42,13 @@ public class objectPooler : MonoBehaviour
     {
         if(!instance.poolDictionary.ContainsKey(tag))
         {
-            Debug.LogWarning("Pool with  tag "+tag+" doesn't exist");
+            Debug.LogWarning("沒有 "+tag+" 的物件池ㄛ");
             return null;
         }
         GameObject objectToSpawn = instance.poolDictionary[tag].Dequeue();
-
+        if(objectToSpawn.activeSelf == true){
+            Debug.LogWarning("物件池 " +tag +" 數量不足ㄛ");
+        }
         objectToSpawn.SetActive(true);
         objectToSpawn.transform.position=position;
         objectToSpawn.transform.rotation=rotation;

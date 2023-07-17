@@ -145,6 +145,7 @@ GameObject:
   - component: {fileID: 3909308229610190464}
   - component: {fileID: 3909308229610190465}
   - component: {fileID: 3909308229610190492}
+  - component: {fileID: 862053506}
   m_Layer: 0
   m_Name: check_point
   m_TagString: Untagged
@@ -206,8 +207,8 @@ SpriteRenderer:
   m_SortingLayerID: -830411337
   m_SortingLayer: 3
   m_SortingOrder: 10
-  m_Sprite: {fileID: -2413806693520163455, guid: ebe73ca9363db456bacf42c025bb4847, type: 3}
-  m_Color: {r: 0.9339623, g: 0.17093267, b: 0.17093267, a: 1}
+  m_Sprite: {fileID: 21300000, guid: bf6f0f91c3241e9469d84d54af0637de, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -229,6 +230,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ebc9fe642c8cb87439ba39fe7d75fb6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fadeTime: 0.1
+--- !u!58 &862053506
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3909308229610190467}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.53333336
 --- !u!1 &3909308229628790367
 GameObject:
   m_ObjectHideFlags: 0
@@ -239,7 +257,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3909308229628790365}
   - component: {fileID: 3909308229628790364}
-  - component: {fileID: 3909308229628790363}
   - component: {fileID: 3909308229628790361}
   - component: {fileID: 3909308229628790362}
   m_Layer: 0
@@ -305,7 +322,7 @@ SpriteRenderer:
   m_SortingLayerID: -830411337
   m_SortingLayer: 3
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: 76d9648cef03b68489d7d3d5078b6d32, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 44f28e5ac0297c042bba3e080fe43b5c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -316,22 +333,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!58 &3909308229628790363
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3909308229628790367}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 0.1
 --- !u!50 &3909308229628790361
 Rigidbody2D:
   serializedVersion: 4
@@ -369,9 +370,9 @@ MonoBehaviour:
   backChildPlane: {fileID: 4676131433004289072, guid: 87695f716157ce543b1f3e4eed2ea1e2, type: 3}
   frontChildPlane: {fileID: 6599438536435490656, guid: a425eadb9ebdf434fae6d0ead698a89b, type: 3}
   loudSpark: {fileID: 8715262105749197222, guid: b0157b02e3121cd479adabb2b74c8982, type: 3}
-  middleSprite: {fileID: 21300000, guid: 76d9648cef03b68489d7d3d5078b6d32, type: 3}
-  leftSprite: {fileID: 21300000, guid: 0ef65f2b4bc578548a8af86c0a990385, type: 3}
-  rightSprite: {fileID: 21300000, guid: 0fa005aec5ad8ce4bb5eb46f1955c691, type: 3}
+  middleSprite: {fileID: 21300000, guid: 44f28e5ac0297c042bba3e080fe43b5c, type: 3}
+  leftSprite: {fileID: 21300000, guid: 9ae1372125b8d52409ab2ee177cdd5a5, type: 3}
+  rightSprite: {fileID: 21300000, guid: d9fac71e3f3974d4395f2be724c63706, type: 3}
   power: 400
   powerMode: 0
   normal_speed: 10
