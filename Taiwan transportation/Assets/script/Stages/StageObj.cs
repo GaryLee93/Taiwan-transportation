@@ -44,7 +44,14 @@ public class StageObj : MonoBehaviour
             StageTexts.Add(text_arr[i].name, text_arr[i].gameobj);
         }
     }
-
+    public static void eraseAllBullet()
+    {
+        GameObject[] bullets = GameObject.FindGameObjectsWithTag("enemy_bullet");
+        foreach(var bullet in bullets)
+        {
+            bullet.GetComponent<EnemyBullet>().poolDespawn();
+        }
+    }
     /*
     How to use:
         example:

@@ -57,8 +57,6 @@ public class a_ba : abstractBoss
         }
         shooter.SetActive(false);
         shooter.transform.position = ini_pos;
-
-        resetPos();
     }
     IEnumerator riceAdditoin(float time)
     {
@@ -153,7 +151,7 @@ public class a_ba : abstractBoss
         else if(!sectionCheck[(int)SpellCard.riceSea,1] && useCard)
         {
             sp.startSmallize("稻符「黃金雨」",1f,0.75f);
-            bp.startMove(1f,0.75f);
+            bp.startMove("taxi",1f,0.75f);
             StartCoroutine(riceAdditoin(10f));
             StartCoroutine(rice_sea(10f));
             sectionCheck[(int)SpellCard.riceSea,1] = true;
