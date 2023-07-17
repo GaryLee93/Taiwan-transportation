@@ -42,12 +42,12 @@ public class a_ba : abstractBoss
                 {
                     if(oritation>0)
                     {
-                        clone = objectPooler.spawnFromPool("red_bullet",(Vector2)tem.position+dire*(bulletInterval*j),tem.rotation,null);
+                        clone = objectPooler.spawnFromPool("red_bullet",(Vector2)tem.position+dire*(bulletInterval*j),tem.rotation);
                         clone.GetComponent<Rigidbody2D>().velocity = dire*5;
                     }
                     else 
                     {
-                        clone = objectPooler.spawnFromPool("orange_bullet",(Vector2)tem.position+dire*(bulletInterval*j),tem.rotation,null);
+                        clone = objectPooler.spawnFromPool("orange_bullet",(Vector2)tem.position+dire*(bulletInterval*j),tem.rotation);
                         clone.GetComponent<Rigidbody2D>().velocity = dire*5;
                     } 
                 }
@@ -82,7 +82,7 @@ public class a_ba : abstractBoss
             {
                 for(int j=0;j<bulletEachCol;j++)
                 {
-                    colone = objectPooler.spawnFromPool("red_bullet",(Vector2)shooterTrans.position+dire*(1+bulletInterval*j),shooterTrans.rotation,null);
+                    colone = objectPooler.spawnFromPool("red_bullet",(Vector2)shooterTrans.position+dire*(1+bulletInterval*j),shooterTrans.rotation);
                     colone.GetComponent<SpriteRenderer>().sortingOrder = layer;
                     colone.GetComponent<Rigidbody2D>().velocity = dire*5;
                     layer++;
@@ -116,13 +116,13 @@ public class a_ba : abstractBoss
             sc_shooter[1].transform.position = new Vector3((3.5f)+(1.5f)*Mathf.Sin(Time.time*2),tem[1].position.y,0);
             for(int i=0;i<2;i++)
             {
-                colone = objectPooler.spawnFromPool("rice",tem[i].position,tem[i].rotation,gameObject);
+                colone = objectPooler.spawnFromPool("rice",tem[i].position,tem[i].rotation);
                 colone.transform.Rotate(new Vector3(0,0,90*correct),Space.Self);
                 colone.GetComponent<Rigidbody2D>().velocity = new Vector3(0,-5,0);
                 colone.GetComponent<SpriteRenderer>().sortingOrder = layer;
                 layer++;
 
-                colone = objectPooler.spawnFromPool("rice",tem[i].position+new Vector3(2,0,0)*correct,tem[i].rotation,gameObject);
+                colone = objectPooler.spawnFromPool("rice",tem[i].position+new Vector3(2,0,0)*correct,tem[i].rotation);
                 colone.transform.Rotate(new Vector3(0,0,90*correct),Space.Self);
                 colone.GetComponent<Rigidbody2D>().velocity = new Vector3(0,-5,0);
                 colone.GetComponent<SpriteRenderer>().sortingOrder = layer;

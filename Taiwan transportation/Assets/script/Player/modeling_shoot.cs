@@ -22,8 +22,7 @@ public class modeling_shoot : MonoBehaviour
         timer+=Time.fixedDeltaTime;
     }
     public void shoot(){
-        objectPooler.spawnFromPool(bullet.name,transform.position,
-        transform.rotation,null);
+        objectPooler.spawnFromPool(bullet.name,transform.position,transform.rotation);
     }
     
 }

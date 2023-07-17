@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 7127380755122180707}
   - component: {fileID: 7127380755122180706}
   - component: {fileID: 7127380755122180710}
+  - component: {fileID: 1085182500}
   m_Layer: 0
   m_Name: "\u8E66\u8E66\u59D0"
   m_TagString: boss
@@ -77,8 +78,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1735066751
+  m_SortingLayer: 6
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 4ce838650c252d54297323fcb87700a0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -170,9 +171,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 276dc70c30a3c9548ad0d0e73c832190, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  normal_bullet_1: {fileID: 636635565939304002, guid: b093458ebda700748ac87ef45a446de7, type: 3}
-  backMirror: {fileID: 3005354162642553636, guid: 3c49f2afe32d462408b6ca9940c34556, type: 3}
   healthBar: {fileID: 7127380755510945113}
+  backMirror: {fileID: 3005354162642553636, guid: 3c49f2afe32d462408b6ca9940c34556, type: 3}
 --- !u!114 &7127380755122180710
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -185,6 +185,41 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8c1f6ae2dd545d4eb3be1457c2820f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!328 &1085182500
+VideoPlayer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7127380755122180719}
+  m_Enabled: 1
+  m_VideoClip: {fileID: 32900000, guid: 7d954fd6d667dfd45aef5e8ab294d2a1, type: 3}
+  m_TargetCameraAlpha: 1
+  m_TargetCamera3DLayout: 0
+  m_TargetCamera: {fileID: 0}
+  m_TargetTexture: {fileID: 0}
+  m_TimeReference: 0
+  m_TargetMaterialRenderer: {fileID: 0}
+  m_TargetMaterialProperty: _MainTex
+  m_RenderMode: 3
+  m_AspectRatio: 2
+  m_DataSource: 0
+  m_PlaybackSpeed: 1
+  m_AudioOutputMode: 2
+  m_TargetAudioSources:
+  - {fileID: 0}
+  m_DirectAudioVolumes:
+  - 0.5
+  m_Url: 
+  m_EnabledAudioTracks: 01
+  m_DirectAudioMutes: 00
+  m_ControlledAudioTrackCount: 1
+  m_PlayOnAwake: 0
+  m_SkipOnDrop: 1
+  m_Looping: 0
+  m_WaitForFirstFrame: 0
+  m_FrameReadyEventEnabled: 0
+  m_VideoShaders: []
 --- !u!1001 &3401888399603852241
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -192,6 +227,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7127380755122180705}
     m_Modifications:
+    - target: {fileID: 2172660364918384652, guid: 57f206e4eef7be04885553ea42e4b73b, type: 3}
+      propertyPath: m_AdditionalShaderChannelsFlag
+      value: 25
+      objectReference: {fileID: 0}
     - target: {fileID: 4819088296820649673, guid: 57f206e4eef7be04885553ea42e4b73b, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5

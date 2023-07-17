@@ -30,7 +30,7 @@ public class objectPooler : MonoBehaviour
             Queue<GameObject> objectPool = new Queue<GameObject>();
             for(int i=0;i<p.size;i++)
             {
-                GameObject obj = Instantiate(p.perfab);
+                GameObject obj = Instantiate(p.perfab, transform);
                 obj.SetActive(false);
                 objectPool.Enqueue(obj);
             }
@@ -38,7 +38,7 @@ public class objectPooler : MonoBehaviour
         }
     }
 
-    public static GameObject spawnFromPool(string tag,Vector2 position,Quaternion rotation,GameObject newParent)
+    public static GameObject spawnFromPool(string tag,Vector2 position,Quaternion rotation)
     {
         if(!instance.poolDictionary.ContainsKey(tag))
         {
@@ -62,4 +62,10 @@ public class objectPooler : MonoBehaviour
         instance.poolDictionary[tag].Enqueue(objectToSpawn);
         return objectToSpawn;
     }
+
+    public static GameObject spawnFromPool(GameObject objToSpawn,Vector2 position,Quaternion rotation)
+    {
+        return spawnFromPool(objToSpawn.name, position, rotation);
+    }
+        
 }

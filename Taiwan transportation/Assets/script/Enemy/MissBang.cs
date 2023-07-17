@@ -98,8 +98,8 @@ public class MissBang : abstractBoss
                 else if(!isMove() && transform.position.x>=0) slowDownMove(new Vector2(-3,0),1f);
 
                 yield return new WaitForSeconds(0.01f);
-                colone = objectPooler.spawnFromPool("enemy_bullet",shooter.transform.position,
-                shooter.transform.rotation,gameObject);
+                colone = objectPooler.spawnFromPool("red_mid_round",shooter.transform.position,
+                shooter.transform.rotation);
                 colone.GetComponent<SpriteRenderer>().sortingOrder = layer;
                 colone.GetComponent<Rigidbody2D>().velocity = 3*dire;
                 dire = ourTool.trans_matrix(dire,ourTool.eulerToRadian(360/bulletEachCircle));
@@ -165,7 +165,7 @@ public class MissBang : abstractBoss
                 {
                     if(j>2)
                     {
-                        clone = objectPooler.spawnFromPool("aqua_bullet",(Vector2)tem.position+dire*(i),tem.rotation,null);
+                        clone = objectPooler.spawnFromPool("aqua_bullet",(Vector2)tem.position+dire*(i),tem.rotation);
                         clone.GetComponent<SpriteRenderer>().sortingOrder = layer;
                         clone.GetComponent<Rigidbody2D>().velocity = dire*2;
                     }

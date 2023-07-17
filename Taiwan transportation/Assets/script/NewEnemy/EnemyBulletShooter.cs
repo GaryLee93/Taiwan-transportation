@@ -15,7 +15,7 @@ public class EnemyBulletShooter : MonoBehaviour
         
         for(int i=0; i<count; i++){
             GameObject newBullet = objectPooler.spawnFromPool(
-                shooterBullet.name,transform.position,transform.rotation, null);
+                shooterBullet.name,transform.position,transform.rotation);
             newBullet.GetComponent<Rigidbody2D>().velocity = tmp_direction;
             tmp_direction = ourTool.rotate_vector(tmp_direction, 360f/count);
         }
@@ -31,7 +31,7 @@ public class EnemyBulletShooter : MonoBehaviour
             tmp_direction = ourTool.rotate_vector(direction, -angle);
             for(int i=0; i<count; i++){
                 GameObject newBullet = objectPooler.spawnFromPool(
-                    shooterBullet.name,transform.position,transform.rotation, null);
+                    shooterBullet.name,transform.position,transform.rotation);
                 newBullet.GetComponent<Rigidbody2D>().velocity = tmp_direction;
                 tmp_direction = ourTool.rotate_vector(tmp_direction, 2*angle/(count-1));
             }
@@ -44,7 +44,7 @@ public class EnemyBulletShooter : MonoBehaviour
                 tmp_direction = direction;
 
             GameObject newBullet = objectPooler.spawnFromPool(shooterBullet.name,
-                transform.position,transform.rotation, null);
+                transform.position,transform.rotation);
             newBullet.GetComponent<Rigidbody2D>().velocity = tmp_direction;
         }
     }
