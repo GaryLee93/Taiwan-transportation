@@ -1,23 +1,88 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.Video;
 public class a_ba : abstractBoss
 {
-    GameObject player;
     Vector2 oriPos;
-
+    VideoPlayer deadAnimation;
     bool[,] sectionCheck = new bool[(int)SpellCard.spellCardNum,2]; 
-    string[,] spellCardName = new string[(int)SpellCard.spellCardNum,2];
     private enum SpellCard{riceSea,spellCardNum}
-    void Start()
+    private void Start()
     {
+        deadAnimation = GetComponent<VideoPlayer>();
         active();
     }
-    void Update() 
+    private void Update() 
     {
         action();
-    }    
+    }  
+    private void RiceSea()
+    {
+        if(!sectionCheck[(int)SpellCard.riceSea,0] && !useCard)
+        {
+            setLowHp(MaxHp/2);
+            StartCoroutine(normal_attack(30f));
+            clock.setSpellCardTimer(30f);
+            sectionCheck[(int)SpellCard.riceSea,0] = true;
+        }
+        else if(!sectionCheck[(int)SpellCard.riceSea,1] && useCard)
+        {
+            StageObj.eraseAllBullet();
+            OPMode(2f);
+            setLowHp(-1);
+            bp.startMove("taxi",1f,0.75f);
+            sp.startSmallize("稻符「黃金雨」",1f,0.75f);
+            //StartCoroutine(riceAdditoin(10f));
+            StartCoroutine(rice_sea(30f));
+            clock.setSpellCardTimer(30f);
+            sectionCheck[(int)SpellCard.riceSea,1] = true;
+        }
+    }
+    private void action()
+    {
+        if(actionCheck)
+        {
+            if(section==(int)SpellCard.riceSea)
+            {
+                RiceSea();
+            }
+            else if(section==(int)SpellCard.spellCardNum) 
+            {
+                die();
+            }
+        }
+    }
+    
+    protected override void die()
+    {
+        deadAnimation.Play();
+        actionCheck = false;
+        StageObj.eraseAllBullet();
+        transform.Find("HpCanva").gameObject.SetActive(false);
+    }  
+    protected override void resetPos() // not complete yet
+    {
+        if(useCard) sp.retriveTitle();
+        startRecover();
+        slowDownMove(oriPos-(Vector2)transform.position,0.5f);
+        useCard = !useCard;
+    }
+    
+    public override void active()
+    {
+        oriPos = new Vector2(0,4);
+        for(int i=0;i<(int)SpellCard.spellCardNum;i++)
+        {
+            sectionCheck[i,0] = false;
+            sectionCheck[i,1] = false;
+        }
+        init(1050);
+        slowDownMove(oriPos-(Vector2)transform.position,0.5f);
+        useCard = false;
+        actionCheck = true;
+    }
+    
     IEnumerator normal_attack(float time)
     {
         yield return new WaitWhile(() => isMove()==true);
@@ -37,9 +102,11 @@ public class a_ba : abstractBoss
             else dire = ourTool.rotate_vector(new Vector2(0,-1),45f+openAngle/(2*colNum));
             for(int i=0;i<colNum;i++)
             {
-                if(i==colNum-1 && oritation>0) break;
+                if((i==colNum-1 && oritation>0) || currentHp<lowHp) break;
                 for(int j=0;j<bulletEachCol;j++)
                 {
+                    if(currentHp<lowHp) break;
+
                     if(oritation>0)
                     {
                         clone = objectPooler.spawnFromPool("red_mid_round",(Vector2)tem.position+dire*(bulletInterval*j),tem.rotation);
@@ -57,34 +124,35 @@ public class a_ba : abstractBoss
         }
         shooter.SetActive(false);
         shooter.transform.position = ini_pos;
+        useCard = true;
     }
     IEnumerator riceAdditoin(float time)
     {
         yield return new WaitWhile(() => recoverCheck==true);
         yield return new WaitWhile(() => isMove()==true);
+
         GameObject shooter = transform.GetChild(0).gameObject,colone;
         Transform player_t=GameObject.FindGameObjectWithTag("Player").transform;
         Vector2 dire;
         Transform shooterTrans = shooter.transform;
-        int colNum=3,bulletEachCol=5;
+        int colNum=2,bulletEachCol=5;
         float bulletInterval=0.4f,openAngle=30f;
         shooterTrans.localPosition = new Vector2(0,0);
 
         setTimer("riceAdditoin",time);
-        while(checkTimer("riceAdditoin") && currentHp>lowHp)
+        while(checkTimer("riceAdditoin") && currentHp>=0)
         {
             slowDownMove(new Vector2(player_t.position.x,transform.position.y)-(Vector2)transform.position,1f);
             yield return new WaitWhile(()=> isMove()==true);
-            yield return new WaitForSeconds(0.8f);
             dire = ourTool.rotate_vector(new Vector2(0,-1),-(openAngle/2));
             int layer = 0;
             for(int i=0;i<colNum;i++)
             {
                 for(int j=0;j<bulletEachCol;j++)
                 {
-                    colone = objectPooler.spawnFromPool("red_bullet",(Vector2)shooterTrans.position+dire*(1+bulletInterval*j),shooterTrans.rotation);
+                    colone = objectPooler.spawnFromPool("red_mid_round",(Vector2)shooterTrans.position+dire*(1+bulletInterval*j),shooterTrans.rotation);
                     colone.GetComponent<SpriteRenderer>().sortingOrder = layer;
-                    colone.GetComponent<Rigidbody2D>().velocity = dire*5;
+                    colone.GetComponent<Rigidbody2D>().velocity = dire*3;
                     layer++;
                 }
                 dire = ourTool.rotate_vector(dire,openAngle/(colNum-1));
@@ -109,11 +177,11 @@ public class a_ba : abstractBoss
         setTimer("rice_sea",time);
         GameObject colone;
         int layer=0,correct=-1;
-        while(checkTimer("rice_sea") && currentHp>lowHp)
+        while(checkTimer("rice_sea") && currentHp>=0)
         {
-            yield return new WaitForSeconds(0.15f);
-            sc_shooter[0].transform.position = new Vector3((-3.5f)+(1.5f)*Mathf.Sin(Time.time*2),tem[0].position.y,0);
-            sc_shooter[1].transform.position = new Vector3((3.5f)+(1.5f)*Mathf.Sin(Time.time*2),tem[1].position.y,0);
+            yield return new WaitForSeconds(0.2f);
+            sc_shooter[0].transform.position = new Vector3((-3.5f)+(1.5f)*1.5f*Mathf.Sin(Time.time*2),tem[0].position.y,0);
+            sc_shooter[1].transform.position = new Vector3((3.5f)+(1.5f)*1.5f*Mathf.Sin(Time.time*2),tem[1].position.y,0);
             for(int i=0;i<2;i++)
             {
                 colone = objectPooler.spawnFromPool("rice",tem[i].position,tem[i].rotation);
@@ -134,53 +202,6 @@ public class a_ba : abstractBoss
         resetPos();
         section++;
     }
-    protected override void resetPos() // not complete yet
-    {
-        if(useCard) sp.retriveTitle();
-        startRecover();
-        slowDownMove(oriPos-(Vector2)transform.position,0.5f);
-        useCard = !useCard;
-    }
-    void RiceSea()
-    {
-        if(!sectionCheck[(int)SpellCard.riceSea,0] && !useCard)
-        {
-            StartCoroutine(normal_attack(10f));
-            sectionCheck[(int)SpellCard.riceSea,0] = true;
-        }
-        else if(!sectionCheck[(int)SpellCard.riceSea,1] && useCard)
-        {
-            sp.startSmallize("稻符「黃金雨」",1f,0.75f);
-            bp.startMove("taxi",1f,0.75f);
-            StartCoroutine(riceAdditoin(10f));
-            StartCoroutine(rice_sea(10f));
-            sectionCheck[(int)SpellCard.riceSea,1] = true;
-        }
-    }
-    void action()
-    {
-        if(actionCheck)
-        {
-            if(section==(int)SpellCard.riceSea)
-            {
-                RiceSea();
-            }
-            else if(section==(int)SpellCard.spellCardNum) actionCheck = false;
-        }
-    }
-    public override void active()
-    {
-        oriPos = new Vector2(0,4);
-        for(int i=0;i<(int)SpellCard.spellCardNum;i++)
-        {
-            sectionCheck[i,0] = false;
-            sectionCheck[i,1] = false;
-        }
-        spellCardName[0,0] = "normal_attack";
-        spellCardName[0,1] = "rice_sea";
-        init(1050,262);
-        slowDownMove(oriPos-(Vector2)transform.position,0.5f);
-        useCard = false;
-        actionCheck = true;
-    }
+    
+    
 }

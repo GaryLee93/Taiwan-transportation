@@ -12,8 +12,10 @@ public abstract class abstractBoss : MonoBehaviour
     protected bossPicPerform bp;
     protected spellCardPerform sp;
     protected Rigidbody2D rb;
+    protected Clock clock;
     [SerializeField] hpBar healthBar;
-    void FixedUpdate() 
+    
+    private void FixedUpdate() 
     {
         #region countTimer
         List<string> tem = new List<string>();
@@ -34,7 +36,7 @@ public abstract class abstractBoss : MonoBehaviour
         recover();
         slowDown(moveAccel);
     }
-    void slowDown(Vector2 accel) //slowDown to velocity is zero
+    private void slowDown(Vector2 accel) //slowDown to velocity is zero
     {
         if(checkTimer("Move")) rb.velocity += accel*Time.fixedDeltaTime;
         else 
@@ -61,6 +63,13 @@ public abstract class abstractBoss : MonoBehaviour
         }
         else return;
     }
+    
+    protected abstract void die();
+    protected abstract void resetPos();
+    protected bool checkTimer(string name)
+    {
+        return timers.ContainsKey(name);
+    }
     protected void slowDownMove(Vector2 displace,float time)
     {
         if(MoveCheck)
@@ -73,16 +82,18 @@ public abstract class abstractBoss : MonoBehaviour
         rb.velocity = new Vector2(moveAccel.x*(-time),moveAccel.y*(-time));
         MoveCheck = true;
     } 
-    protected void init(int MaxHealth,int lowHealth) // initiate boss and set maxHp to maxHealth
+    protected void init(int MaxHealth) // initiate boss and set maxHp to maxHealth
     {
         timers = new Dictionary<string, float>();
         rb = GetComponent<Rigidbody2D>();
         bp = bossPicPerform.instance;
         sp = spellCardPerform.instance;
+        clock = Clock.clockInstance;
         section = 0;
         MaxHp = MaxHealth;
-        lowHp = lowHealth;
         currentHp = MaxHp;
+        noDemageMode = false;
+        MoveCheck = false;
         useCard = false;
         actionCheck = false;
         recoverCheck = false;
@@ -103,11 +114,17 @@ public abstract class abstractBoss : MonoBehaviour
         noDemageMode = true;
         recoverCheck = true;
     }
-    protected bool checkTimer(string name)
+    protected void setLowHp(int low)
     {
-        return timers.ContainsKey(name);
+        lowHp = low;
     }
-    protected abstract void resetPos();
+    protected void OPMode(float time)
+    {
+        noDemageMode = true;
+        setTimer("OPMode",time);
+    }
+    
+    public abstract void active();
     public bool isRun()
     {
         return actionCheck;
@@ -119,13 +136,16 @@ public abstract class abstractBoss : MonoBehaviour
     public void takeDamage(int damage)
     {
         if(noDemageMode) return;
+        if(currentHp<=lowHp)
+        {
+            currentHp = lowHp;
+            return;
+        }
         currentHp -= damage;
         healthBar.setHP(currentHp);
     }
-    public void OPMode(float time)
+    public void showUp()
     {
-        noDemageMode = true;
-        setTimer("OPMode",time);
+        slowDownMove(new Vector2(0,4)-(Vector2)transform.position,0.5f);
     }
-    public abstract void active();
 }
