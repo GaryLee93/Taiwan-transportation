@@ -7,57 +7,49 @@ public class MissBang : abstractBoss
     [SerializeField] GameObject backMirror;
     VideoPlayer deadAnimation;
     Animator an;
-    Clock clock;
     Vector2 oriPos = new Vector2(0,4);
     private enum SpellCard {brockenCar,glassRain,spellCardNum}
     bool[,] sectionCheck = new bool[(int)SpellCard.spellCardNum,2]; 
     //check whether a spellCard is actived, 0 for normal attack,1 for spellcard itself 
-    void Start()
+    private void Start()
     {
         deadAnimation = GetComponent<VideoPlayer>();
         an = GetComponent<Animator>();
-        clock = Clock.clockInstance;
-        for(int i=0;i<(int)SpellCard.spellCardNum;i++)
-        {
-            sectionCheck[i,0] = false;
-            sectionCheck[i,1] = false;
-        }
-        oriPos = new Vector2(0,4);
-        base.init(2000,1000);
         active();
     }
-    void Update()
+    private void Update()
     {
         an.SetFloat("x_velocity",rb.velocity.x);
         action();
     }
-    void action()
+    private void action()
     {
         if(actionCheck)
         {
             if(section==(int)SpellCard.brockenCar) BrockenCar();
             else if(section==(int)SpellCard.glassRain) GlassRain();
-            else if(section==(int)SpellCard.spellCardNum) actionCheck = false;
+            else if(section==(int)SpellCard.spellCardNum) die();
         }
     }
-    void GlassRain()
+    private void GlassRain()
     {
         if(!sectionCheck[(int)SpellCard.glassRain,1])
         {
-            OPMode(2f);            
+            OPMode(2f); 
+            setLowHp(-1);           
             bp.startMove("MissBang",0.75f,1f);
             sp.startSmallize("鏡符「萬元的玻璃雨」",0.75f,1f);
             StartCoroutine(glassRain(40f));
             clock.setSpellCardTimer(40f);
             sectionCheck[(int)SpellCard.glassRain,1] = true;
         }
-        
     }
-    void BrockenCar()
+    private void BrockenCar()
     {
         if(!sectionCheck[(int)SpellCard.brockenCar,0] && !useCard)
         {
             StageObj.eraseAllBullet();
+            setLowHp(MaxHp/2);
             StartCoroutine(normalAtk(30f));
             clock.setSpellCardTimer(30f);
             sectionCheck[(int)SpellCard.brockenCar,0] = true;
@@ -65,6 +57,7 @@ public class MissBang : abstractBoss
         else if(!sectionCheck[(int)SpellCard.brockenCar,1] && useCard)
         {
             OPMode(2f);
+            setLowHp(-1);
             bp.startMove("MissBang",0.75f,1f);
             sp.startSmallize("車符「破蓋天鳴掌」",0.75f,1f);
             StartCoroutine(brockenCar(35f));
@@ -72,11 +65,34 @@ public class MissBang : abstractBoss
             sectionCheck[(int)SpellCard.brockenCar,1] = true;
         }
     }
+    
     protected override void resetPos() // not complete yet
     {
         startRecover();
         slowDownMove(oriPos - (Vector2)transform.position,0.5f);
     }
+    protected override void die()
+    {
+        deadAnimation.Play();
+        actionCheck = false;
+        StageObj.eraseAllBullet();
+        transform.Find("HpCanva").gameObject.SetActive(false);
+    }
+    
+    public override void active()
+    {
+        for(int i=0;i<(int)SpellCard.spellCardNum;i++)
+        {
+            sectionCheck[i,0] = false;
+            sectionCheck[i,1] = false;
+        }
+        oriPos = new Vector2(0,4);
+        init(2000);
+        resetPos();
+        
+        actionCheck = true;
+    }
+    
     IEnumerator normalAtk(float time)
     {
         //wait for preset over
@@ -86,18 +102,27 @@ public class MissBang : abstractBoss
         GameObject shooter = transform.GetChild(0).gameObject;
         GameObject colone;
         Vector2 dire = new Vector2(1,0);
-        int layer=0,bulletEachCircle=20;
+        int layer=0,bulletEachCircle=20,counts=0;
         shooter.transform.localPosition = new Vector3(0,0,0);
         setTimer("normalAtk",time);
+        slowDownMove(new Vector2(-3,0),0.5f);
         while(checkTimer("normalAtk")&&currentHp>lowHp)
         {
             for(int i=0;i<bulletEachCircle;i++)
             {
-                if(currentHp<lowHp && isMove()) break; // early break to avoid take too many demage
-                else if(!isMove() && transform.position.x<0) slowDownMove(new Vector2(3,0),1f);
-                else if(!isMove() && transform.position.x>=0) slowDownMove(new Vector2(-3,0),1f);
-
+                if(currentHp<lowHp) break; // early break to avoid take too many demage
+                else if(!isMove() && counts%2==0 ) 
+                {
+                    slowDownMove(new Vector2(6,0),1f);
+                    counts++;
+                }
+                else if(!isMove() && counts%2==1) 
+                {
+                    slowDownMove(new Vector2(-6,0),1f);
+                    counts++;
+                }
                 yield return new WaitForSeconds(0.01f);
+
                 colone = objectPooler.spawnFromPool("red_mid_round",shooter.transform.position,
                 shooter.transform.rotation);
                 colone.GetComponent<SpriteRenderer>().sortingOrder = layer;
@@ -190,10 +215,5 @@ public class MissBang : abstractBoss
         sp.retriveTitle();
         StageObj.eraseAllBullet();
     }
-    public override void active()
-    {
-        resetPos();
-        actionCheck = true;
-        clock = Clock.clockInstance;
-    }   
+       
 }
