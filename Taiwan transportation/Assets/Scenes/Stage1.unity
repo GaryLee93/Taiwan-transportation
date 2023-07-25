@@ -1271,10 +1271,10 @@ MonoBehaviour:
   - name: polyBall
     perfab: {fileID: 9126886430575984389, guid: e3ff93c03f38761408bbce517ce25696, type: 3}
     size: 100
-  - name: red_mid_round
+  - name: circle_red
     perfab: {fileID: 4835463618115493887, guid: c039c760771c0054fafd12833c2b6ad3, type: 3}
     size: 300
-  - name: blue_mid_round
+  - name: circle_blue
     perfab: {fileID: 419098679712936940, guid: 647a675751ab5404fad81f1a7306e556, type: 3}
     size: 300
   - name: rice
@@ -2439,6 +2439,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   summonTime: 1
   time_text: {fileID: 432205294}
+  redScooter: {fileID: 0}
+  blueScooter: {fileID: 0}
+  car: {fileID: 0}
   stageTimer: 0
 --- !u!4 &1964752495
 Transform:

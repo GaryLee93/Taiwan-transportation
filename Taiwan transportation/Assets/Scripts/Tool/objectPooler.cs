@@ -21,10 +21,11 @@ public class objectPooler : MonoBehaviour
     #endregion
     public List<pool> pools;
     public Dictionary<string,Queue<GameObject>> poolDictionary;
+    Dictionary<GameObject, string> objNameDict;
     void Start()
     {
         poolDictionary = new Dictionary<string, Queue<GameObject>>();
-
+        objNameDict = new Dictionary<GameObject, string>();
         foreach(pool p in pools)
         {
             Queue<GameObject> objectPool = new Queue<GameObject>();
@@ -35,6 +36,7 @@ public class objectPooler : MonoBehaviour
                 objectPool.Enqueue(obj);
             }
             poolDictionary.Add(p.name,objectPool);
+            objNameDict.Add(p.perfab, p.name);
         }
     }
 
@@ -42,7 +44,7 @@ public class objectPooler : MonoBehaviour
     {
         if(!instance.poolDictionary.ContainsKey(tag))
         {
-            Debug.LogWarning("沒有 "+tag+" 的物件池ㄛ");
+            Debug.LogWarning("沒有 tag="+tag+" 的物件池ㄛ");
             return null;
         }
         GameObject objectToSpawn = instance.poolDictionary[tag].Dequeue();
@@ -64,8 +66,13 @@ public class objectPooler : MonoBehaviour
     }
 
     public static GameObject spawnFromPool(GameObject objToSpawn,Vector2 position,Quaternion rotation)
-    {
-        return spawnFromPool(objToSpawn.name, position, rotation);
+    {   
+        if(!instance.objNameDict.ContainsKey(objToSpawn)){
+            Debug.LogWarning("物件" + objToSpawn.name + "不在物件池ㄛ");
+            return null;
+        }
+        else{
+            return spawnFromPool(instance.objNameDict[objToSpawn] , position, rotation);
+        }
     }
-        
 }

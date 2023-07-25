@@ -111,7 +111,7 @@ GameObject:
   - component: {fileID: 1774956821}
   - component: {fileID: 6960329061792088307}
   m_Layer: 0
-  m_Name: red_scooter
+  m_Name: S1_scooter_red
   m_TagString: enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

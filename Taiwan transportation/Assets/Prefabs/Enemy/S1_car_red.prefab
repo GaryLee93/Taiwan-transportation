@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 9170740742618322002}
   - component: {fileID: -8897142135215310216}
   m_Layer: 0
-  m_Name: red_car
+  m_Name: S1_car_red
   m_TagString: enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

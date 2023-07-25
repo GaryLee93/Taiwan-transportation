@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: -3208371801505371332}
   - component: {fileID: 8858130771340297808}
   m_Layer: 0
-  m_Name: red_mid_round
+  m_Name: circle_red
   m_TagString: enemy_bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

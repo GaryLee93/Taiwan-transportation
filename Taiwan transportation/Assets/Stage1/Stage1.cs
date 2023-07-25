@@ -7,6 +7,9 @@ public class Stage1 : MonoBehaviour
 {
     [SerializeField] float summonTime;
     [SerializeField] TMP_Text time_text;
+    [SerializeField] GameObject redScooter;
+    [SerializeField] GameObject blueScooter;
+    [SerializeField] GameObject car;
     public float stageTimer;
     
     void Start(){
