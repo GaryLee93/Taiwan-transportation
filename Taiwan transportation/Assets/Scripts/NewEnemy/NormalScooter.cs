@@ -43,7 +43,6 @@ public class NormalScooter : AbsNormalEnemy
             else{
                 GetComponent<Rigidbody2D>().velocity = new_speed;
             }
-
         }
         move_timer += Time.fixedDeltaTime;
     }
@@ -118,8 +117,8 @@ public class NormalScooter : AbsNormalEnemy
         }
     }
     public override void die(){
-        summonDrop(Random.Range(1, 5), "score");
-        summonDrop(Random.Range(1, 3), "power");
+        summonDrop(Random.Range(3, 7), "score");
+        summonDrop(Random.Range(3, 5), "power");
         Destroy(gameObject);
     }
    

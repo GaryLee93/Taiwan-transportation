@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 1268228826665961606}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.7, y: 1.7, z: 1.7}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3909308229628790365}
   m_RootOrder: 1
@@ -121,7 +121,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.2075
+  m_Radius: 0.3
 --- !u!114 &1268228826665961601
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -162,7 +162,7 @@ Transform:
   m_GameObject: {fileID: 3909308229610190467}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3909308229628790365}
   m_RootOrder: 0
@@ -204,8 +204,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -830411337
-  m_SortingLayer: 5
+  m_SortingLayerID: 1464191091
+  m_SortingLayer: 8
   m_SortingOrder: 10
   m_Sprite: {fileID: 21300000, guid: bf6f0f91c3241e9469d84d54af0637de, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -246,7 +246,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.53333336
+  m_Radius: 0.05
 --- !u!1 &3909308229628790367
 GameObject:
   m_ObjectHideFlags: 0
@@ -375,7 +375,7 @@ MonoBehaviour:
   rightSprite: {fileID: 21300000, guid: d9fac71e3f3974d4395f2be724c63706, type: 3}
   power: 0
   powerMode: 0
-  normal_speed: 10
+  normal_speed: 7
   slow_speed: 3
   remain_life: 3
   bomb_count: 3

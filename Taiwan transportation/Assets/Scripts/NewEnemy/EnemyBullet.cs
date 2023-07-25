@@ -11,7 +11,7 @@ public class EnemyBullet : MonoBehaviour, Ipooled
     }
     bool hitBorder()
     {
-        if(Mathf.Abs(transform.position.x)>9 || Mathf.Abs(transform.position.y)>10) return true;
+        if(Mathf.Abs(transform.position.x)>7f || Mathf.Abs(transform.position.y)>7.5f) return true;
         else return false;
     }
     public void onBulletSpawn(){

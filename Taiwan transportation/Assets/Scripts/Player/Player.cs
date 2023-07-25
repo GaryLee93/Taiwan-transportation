@@ -317,6 +317,15 @@ public class Player : MonoBehaviour{
         respawnTimer = 0;
         yield return new WaitForSeconds(0.5f);
         transform.position = new Vector3(0, -7.5f, 0);
+        
+        GameObject[] bullets = GameObject.FindGameObjectsWithTag("enemy_bullet");
+        foreach(GameObject b in bullets){
+            EnemyBullet eb = b.GetComponent<EnemyBullet>();
+            if(eb == null)
+                Destroy(b);
+            else
+                eb.poolDespawn();
+        }
     }
 
     void loudSparkBomb(){

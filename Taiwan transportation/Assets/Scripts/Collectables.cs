@@ -4,9 +4,7 @@ using UnityEngine;
 
 public class Collectables : MonoBehaviour
 {
-    public enum ColType{
-        Power, Score, OneUP, Bomb
-    }
+    public enum ColType{ Power, Score, OneUP, Bomb}
     public ColType Type;
     [SerializeField] float range = 3f;
     [SerializeField] float speed = 10f;
@@ -43,6 +41,10 @@ public class Collectables : MonoBehaviour
             {
                 rb.velocity=diff*speed;
             }
+        }
+        else if(isCollected){
+            isCollected = false;
+            rb.velocity = Vector2.zero;
         }
     }
 

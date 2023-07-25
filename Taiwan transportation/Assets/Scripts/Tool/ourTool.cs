@@ -19,9 +19,8 @@ public class ourTool
     }
     public static Vector2 vectorToPlayer(GameObject obj)
     {
-        GameObject player = GameObject.FindGameObjectWithTag("Player");
-        if(player==null) return new Vector2(0,0);
-        return player.transform.position - obj.transform.position;
+        if(Player.GetPlayer()==null) return new Vector2(0,0);
+        return Player.GetPlayer().transform.position - obj.transform.position;
     }
     public static float eulerToRadian(float euler)
     {

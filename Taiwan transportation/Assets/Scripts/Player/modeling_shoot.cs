@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class modeling_shoot : MonoBehaviour
 {
-    public GameObject bullet;
+    [SerializeField] GameObject bullet;
     [SerializeField] float shoot_interval=0.05f;
     private float timer;
     void Start()
@@ -22,7 +22,7 @@ public class modeling_shoot : MonoBehaviour
         timer+=Time.fixedDeltaTime;
     }
     public void shoot(){
-        objectPooler.spawnFromPool(bullet.name,transform.position,transform.rotation);
+        objectPooler.spawnFromPool(bullet.name,transform.position,new Quaternion());
     }
     
 }

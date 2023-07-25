@@ -131,7 +131,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.64, y: 1.03}
+  m_Size: {x: 1.4, y: 0.9}
   m_EdgeRadius: 0
 --- !u!114 &-8897142135215310216
 MonoBehaviour:
@@ -145,7 +145,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0148a9b6fd523bb449f7a524c012e024, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 100
+  health: 200
 --- !u!1 &6768015559723886053
 GameObject:
   m_ObjectHideFlags: 0
@@ -155,6 +155,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2289540279941203610}
+  - component: {fileID: 3241895643137376030}
   m_Layer: 0
   m_Name: BulletShooter
   m_TagString: Untagged
@@ -176,3 +177,16 @@ Transform:
   m_Father: {fileID: 6527239906230257126}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3241895643137376030
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6768015559723886053}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 377b42fe31b9f0744af9c2b006231201, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shooterBullet: {fileID: 4835463618115493887, guid: c039c760771c0054fafd12833c2b6ad3, type: 3}

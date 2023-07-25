@@ -9,25 +9,31 @@ public class PlayerBullet : MonoBehaviour, Ipooled{
     [SerializeField] BType bulletType;
     [SerializeField] float bulletSpeed;
     [SerializeField] int bulletDamage;
+    [SerializeField] float turnSpeed;
+    private void Start() {
+        GetComponent<Rigidbody2D>().velocity = new Vector2(0,bulletSpeed);
+    }
     private void Update(){
-        if(bulletType == BType.Homing){
-            GameObject target = find_closest_enemy();
-            if(target == null){
-                GetComponent<Rigidbody2D>().velocity = new Vector2(0, bulletSpeed);
-            }
-            else{
-                Vector2 direction = target.transform.position - transform.position;
-                GetComponent<Rigidbody2D>().velocity = bulletSpeed * direction.normalized;
-            }
-        }
-
         if(hitBorder())
             poolDespawn();
     }
-    public void onBulletSpawn(){
-        if(bulletType == BType.Straight){
-            GetComponent<Rigidbody2D>().velocity = new Vector2(0,bulletSpeed);
+    private void FixedUpdate() {
+        if(bulletType == BType.Homing){
+            GetComponent<Rigidbody2D>().velocity = transform.up * bulletSpeed;
+            GameObject target = find_closest_enemy();
+            if(target != null){
+                Vector2 direction = target.transform.position - transform.position;
+                float angularV = Vector3.Cross(GetComponent<Rigidbody2D>().velocity.normalized, direction.normalized).z;
+                angularV *= turnSpeed;
+                GetComponent<Rigidbody2D>().angularVelocity = angularV;
+            }
+            else
+                GetComponent<Rigidbody2D>().angularVelocity = 0;
         }
+    }
+    public void onBulletSpawn(){
+        if(bulletType == BType.Straight)
+            GetComponent<Rigidbody2D>().velocity = new Vector2(0,bulletSpeed);
     }
     private void OnTriggerEnter2D(Collider2D other){
         if(other.gameObject.tag == "enemy"){

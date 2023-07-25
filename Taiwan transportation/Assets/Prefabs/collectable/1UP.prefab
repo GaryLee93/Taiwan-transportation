@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 5418730996431250196}
   - component: {fileID: 5234854533471003776}
   - component: {fileID: 2637274670343621266}
-  - component: {fileID: 8629067580068542402}
   - component: {fileID: 7059537964643673590}
   m_Layer: 0
   m_Name: 1UP
@@ -76,7 +75,7 @@ SpriteRenderer:
   m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 2d76cfdb40540c34ca7fdd0a78a17930, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.5882353}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -133,18 +132,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.348, y: 0.328}
   m_EdgeRadius: 0
---- !u!114 &8629067580068542402
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1759627277923657827}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bd03427775d37444e822b340cb4c7f27, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &7059537964643673590
 MonoBehaviour:
   m_ObjectHideFlags: 0

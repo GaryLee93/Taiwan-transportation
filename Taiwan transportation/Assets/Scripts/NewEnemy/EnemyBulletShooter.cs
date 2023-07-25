@@ -28,7 +28,7 @@ public class EnemyBulletShooter : MonoBehaviour
             else
                 tmp_direction = direction;
             
-            tmp_direction = ourTool.rotate_vector(direction, -angle);
+            tmp_direction = ourTool.rotate_vector(tmp_direction, -angle);
             for(int i=0; i<count; i++){
                 GameObject newBullet = objectPooler.spawnFromPool(
                     shooterBullet.name,transform.position,transform.rotation);
