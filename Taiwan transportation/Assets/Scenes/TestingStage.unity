@@ -1464,6 +1464,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   summonTime: 1
   time_text: {fileID: 0}
+  redScooter: {fileID: 0}
+  blueScooter: {fileID: 0}
+  car: {fileID: 0}
   stageTimer: 0
 --- !u!4 &1316187510
 Transform:
@@ -1876,6 +1879,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3909308229628790362, guid: 60a4be4025a61b4478e1c91803abf434, type: 3}
+      propertyPath: playerData
+      value: 
+      objectReference: {fileID: 11400000, guid: 0ac650cbc43fc8a4e987221c168b6f50, type: 2}
     - target: {fileID: 3909308229628790365, guid: 60a4be4025a61b4478e1c91803abf434, type: 3}
       propertyPath: m_RootOrder
       value: 4

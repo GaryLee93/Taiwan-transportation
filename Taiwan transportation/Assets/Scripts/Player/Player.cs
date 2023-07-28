@@ -15,13 +15,7 @@ public class Player : MonoBehaviour{
     [SerializeField] Sprite rightSprite;
 
     [Header("各種屬性")]
-    [SerializeField] int power = 0;
-    [SerializeField] int powerMode = 0;
-    [SerializeField] float normal_speed = 10f;
-    [SerializeField] float slow_speed = 3f;
-    [SerializeField] int remain_life = 3;
-    [SerializeField] int bomb_count = 3;
-    [SerializeField] int score = 0;
+    [SerializeField] PlayerData playerData;
     float current_speed;
     Rigidbody2D rb;
     bool isBombing;
@@ -29,7 +23,6 @@ public class Player : MonoBehaviour{
     float respawnTimer;
     GameObject bombObj = null;
     List<GameObject> shooterList;
-
     public static Player instance;
     private void Awake(){
         instance = this;
@@ -42,7 +35,7 @@ public class Player : MonoBehaviour{
     void Start(){
         rb = GetComponent<Rigidbody2D>();
 
-        current_speed = normal_speed;
+        current_speed = playerData.normal_speed;
         shooterList = new List<GameObject>();
 
         transform.position = new Vector3(0, -5, 0);
@@ -77,23 +70,23 @@ public class Player : MonoBehaviour{
             respawnTimer += Time.deltaTime;
         }
         
-        if(power/100!=powerMode){
-            powerMode = power/100;
+        if(playerData.power/100!=playerData.powerMode){
+            playerData.powerMode = playerData.power/100;
             changePowerMod();
         }
     }
     void player_move(){
         if(Input.GetKey(KeyCode.LeftShift)){
-            current_speed = slow_speed;
+            current_speed = playerData.slow_speed;
             changeVelocity();
         }
         else{
             if(isBombing){
-                current_speed = slow_speed;
+                current_speed = playerData.slow_speed;
                 changeVelocity();
             }
             else{
-                current_speed = normal_speed;
+                current_speed = playerData.normal_speed;
                 changeVelocity();
             }
         }
@@ -116,7 +109,7 @@ public class Player : MonoBehaviour{
     }
     void changePowerMod(){
         GameObject tmp_shooter;
-        if(powerMode == 0){
+        if(playerData.powerMode == 0){
             destroyAllShooter();
             for(int i=0; i<2; i++){
                 tmp_shooter = Instantiate(frontChildPlane, transform);
@@ -131,7 +124,7 @@ public class Player : MonoBehaviour{
                 shooterList.Add(tmp_shooter);
             }
         }
-        else if(powerMode == 1){
+        else if(playerData.powerMode == 1){
             destroyAllShooter();
             for(int i=0; i<2; i++){
                 tmp_shooter = Instantiate(frontChildPlane, transform);
@@ -151,7 +144,7 @@ public class Player : MonoBehaviour{
             tmp_shooter.GetComponent<childPlane>().setRotate(60f);
             shooterList.Add(tmp_shooter);
         }
-        else if(powerMode == 2){
+        else if(playerData.powerMode == 2){
             destroyAllShooter();
             tmp_shooter = Instantiate(frontChildPlane, transform);
             tmp_shooter.GetComponent<childPlane>().setPosition
@@ -176,7 +169,7 @@ public class Player : MonoBehaviour{
             tmp_shooter.GetComponent<childPlane>().setRotate(60f);
             shooterList.Add(tmp_shooter);
         }
-        else if(powerMode == 3){
+        else if(playerData.powerMode == 3){
             destroyAllShooter();
             tmp_shooter = Instantiate(frontChildPlane, transform);
                 tmp_shooter.GetComponent<childPlane>().setPosition
@@ -202,7 +195,7 @@ public class Player : MonoBehaviour{
                 shooterList.Add(tmp_shooter);
             }
         }
-        else if(powerMode == 4){
+        else if(playerData.powerMode == 4){
             destroyAllShooter();
             for(int i=0; i<2; i++){
                 tmp_shooter = Instantiate(frontChildPlane, transform);
@@ -244,31 +237,31 @@ public class Player : MonoBehaviour{
             Collectables cb = other.gameObject.GetComponent<Collectables>();
             
             if(cb.Type == Collectables.ColType.OneUP){
-                remain_life++;
+                playerData.remain_life++;
                 refreshLifeText();
                 Destroy(other.gameObject);
             }
             else if(cb.Type == Collectables.ColType.Bomb){
-                bomb_count++;
+                playerData.bomb_count++;
                 refreshBombText();
                 Destroy(other.gameObject);
             }
             else if(cb.Type == Collectables.ColType.Power){
-                power ++;
-                if(power > 400){
-                    power = 400;
+                playerData.power ++;
+                if(playerData.power > 400){
+                    playerData.power = 400;
                 }
-                int newPowerMode = power /100;
+                int newPowerMode = playerData.power /100;
 
-                if(newPowerMode != powerMode){
-                    powerMode = newPowerMode;
+                if(newPowerMode != playerData.powerMode){
+                    playerData.powerMode = newPowerMode;
                     changePowerMod();
                 }
                 refreshPowerText();
                 Destroy(other.gameObject);
             }
             else if(cb.Type == Collectables.ColType.Score){
-                score++;
+                playerData.score++;
                 refreshScoreText();
                 Destroy(other.gameObject);
             }
@@ -277,18 +270,18 @@ public class Player : MonoBehaviour{
     }
     void be_hit(){
         Debug.Log("被彈");
-        this.power -= 100;
-        if(this.power < 0){
-            this.power = 0;
+        this.playerData.power -= 100;
+        if(this.playerData.power < 0){
+            this.playerData.power = 0;
         }
-        powerMode = this.power /100;
+        playerData.powerMode = this.playerData.power /100;
         changePowerMod();
         refreshPowerText();
 
-        bomb_count = 3;
+        playerData.bomb_count = 3;
         refreshBombText();
 
-        remain_life --;
+        playerData.remain_life --;
         GameObject tmp;
         for(int i=0; i<25; i++){
             tmp = Instantiate(StageObj.Collectables["power"], transform.position, transform.rotation);
@@ -301,8 +294,8 @@ public class Player : MonoBehaviour{
                 tmp.GetComponent<Rigidbody2D>().velocity += new Vector2(3f, 0f);
             }
         }
-        if(remain_life < 0){
-            remain_life = 0;
+        if(playerData.remain_life < 0){
+            playerData.remain_life = 0;
             Debug.Log("滿身瘡痍");
             StartCoroutine(respawn());
         }
@@ -329,8 +322,8 @@ public class Player : MonoBehaviour{
     }
 
     void loudSparkBomb(){
-        if(bomb_count >0){
-            bomb_count --;
+        if(playerData.bomb_count >0){
+            playerData.bomb_count --;
             refreshBombText();
             GameObject tmpobj = Instantiate(loudSpark, transform);
             tmpobj.transform.localPosition = new Vector3(0, 7, 0);
@@ -339,17 +332,17 @@ public class Player : MonoBehaviour{
         }
     }
     void refreshScoreText(){
-        StageObj.StageTexts["score"].GetComponent<Text>().text = "Score: " + score;
+        StageObj.StageTexts["score"].GetComponent<Text>().text = "Score: " + playerData.score;
     }
 
-    void refreshLifeText(){
-        StageObj.StageTexts["remainlife"].GetComponent<Text>().text = "Life: " + remain_life;
+    void refreshLifeText()  {
+        StageObj.StageTexts["remainlife"].GetComponent<Text>().text = "Life: " + playerData.remain_life;
     }
 
     void refreshPowerText(){
-        StageObj.StageTexts["power"].GetComponent<Text>().text = "Power: " + power;
+        StageObj.StageTexts["power"].GetComponent<Text>().text = "Power: " + playerData.power;
     }
     void refreshBombText(){
-        StageObj.StageTexts["bomb"].GetComponent<Text>().text = "Bomb: " + bomb_count;
+        StageObj.StageTexts["bomb"].GetComponent<Text>().text = "Bomb: " + playerData.bomb_count;
     }
 }
