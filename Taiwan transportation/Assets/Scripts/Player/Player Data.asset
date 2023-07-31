@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24afe6d6d9d371d4f9b9766d005e92c3, type: 3}
   m_Name: Player Data
   m_EditorClassIdentifier: 
-  power: 0
+  power: 84
   powerMode: 0
-  normal_speed: 10
+  normal_speed: 7
   slow_speed: 3
-  remain_life: 3
+  remain_life: 0
   bomb_count: 3
-  score: 0
+  highestScore: 0
+  score: 50

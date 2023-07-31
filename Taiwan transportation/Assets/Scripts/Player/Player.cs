@@ -250,23 +250,23 @@ public class Player : MonoBehaviour{
                 Destroy(other.gameObject);
             }
             else if(cb.Type == Collectables.ColType.Power){
-                power +=2;
-                if(power > 400){
-                    power = 400;
+                playerData.power +=2;
+                if(playerData.power > 400){
+                    playerData.power = 400;
                 }
-                int newPowerMode = power /100;
+                int newPowerMode = playerData.power /100;
 
-                if(newPowerMode != powerMode){
-                    powerMode = newPowerMode;
+                if(newPowerMode != playerData.powerMode){
+                    playerData.powerMode = newPowerMode;
                     changePowerMod();
                 }
                 refreshPowerText();
                 Destroy(other.gameObject);
             }
             else if(cb.Type == Collectables.ColType.BigPower){
-                power +=50;
-                if(power > 400){
-                    power = 400;
+                playerData.power +=50;
+                if(playerData.power > 400){
+                    playerData.power = 400;
                 }
                 int newPowerMode = playerData.power /100;
 
