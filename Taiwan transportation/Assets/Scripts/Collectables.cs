@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class Collectables : MonoBehaviour
 {
-    public enum ColType{ Power, Score, OneUP, Bomb}
+    public enum ColType{ Power, BigPower, Score, OneUP, Bomb}
     public ColType Type;
-    [SerializeField] float range = 3f;
-    [SerializeField] float speed = 10f;
-    [SerializeField] float collect_line_height = 3f;
+    static float collectRange = 3f;
+    static float collectSpeed = 10f;
+    static float collect_line_height = 3f;
     bool isCollected;
     Rigidbody2D rb;
     Transform playerTF;
@@ -16,6 +16,7 @@ public class Collectables : MonoBehaviour
     {
         rb = gameObject.GetComponent<Rigidbody2D>();
         playerTF = Player.GetPlayer().transform;
+
         isCollected = false;
     }
     void Update()
@@ -24,22 +25,19 @@ public class Collectables : MonoBehaviour
         if(hitBorder())
             Destroy(gameObject);
     }
-    
-    
-    
     void suck(){
         if(Player.GetPlayer().GetComponent<Rigidbody2D>().simulated == true){
             Vector2 diff = (Vector2)playerTF.position-(Vector2)transform.position;
             float dis = diff.sqrMagnitude;
             diff.Normalize();
-            if(dis < range || playerTF.position.y > collect_line_height)
+            if(dis < collectRange || playerTF.position.y > collect_line_height)
             {
                 isCollected = true;
             }
 
             if(isCollected)
             {
-                rb.velocity=diff*speed;
+                rb.velocity=diff*collectSpeed;
             }
         }
         else if(isCollected){

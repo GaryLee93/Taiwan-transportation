@@ -7,14 +7,14 @@ public class Stage1 : MonoBehaviour
 {
     [SerializeField] float summonTime;
     [SerializeField] TMP_Text time_text;
-    [SerializeField] GameObject redScooter;
-    [SerializeField] GameObject blueScooter;
-    [SerializeField] GameObject car;
+    [SerializeField] GameObject taxi;
+    [SerializeField] GameObject MissBang;
     public float stageTimer;
     
     void Start(){
         stageTimer = 0;
-        StartCoroutine(startStage());
+        StartCoroutine(beforeMidBoss());
+        StartCoroutine(midBoss());
     }
     void Update(){
         stageTimer += Time.deltaTime;
@@ -29,7 +29,7 @@ public class Stage1 : MonoBehaviour
         }
     }
 
-    IEnumerator startStage(){
+    IEnumerator beforeMidBoss(){
         yield return new WaitForSeconds(summonTime);
         GameObject enemy;
         YieldInstruction delayTime, delayOneSec;
@@ -114,5 +114,12 @@ public class Stage1 : MonoBehaviour
             yield return delayTime;
         }
 
+    }
+
+    IEnumerator midBoss(){
+        yield return new WaitForSeconds(40f);
+
+        GameObject midBoss = Instantiate(taxi, new Vector3(-3f, 7.9f, 0), new Quaternion());
+        midBoss.GetComponent<abstractBoss>().active();
     }
 }

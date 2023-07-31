@@ -27,6 +27,7 @@ public class Player : MonoBehaviour{
     bool isBombing;
     bool isRespawning;
     float respawnTimer;
+    bool canShoot;
     GameObject bombObj = null;
     List<GameObject> shooterList;
 
@@ -46,6 +47,7 @@ public class Player : MonoBehaviour{
         shooterList = new List<GameObject>();
 
         transform.position = new Vector3(0, -5, 0);
+        canShoot = true;
         
         changePowerMod();
         refreshScoreText();
@@ -82,6 +84,7 @@ public class Player : MonoBehaviour{
             changePowerMod();
         }
     }
+    
     void player_move(){
         if(Input.GetKey(KeyCode.LeftShift)){
             current_speed = slow_speed;
@@ -254,7 +257,21 @@ public class Player : MonoBehaviour{
                 Destroy(other.gameObject);
             }
             else if(cb.Type == Collectables.ColType.Power){
-                power ++;
+                power +=2;
+                if(power > 400){
+                    power = 400;
+                }
+                int newPowerMode = power /100;
+
+                if(newPowerMode != powerMode){
+                    powerMode = newPowerMode;
+                    changePowerMod();
+                }
+                refreshPowerText();
+                Destroy(other.gameObject);
+            }
+            else if(cb.Type == Collectables.ColType.BigPower){
+                power +=50;
                 if(power > 400){
                     power = 400;
                 }

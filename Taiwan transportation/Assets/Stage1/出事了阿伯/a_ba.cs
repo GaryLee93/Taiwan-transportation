@@ -33,7 +33,6 @@ public class a_ba : abstractBoss
             setLowHp(-1);
             bp.startMove("taxi",1f,0.75f);
             sp.startSmallize("稻符「黃金雨」",1f,0.75f);
-            //StartCoroutine(riceAdditoin(10f));
             StartCoroutine(rice_sea(30f));
             clock.setSpellCardTimer(30f);
             sectionCheck[(int)SpellCard.riceSea,1] = true;
@@ -109,7 +108,7 @@ public class a_ba : abstractBoss
 
                     if(oritation>0)
                     {
-                        clone = objectPooler.spawnFromPool("red_mid_round",(Vector2)tem.position+dire*(bulletInterval*j),tem.rotation);
+                        clone = objectPooler.spawnFromPool("circle_red",(Vector2)tem.position+dire*(bulletInterval*j),tem.rotation);
                         clone.GetComponent<Rigidbody2D>().velocity = dire*5;
                     }
                     else 
@@ -171,9 +170,9 @@ public class a_ba : abstractBoss
             sc_shooter[i] = sc_manager.transform.GetChild(i).gameObject;
             tem[i] = sc_shooter[i].transform;
         }
-        sc_shooter[0].transform.localPosition = new Vector2(-3.5f,5f);
-        sc_shooter[1].transform.localPosition = new Vector2(3.5f,5f);
-
+        sc_shooter[0].transform.localPosition = new Vector2(-3.5f,3f);
+        sc_shooter[1].transform.localPosition = new Vector2(3.5f,3f);
+        Debug.Log(sc_shooter[1].transform.position);
         setTimer("rice_sea",time);
         GameObject colone;
         int layer=0,correct=-1;

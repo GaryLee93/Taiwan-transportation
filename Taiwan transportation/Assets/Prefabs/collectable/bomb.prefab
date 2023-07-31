@@ -75,7 +75,7 @@ SpriteRenderer:
   m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: c198a201e78dace43bd4dacdbd380081, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.5882353}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.78431374}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -130,7 +130,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.249, y: 0.339}
+  m_Size: {x: 0.2, y: 0.3}
   m_EdgeRadius: 0
 --- !u!114 &-640416456005007693
 MonoBehaviour:
@@ -144,7 +144,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f89765e0671337c478e3b2557be743f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Type: 3
-  range: 3
-  speed: 15
-  collect_line_height: 3
+  Type: 4

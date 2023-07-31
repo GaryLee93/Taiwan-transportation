@@ -7,12 +7,14 @@ public class LoudSpark : MonoBehaviour{
     [SerializeField] float holdTime;
     [SerializeField] float shootInterval;
     [SerializeField] GameObject LSparkCircle;
+    [SerializeField] AudioSource sparkSound;
     float main_timer;
     float shoot_timer;
     void Start(){
         transform.localScale = new Vector3(0, 1, 0);
         main_timer = 0f;
         CameraShake.shakeCamera(fadeTime + holdTime, 0.05f, 0.1f);
+        sparkSound.Play();
     }
     void Update(){
         if(main_timer <= fadeTime){
