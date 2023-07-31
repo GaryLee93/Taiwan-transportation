@@ -117,8 +117,8 @@ public class NormalScooter : AbsNormalEnemy
         }
     }
     public override void die(){
-        summonDrop(Random.Range(3, 7), "score");
-        summonDrop(Random.Range(3, 5), "power");
+        summonDrop(Random.Range(1, 2), "score");
+        summonDrop(Random.Range(1, 2), "power");
         Destroy(gameObject);
     }
    

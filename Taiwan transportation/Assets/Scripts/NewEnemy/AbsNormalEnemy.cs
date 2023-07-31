@@ -5,6 +5,7 @@ using UnityEngine;
 public abstract class AbsNormalEnemy : MonoBehaviour
 {
     [SerializeField] int health;
+    
     public void takeDamage(int damage){
         health -= damage;
         if(health <= 0){

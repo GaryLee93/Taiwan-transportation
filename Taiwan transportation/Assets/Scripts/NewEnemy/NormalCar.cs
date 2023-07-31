@@ -91,8 +91,8 @@ public class NormalCar : AbsNormalEnemy
         }
     }
     public override void die(){
-        summonDrop(Random.Range(10, 15), "score");
-        summonDrop(Random.Range(5, 7), "power");
+        summonDrop(Random.Range(3, 5), "score");
+        summonDrop(Random.Range(3, 5), "power");
         Destroy(gameObject);
     }
    

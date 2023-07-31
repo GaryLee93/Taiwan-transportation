@@ -15,8 +15,8 @@ public class spellCardPerform : MonoBehaviour
     void Awake() 
     {
         instance = this;
-        sound = GetComponent<AudioSource>();
-        sound.Play();
+        //sound = GetComponent<AudioSource>();
+        //sound.Play();
     }    
     void FixedUpdate()
     {
