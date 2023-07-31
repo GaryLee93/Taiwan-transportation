@@ -63,10 +63,10 @@ public class a_ba : abstractBoss
     }  
     protected override void resetPos() // not complete yet
     {
+        clock.cancelSpellCardTimer();
         if(useCard) sp.retriveTitle();
         startRecover();
         slowDownMove(oriPos-(Vector2)transform.position,0.5f);
-        useCard = !useCard;
     }
     
     public override void active()
@@ -82,7 +82,6 @@ public class a_ba : abstractBoss
         useCard = false;
         actionCheck = true;
     }
-    
     IEnumerator normal_attack(float time)
     {
         yield return new WaitWhile(() => isMove()==true);
@@ -126,39 +125,6 @@ public class a_ba : abstractBoss
         shooter.transform.position = ini_pos;
         useCard = true;
     }
-    IEnumerator riceAdditoin(float time)
-    {
-        yield return new WaitWhile(() => recoverCheck==true);
-        yield return new WaitWhile(() => isMove()==true);
-
-        GameObject shooter = transform.GetChild(0).gameObject,colone;
-        Transform player_t=GameObject.FindGameObjectWithTag("Player").transform;
-        Vector2 dire;
-        Transform shooterTrans = shooter.transform;
-        int colNum=2,bulletEachCol=5;
-        float bulletInterval=0.4f,openAngle=30f;
-        shooterTrans.localPosition = new Vector2(0,0);
-
-        setTimer("riceAdditoin",time);
-        while(checkTimer("riceAdditoin") && currentHp>=0)
-        {
-            slowDownMove(new Vector2(player_t.position.x,transform.position.y)-(Vector2)transform.position,1f);
-            yield return new WaitWhile(()=> isMove()==true);
-            dire = ourTool.rotate_vector(new Vector2(0,-1),-(openAngle/2));
-            int layer = 0;
-            for(int i=0;i<colNum;i++)
-            {
-                for(int j=0;j<bulletEachCol;j++)
-                {
-                    colone = objectPooler.spawnFromPool("red_mid_round",(Vector2)shooterTrans.position+dire*(1+bulletInterval*j),shooterTrans.rotation);
-                    colone.GetComponent<SpriteRenderer>().sortingOrder = layer;
-                    colone.GetComponent<Rigidbody2D>().velocity = dire*3;
-                    layer++;
-                }
-                dire = ourTool.rotate_vector(dire,openAngle/(colNum-1));
-            }
-        }
-    }
     IEnumerator rice_sea(float time)
     {
         yield return new WaitWhile(() => recoverCheck==true);
@@ -198,10 +164,7 @@ public class a_ba : abstractBoss
                 correct*=(-1);
             }   
         }
-
         resetPos();
         section++;
     }
-    
-    
 }

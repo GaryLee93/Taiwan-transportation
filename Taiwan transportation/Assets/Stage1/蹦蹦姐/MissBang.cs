@@ -68,8 +68,10 @@ public class MissBang : abstractBoss
     
     protected override void resetPos() // not complete yet
     {
+        clock.cancelSpellCardTimer();
+        if(useCard) sp.retriveTitle();
         startRecover();
-        slowDownMove(oriPos - (Vector2)transform.position,0.5f);
+        slowDownMove(oriPos-(Vector2)transform.position,0.5f);
     }
     protected override void die()
     {
