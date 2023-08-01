@@ -1922,7 +1922,7 @@ MonoBehaviour:
     size: 100
   - name: red_mid_round
     perfab: {fileID: 4835463618115493887, guid: c039c760771c0054fafd12833c2b6ad3, type: 3}
-    size: 400
+    size: 900
   - name: rice
     perfab: {fileID: 2908090500941688148, guid: 56c8c82883038fb48b371114c0308bd4, type: 3}
     size: 100
@@ -2684,11 +2684,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 7127380754649383178, guid: df00e3fec1f9c384f843c9d6adb33153, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7127380754649383178, guid: df00e3fec1f9c384f843c9d6adb33153, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7127380755122180705, guid: df00e3fec1f9c384f843c9d6adb33153, type: 3}
       propertyPath: m_RootOrder
@@ -2737,6 +2737,10 @@ PrefabInstance:
     - target: {fileID: 7127380755122180719, guid: df00e3fec1f9c384f843c9d6adb33153, type: 3}
       propertyPath: m_Name
       value: "\u8E66\u8E66\u59D0"
+      objectReference: {fileID: 0}
+    - target: {fileID: 7127380755122180719, guid: df00e3fec1f9c384f843c9d6adb33153, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: df00e3fec1f9c384f843c9d6adb33153, type: 3}

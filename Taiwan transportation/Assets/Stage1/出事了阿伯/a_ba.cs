@@ -6,6 +6,8 @@ public class a_ba : abstractBoss
 {
     Vector2 oriPos;
     VideoPlayer deadAnimation;
+    [SerializeField] GameObject red_middle;
+    [SerializeField] GameObject orange_middle;
     bool[,] sectionCheck = new bool[(int)SpellCard.spellCardNum,2]; 
     private enum SpellCard{riceSea,spellCardNum}
     private void Start()
@@ -22,7 +24,7 @@ public class a_ba : abstractBoss
         if(!sectionCheck[(int)SpellCard.riceSea,0] && !useCard)
         {
             setLowHp(MaxHp/2);
-            StartCoroutine(normal_attack(30f));
+            StartCoroutine(normalAttack(30f));
             clock.setSpellCardTimer(30f);
             sectionCheck[(int)SpellCard.riceSea,0] = true;
         }
@@ -59,6 +61,9 @@ public class a_ba : abstractBoss
         actionCheck = false;
         StageObj.eraseAllBullet();
         transform.Find("HpCanva").gameObject.SetActive(false);
+        summonDrop(30,"score");
+        summonDrop(30,"power");
+        summonDrop(1,"bomb");
     }  
     protected override void resetPos() // not complete yet
     {
@@ -76,52 +81,61 @@ public class a_ba : abstractBoss
             sectionCheck[i,0] = false;
             sectionCheck[i,1] = false;
         }
-        init(1050);
+        init(4500);
         slowDownMove(oriPos-(Vector2)transform.position,0.5f);
         useCard = false;
         actionCheck = true;
     }
-    IEnumerator normal_attack(float time)
+    IEnumerator normalAttack(float time)
     {
         yield return new WaitWhile(() => isMove()==true);
-        int colNum=8,oritation=1,bulletEachCol=6;
-        float bulletInterval=0.4f,openAngle=120f;
-        GameObject shooter = transform.GetChild(0).gameObject,clone;
-        Vector2 ini_pos = shooter.transform.position;
-        Vector2 dire;
-        Transform tem = shooter.transform;
 
-        tem.localPosition = new Vector2(0,0);
-        setTimer("normal_attack",time);
-        while(checkTimer("normal_attack") && currentHp>lowHp)
+        transform.GetChild(0).localPosition = new Vector3(0,0,0);
+        int colNum=12,bulletEachCol=3,count=0,layer=0;
+        float bulletInterval=0.8f,openAngle=360f,angle;
+        Vector2 dire = ourTool.rotate_vector(new Vector2(0,-1),30f);
+        Transform shooterTrans = transform.GetChild(0);
+        GameObject clone;
+
+        setTimer("normalAttack",time);
+        while(checkTimer("normalAttack")&&currentHp>lowHp)
         {
-            yield return new WaitForSeconds(0.5f);
-            if(oritation>0) dire = ourTool.rotate_vector(new Vector2(0,-1),-45f);
-            else dire = ourTool.rotate_vector(new Vector2(0,-1),45f+openAngle/(2*colNum));
-            for(int i=0;i<colNum;i++)
+            openAngle = 360f;
+            for(int i=0;i<4;i++)
             {
-                if((i==colNum-1 && oritation>0) || currentHp<lowHp) break;
-                for(int j=0;j<bulletEachCol;j++)
+                dire = ourTool.rotate_vector(new Vector2(0,1),45f*(i));
+                angle = 45f*i;
+                for(int j=0;j<=colNum;j++)
                 {
-                    if(currentHp<lowHp) break;
-
-                    if(oritation>0)
+                    for(int k=0;k<bulletEachCol;k++)
                     {
-                        clone = objectPooler.spawnFromPool("circle_red",(Vector2)tem.position+dire*(bulletInterval*j),tem.rotation);
+                        if(j==colNum/2) break;
+                        clone = objectPooler.spawnFromPool(red_middle,(Vector2)shooterTrans.position+dire*(bulletInterval*k),shooterTrans.rotation);
+                        clone.transform.Rotate(0,0,angle);
+                        clone.GetComponent<SpriteRenderer>().sortingOrder = layer;
                         clone.GetComponent<Rigidbody2D>().velocity = dire*5;
+                        layer++;
                     }
-                    else 
-                    {
-                        clone = objectPooler.spawnFromPool("orange_bullet",(Vector2)tem.position+dire*(bulletInterval*j),tem.rotation);
-                        clone.GetComponent<Rigidbody2D>().velocity = dire*5;
-                    } 
+                    dire = ourTool.rotate_vector(dire,openAngle/colNum);
+                    angle += openAngle/colNum;
                 }
-                dire = ourTool.rotate_vector(dire,(openAngle/colNum)*oritation);
+                openAngle -= 90f;
+                yield return new WaitForSeconds(0.4f);
             }
-            oritation*=-1;
+            if(currentHp<=lowHp) break;
+            for(int k=0;k<bulletEachCol;k++)
+            {
+                clone = objectPooler.spawnFromPool(red_middle,(Vector2)shooterTrans.position+new Vector2(0,-1)*(bulletInterval*k),shooterTrans.rotation);
+                clone.GetComponent<Rigidbody2D>().velocity = new Vector2(0,-1)*5;
+            }
+
+            if(currentHp<=lowHp) break;
+            else if(count%3==0) slowDownMove(new Vector2(1,5)-(Vector2)transform.position,0.5f);
+            else if(count%3==1) slowDownMove(new Vector2(-1,5)-(Vector2)transform.position,0.5f);
+            else if(count%3==2) slowDownMove(oriPos-(Vector2)transform.position,0.5f);
+            count++;
+            yield return new WaitWhile(() => isMove()==true);
         }
-        shooter.SetActive(false);
-        shooter.transform.position = ini_pos;
         useCard = true;
     }
     IEnumerator rice_sea(float time)
@@ -136,9 +150,9 @@ public class a_ba : abstractBoss
             sc_shooter[i] = sc_manager.transform.GetChild(i).gameObject;
             tem[i] = sc_shooter[i].transform;
         }
-        sc_shooter[0].transform.localPosition = new Vector2(-3.5f,3f);
-        sc_shooter[1].transform.localPosition = new Vector2(3.5f,3f);
-        Debug.Log(sc_shooter[1].transform.position);
+        sc_shooter[0].transform.localPosition = new Vector2(-3.5f,2f);
+        sc_shooter[1].transform.localPosition = new Vector2(3.5f,2f);
+        
         setTimer("rice_sea",time);
         GameObject colone;
         int layer=0,correct=-1;

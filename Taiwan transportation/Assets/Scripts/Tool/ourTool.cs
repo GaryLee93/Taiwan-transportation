@@ -30,4 +30,11 @@ public class ourTool
     {
         return  radian/Mathf.PI*180;
     }
+    public static float angleOfVectors(Vector2 v1,Vector2 v2)
+    {
+        float innerProduct = v1.x*v2.x+v1.y*v2.y;
+        innerProduct /= (v1.magnitude*v2.magnitude);
+
+        return Mathf.Acos(innerProduct);
+    }
 }

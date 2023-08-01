@@ -148,4 +148,12 @@ public abstract class abstractBoss : MonoBehaviour
     {
         slowDownMove(new Vector2(0,4)-(Vector2)transform.position,0.5f);
     }
+    public void summonDrop(int count, string type){
+        GameObject cb;
+        for(int i=0; i<count; i++){
+            cb = Instantiate(StageObj.Collectables[type], transform.position, transform.rotation);
+            cb.transform.Translate(Random.Range(-0.3f, 0.3f), 0, 0);
+            cb.GetComponent<Rigidbody2D>().velocity = new Vector2(Random.Range(-0.5f, 0.5f), Random.Range(2f, 5f));
+        }
+    }
 }

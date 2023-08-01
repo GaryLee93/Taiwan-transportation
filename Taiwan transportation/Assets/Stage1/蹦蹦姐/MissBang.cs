@@ -79,6 +79,9 @@ public class MissBang : abstractBoss
         actionCheck = false;
         StageObj.eraseAllBullet();
         transform.Find("HpCanva").gameObject.SetActive(false);
+        summonDrop(30,"score");
+        summonDrop(30,"power");
+        summonDrop(1,"bomb");
     }
     
     public override void active()
