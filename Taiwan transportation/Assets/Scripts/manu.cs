@@ -14,7 +14,11 @@ public class manu : MonoBehaviour
     {
         StartCoroutine(loadingStart());
     }
-
+    public void QuitGame()
+    {
+        Application.Quit();
+    }
+    
     IEnumerator loadingStart()
     {
         if(loadingAni.GetComponent<VideoPlayer>().isPrepared)
