@@ -81,7 +81,7 @@ public class a_ba : abstractBoss
             sectionCheck[i,0] = false;
             sectionCheck[i,1] = false;
         }
-        init(4500);
+        init(3000);
         slowDownMove(oriPos-(Vector2)transform.position,0.5f);
         useCard = false;
         actionCheck = true;
