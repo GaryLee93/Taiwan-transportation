@@ -38,17 +38,7 @@ public class UsageCase : MonoBehaviour
         // Your own logic control.
         if(pass.isPlaying&&w)
         {
-            /*if(t)
-            {
-                clock.setTimer("dialog",7f);
-                t=false;
-            }
-            if(!clock.checkTimer("dialog")) 
-                {
-                    flowerSys.SetupDialog();
-                    progress=0;
-                    w=false;
-                }*/
+
             flowerSys.SetupDialog();
             progress=0;
             w=false;
