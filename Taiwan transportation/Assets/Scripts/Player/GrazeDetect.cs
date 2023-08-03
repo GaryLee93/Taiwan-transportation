@@ -19,7 +19,6 @@ public class GrazeDetect : MonoBehaviour
                 grazeCount ++;
                 grazeSound.Play();
                 refreshGrazeText();
-                Debug.Log("Grazed");
             }
         }
     }

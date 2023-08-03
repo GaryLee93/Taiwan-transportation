@@ -103,6 +103,7 @@ public class MissBang : abstractBoss
         //wait for preset over
         yield return new WaitWhile(() => recoverCheck==true);
         yield return new WaitWhile(() => isMove()==true);
+        yield return new WaitWhile(() => isOP() == true);
         
         GameObject shooter = transform.GetChild(0).gameObject;
         GameObject colone;
@@ -146,6 +147,7 @@ public class MissBang : abstractBoss
         //wait for preset over
         yield return new WaitWhile(() => recoverCheck==true);
         yield return new WaitWhile(() => isMove()==true);
+        yield return new WaitWhile(() => isOP() == true);
 
         GameObject shooter = transform.GetChild(0).gameObject;
         GameObject colone;
@@ -176,6 +178,7 @@ public class MissBang : abstractBoss
         //wait for preset over
         yield return new WaitWhile(() => recoverCheck==true);
         yield return new WaitWhile(() => isMove()==true);
+        yield return new WaitWhile(() => isOP() == true);
 
         GameObject shooter = transform.GetChild(0).gameObject;
         GameObject clone;

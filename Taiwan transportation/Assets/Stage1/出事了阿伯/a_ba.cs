@@ -31,7 +31,7 @@ public class a_ba : abstractBoss
         else if(!sectionCheck[(int)SpellCard.riceSea,1] && useCard)
         {
             StageObj.eraseAllBullet();
-            OPMode(2f);
+            OPMode(1f);
             setLowHp(-1);
             bp.startMove("taxi",1f,0.75f);
             sp.startSmallize("稻符「黃金雨」",1f,0.75f);
@@ -140,8 +140,10 @@ public class a_ba : abstractBoss
     }
     IEnumerator rice_sea(float time)
     {
+        slowDownMove(oriPos-(Vector2)transform.position,0.5f);
         yield return new WaitWhile(() => recoverCheck==true);
         yield return new WaitWhile(() => isMove()==true);
+        yield return new WaitWhile(() => isOP()==true);
         GameObject sc_manager = transform.GetChild(2).gameObject;
         GameObject[] sc_shooter = new GameObject[2];
         Transform[] tem = new Transform[2];

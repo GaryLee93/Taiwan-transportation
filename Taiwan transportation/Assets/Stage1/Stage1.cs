@@ -17,6 +17,7 @@ public class Stage1 : MonoBehaviour
         StartCoroutine(beforeMidBoss());
         background.GetComponent<Background1>().start_taxi();
         background.GetComponent<Background1>().display_title();
+        StartCoroutine(walkchangefield());
     }
     void Update(){
         stageTimer += Time.deltaTime;
@@ -150,7 +151,6 @@ public class Stage1 : MonoBehaviour
         }
         StartCoroutine(midBoss());
     }
-
     IEnumerator midBoss(){
         GameObject midBoss = Instantiate(taxi, new Vector3(-3f, 7.9f, 0), new Quaternion());
         midBoss.GetComponent<abstractBoss>().active();
@@ -176,7 +176,6 @@ public class Stage1 : MonoBehaviour
         yield return delayTime;
 
         while(stageTimer <= 70f){
-            Debug.Log("fill");
             enemy = Instantiate(StageObj.Enemies["green_scooter"], new Vector2(-6f , 4f), transform.rotation);
             enemy.GetComponent<S1Scooter>().setTurnCircle(new Vector2(4f, 0), 2f, 1f, -90f);
             enemy.GetComponent<S1Scooter>().setShootSector(new Vector2(0, -3), 3, 30f, true, 0.5f, 0.5f, 2);
@@ -282,4 +281,10 @@ public class Stage1 : MonoBehaviour
         yield return delayTime;
     }
 
+    IEnumerator walkchangefield(){
+        while(stageTimer <= 77){
+            yield return null;
+        }
+        background.GetComponent<Background1>().start_walkchange();
+    }
 }

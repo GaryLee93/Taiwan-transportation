@@ -123,7 +123,7 @@ public abstract class abstractBoss : MonoBehaviour
         noDemageMode = true;
         setTimer("OPMode",time);
     }
-    
+
     public abstract void active();
     public bool isRun()
     {
@@ -132,6 +132,10 @@ public abstract class abstractBoss : MonoBehaviour
     public bool isMove()
     {
         return MoveCheck;
+    }
+    public bool isOP()
+    {
+        return noDemageMode;
     }
     public void takeDamage(int damage)
     {
