@@ -13,7 +13,7 @@ public class UsageCase : MonoBehaviour
     private int progress = 10;
     public bool isGameEnd = false;
     public VideoPlayer pass;
-    bool w=true;
+    bool w=false;
     bool t=true;
 
     void Start()
@@ -31,9 +31,14 @@ public class UsageCase : MonoBehaviour
     {
         // ----- Integration DEMO -----
         // Your own logic control.
-        if(pass.isPlaying&&w)
+        if(pass.isPlaying&&t)
         {
-
+            clock.setTimer("field",15f);
+            t=false;
+            w=true;
+        }
+        if(!clock.checkTimer("field")&&w)
+        {
             flowerSys.SetupDialog();
             progress=0;
             w=false;

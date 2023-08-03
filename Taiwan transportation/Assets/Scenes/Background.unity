@@ -2151,7 +2151,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1471479284
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2204,6 +2204,9 @@ MonoBehaviour:
   - name: aqua_bullet
     perfab: {fileID: 616258292391850972, guid: 8609f14b414c5474d894187e4e896935, type: 3}
     size: 1000
+  - name: blue_oral
+    perfab: {fileID: 8750712664212628694, guid: 0d560f73bd4c30b4dbb0f315bbf74a0b, type: 3}
+    size: 300
 --- !u!4 &1471479286
 Transform:
   m_ObjectHideFlags: 0
@@ -3041,6 +3044,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   summonTime: 1
   time_text: {fileID: 1749667000}
+  taxi: {fileID: 0}
+  MissBang: {fileID: 0}
+  background: {fileID: 0}
   stageTimer: 0
 --- !u!4 &2108537853
 Transform:

@@ -246,7 +246,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pauseMenu: {fileID: 2053159469}
-  background: {fileID: 1193885788}
 --- !u!1001 &296860791
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -395,7 +394,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isGameEnd: 0
-  pass: {fileID: 1145613273}
+  pass: {fileID: 953605536}
 --- !u!114 &302985773
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2210,6 +2209,7 @@ MonoBehaviour:
   bangfield: {fileID: 2087353876}
   blackfield: {fileID: 1410387564}
   titlePic: {fileID: 1207964274}
+  pauseMenu: {fileID: 147729701}
   nowPlaying: {fileID: 0}
 --- !u!1 &1207964274
 GameObject:

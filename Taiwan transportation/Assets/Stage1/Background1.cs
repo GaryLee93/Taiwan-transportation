@@ -12,13 +12,13 @@ public class Background1 : MonoBehaviour
     [SerializeField] GameObject bangfield;
     [SerializeField] GameObject blackfield;
     [SerializeField] GameObject titlePic;
-
+    [SerializeField] PauseMenu pauseMenu;
     VideoPlayer taxiVp;
     VideoPlayer changeVp;
     VideoPlayer walkVp;
     VideoPlayer walkchangeVp;
     VideoPlayer bangVp;
-
+    bool hasEnded = false;
     public VideoPlayer nowPlaying;
 
     void Start(){
@@ -35,17 +35,29 @@ public class Background1 : MonoBehaviour
         changeVp.Prepare();
         walkchangeVp.Prepare();
         bangVp.Prepare();
+        pauseMenu.pause += pause;
+        pauseMenu.resume += resume;
     }
-
-    void Update(){
-        if(nowPlaying != null){
-            if(Input.GetKey(KeyCode.Pause)){
-                
+    void pause()
+    {
+        if(nowPlaying != null)
+        {
+            if(PauseMenu.gameIsPaused)
+            {
+                nowPlaying.Pause();
             }
         }
-        
     }
-    
+    void resume()
+    {
+        if(nowPlaying !=null)
+        {
+            if(!PauseMenu.gameIsPaused && !hasEnded)
+            {
+                nowPlaying.Play();
+            }
+        }
+    }
     public void start_taxi(){
         StartCoroutine(taxi());
     }
@@ -114,6 +126,7 @@ public class Background1 : MonoBehaviour
         }
         walkchangeVp.Play();
         nowPlaying = walkchangeVp;
+        nowPlaying.loopPointReached += ((VideoPlayer vp) => hasEnded=true);
     }
     void vpAfterloop(VideoPlayer vp){
         vp.Stop();
