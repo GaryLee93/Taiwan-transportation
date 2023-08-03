@@ -31,7 +31,7 @@ public class UsageCase : MonoBehaviour
     {
         // ----- Integration DEMO -----
         // Your own logic control.
-        if(pass.isPlaying&&t)
+        /*if(pass.isPlaying&&t)
         {
             clock.setTimer("field",15f);
             t=false;
@@ -42,7 +42,7 @@ public class UsageCase : MonoBehaviour
             flowerSys.SetupDialog();
             progress=0;
             w=false;
-        }
+        }*/
 
         
         if(flowerSys.isCompleted && !isGameEnd ){
@@ -70,6 +70,11 @@ public class UsageCase : MonoBehaviour
                 flowerSys.Resume();
             }
         }
+    }
+
+    public void startDialogue(){
+        flowerSys.SetupDialog();
+        progress=0;
     }
 }
     

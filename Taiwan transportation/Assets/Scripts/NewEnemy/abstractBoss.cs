@@ -14,7 +14,10 @@ public abstract class abstractBoss : MonoBehaviour
     protected Rigidbody2D rb;
     protected Clock clock;
     [SerializeField] hpBar healthBar;
-    
+    private void Awake() 
+    {
+        
+    }
     private void FixedUpdate() 
     {
         #region countTimer
@@ -29,12 +32,14 @@ public abstract class abstractBoss : MonoBehaviour
             }
         }  
         #endregion
-        
-        #region noDemageMode
-        if(noDemageMode&&!checkTimer("OPMode")) noDemageMode = false;
-        #endregion
-        recover();
-        slowDown(moveAccel);
+        if(actionCheck)
+        {
+            #region noDemageMode
+            if(noDemageMode&&!checkTimer("OPMode")) noDemageMode = false;
+            #endregion
+            recover();
+            slowDown(moveAccel);
+        }
     }
     private void slowDown(Vector2 accel) //slowDown to velocity is zero
     {

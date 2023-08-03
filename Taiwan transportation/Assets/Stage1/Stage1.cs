@@ -10,11 +10,12 @@ public class Stage1 : MonoBehaviour
     [SerializeField] GameObject taxi;
     [SerializeField] GameObject MissBang;
     [SerializeField] GameObject background;
+    [SerializeField] UsageCase usageCase;
     public float stageTimer;
     
     void Start(){
         stageTimer = 0;
-        StartCoroutine(beforeMidBoss());
+        StartCoroutine(missBang());
         background.GetComponent<Background1>().start_taxi();
         background.GetComponent<Background1>().display_title();
         StartCoroutine(walkchangefield());
@@ -278,11 +279,26 @@ public class Stage1 : MonoBehaviour
         enemy = Instantiate(StageObj.Enemies["red_scooter"], new Vector2(0 , 7f), transform.rotation);
         enemy.GetComponent<S1Scooter>().setStraightMove(new Vector2(0, -2f));
         enemy.GetComponent<S1Scooter>().setShootSector(new Vector2(0, -3f), 1, 10f, true, 1f, 1.4f, 5);
-        yield return delayTime;
+        
+        while(stageTimer <= 90){
+            yield return null;
+        }
+
+        
+    }
+
+    IEnumerator missBang(){
+        GameObject mb = Instantiate(MissBang, new Vector3(0, 5, 0), new Quaternion());
+        usageCase.startDialogue();
+        while(usageCase.isGameEnd == false){
+            yield return null;
+        }
+        Debug.Log("bang");
+        mb.GetComponent<abstractBoss>().active();
     }
 
     IEnumerator walkchangefield(){
-        while(stageTimer <= 77){
+        while(stageTimer <= 77f){
             yield return null;
         }
         background.GetComponent<Background1>().start_walkchange();

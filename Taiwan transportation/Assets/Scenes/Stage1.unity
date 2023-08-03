@@ -2987,6 +2987,7 @@ MonoBehaviour:
   taxi: {fileID: 625242563735727779, guid: 9f960ea5843e8424b88a7a8ef608882f, type: 3}
   MissBang: {fileID: 7127380755122180719, guid: df00e3fec1f9c384f843c9d6adb33153, type: 3}
   background: {fileID: 1193885788}
+  usageCase: {fileID: 302985772}
   stageTimer: 0
 --- !u!4 &1964752495
 Transform:

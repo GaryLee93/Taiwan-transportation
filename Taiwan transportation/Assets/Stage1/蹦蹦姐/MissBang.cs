@@ -11,21 +11,15 @@ public class MissBang : abstractBoss
     private enum SpellCard {brockenCar,glassRain,spellCardNum}
     bool[,] sectionCheck = new bool[(int)SpellCard.spellCardNum,2]; 
     //check whether a spellCard is actived, 0 for normal attack,1 for spellcard itself 
-    private void Start()
-    {
-        deadAnimation = GetComponent<VideoPlayer>();
-        an = GetComponent<Animator>();
-        active();
-    }
     private void Update()
     {
-        an.SetFloat("x_velocity",rb.velocity.x);
         action();
     }
     private void action()
     {
         if(actionCheck)
         {
+            an.SetFloat("x_velocity",rb.velocity.x);
             if(section==(int)SpellCard.brockenCar) BrockenCar();
             else if(section==(int)SpellCard.glassRain) GlassRain();
             else if(section==(int)SpellCard.spellCardNum) die();
@@ -86,6 +80,8 @@ public class MissBang : abstractBoss
     
     public override void active()
     {
+        deadAnimation = GetComponent<VideoPlayer>();
+        an = GetComponent<Animator>();
         for(int i=0;i<(int)SpellCard.spellCardNum;i++)
         {
             sectionCheck[i,0] = false;
@@ -129,7 +125,7 @@ public class MissBang : abstractBoss
                 }
                 yield return new WaitForSeconds(0.01f);
 
-                colone = objectPooler.spawnFromPool("red_mid_round",shooter.transform.position,
+                colone = objectPooler.spawnFromPool("circle_red",shooter.transform.position,
                 shooter.transform.rotation);
                 colone.GetComponent<SpriteRenderer>().sortingOrder = layer;
                 colone.GetComponent<Rigidbody2D>().velocity = 3*dire;
