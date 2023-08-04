@@ -17,7 +17,6 @@ public abstract class abstractBoss : MonoBehaviour
     protected Player player;
     
     [SerializeField] hpBar healthBar;
-    
     private void FixedUpdate() 
     {
         #region countTimer
@@ -70,6 +69,14 @@ public abstract class abstractBoss : MonoBehaviour
     }
     
     protected abstract void die();
+    protected void spellCardCalculate()
+    {
+        if(bonusCheck)
+        {
+            player.playerData.score += 10000;
+            player.refreshScoreText();
+        }
+    }
     protected void prepareNextAction(bool isSpellCard,bool nextSection,bool needRecover,int lowHp,float OPtime)
     {
         StageObj.eraseAllBullet();
@@ -77,6 +84,7 @@ public abstract class abstractBoss : MonoBehaviour
         clock.cancelSpellCardTimer();
         if(nextSection) section++;
         useCard = isSpellCard;
+        if(useCard) bonusCheck = true;
         OPMode(OPtime);
         if(needRecover) startRecover();
         setLowHp(lowHp);

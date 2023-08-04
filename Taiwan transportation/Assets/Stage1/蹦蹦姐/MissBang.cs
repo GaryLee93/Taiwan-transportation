@@ -152,6 +152,7 @@ public class MissBang : abstractBoss
 
         //finish
         prepareNextAction(true,true,false,0,0);
+        spellCardCalculate();
     }
     IEnumerator brockenCar(float time)
     {
@@ -198,6 +199,7 @@ public class MissBang : abstractBoss
 
         //finish
         prepareNextAction(true,true,true,-1,2);
+        spellCardCalculate();
     }
        
 }

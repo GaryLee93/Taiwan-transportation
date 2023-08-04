@@ -15,7 +15,7 @@ public class Player : MonoBehaviour{
     [SerializeField] Sprite rightSprite;
 
     [Header("各種屬性")]
-    [SerializeField] PlayerData playerData;
+    public PlayerData playerData;
     Rigidbody2D rb;
     GameObject bombObj = null;
     List<GameObject> shooterList;
@@ -350,7 +350,7 @@ public class Player : MonoBehaviour{
             isBombing = true;
         }
     }
-    void refreshScoreText(){
+    public void refreshScoreText(){
         StageObj.StageTexts["score"].GetComponent<Text>().text = "Score: " + playerData.score;
     }
 
