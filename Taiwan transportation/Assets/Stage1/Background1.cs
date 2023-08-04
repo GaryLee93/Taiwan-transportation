@@ -108,14 +108,17 @@ public class Background1 : MonoBehaviour
         StartCoroutine(walk_change());
     }
     IEnumerator walk_change(){
-        walkVp.loopPointReached += vpAfterloop;
+        walkVp.loopPointReached += (VideoPlayer vp) => vp.Stop(); 
         while(walkVp.isPlaying){
             yield return null;
         }
         walkchangeVp.Play();
         nowPlaying = walkchangeVp;
     }
-    void vpAfterloop(VideoPlayer vp){
-        vp.Stop();
+
+    public void start_bang(){
+        walkchangeVp.Stop();
+        bangVp.Play();
+        nowPlaying = bangVp;
     }
 }

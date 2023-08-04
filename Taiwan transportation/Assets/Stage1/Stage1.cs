@@ -9,14 +9,15 @@ public class Stage1 : MonoBehaviour
     [SerializeField] TMP_Text time_text;
     [SerializeField] GameObject taxi;
     [SerializeField] GameObject MissBang;
-    [SerializeField] GameObject background;
+    [SerializeField] Background1 background;
+    [SerializeField] UsageCase usageCase;
     public float stageTimer;
     
     void Start(){
         stageTimer = 0;
-        StartCoroutine(beforeMidBoss());
-        background.GetComponent<Background1>().start_taxi();
-        background.GetComponent<Background1>().display_title();
+        StartCoroutine(firstWave());
+        background.start_taxi();
+        background.display_title();
         StartCoroutine(walkchangefield());
     }
     void Update(){
@@ -32,7 +33,7 @@ public class Stage1 : MonoBehaviour
         }
     }
 
-    IEnumerator beforeMidBoss(){
+    IEnumerator firstWave(){
         yield return new WaitForSeconds(summonTime);
         GameObject enemy;
         YieldInstruction delayTime, delayOneSec;
@@ -160,16 +161,16 @@ public class Stage1 : MonoBehaviour
         }
 
         
-        background.GetComponent<Background1>().start_change();
-        StartCoroutine(fillingEnemy());
+        background.start_change();
+        StartCoroutine(fillWave());
 
         while(stageTimer <= 70f){
             yield return null;
         }
         Destroy(midBoss);
-        StartCoroutine(afterMidBoss());
+        StartCoroutine(secondWave());
     }
-    IEnumerator fillingEnemy(){
+    IEnumerator fillWave(){
         GameObject enemy;
         YieldInstruction delayTime;
         delayTime = new WaitForSeconds(1f);
@@ -192,7 +193,7 @@ public class Stage1 : MonoBehaviour
             yield return delayTime;
         }
     }
-    IEnumerator afterMidBoss(){
+    IEnumerator secondWave(){
         GameObject enemy;
         YieldInstruction delayTime, delayOneSec;
         delayOneSec = new WaitForSeconds(1);
@@ -278,13 +279,29 @@ public class Stage1 : MonoBehaviour
         enemy = Instantiate(StageObj.Enemies["red_scooter"], new Vector2(0 , 7f), transform.rotation);
         enemy.GetComponent<S1Scooter>().setStraightMove(new Vector2(0, -2f));
         enemy.GetComponent<S1Scooter>().setShootSector(new Vector2(0, -3f), 1, 10f, true, 1f, 1.4f, 5);
-        yield return delayTime;
+        
+        while(stageTimer <= 90){
+            yield return null;
+        }
+        StartCoroutine(missBang());
+    }
+
+    IEnumerator missBang(){
+        usageCase.startDialogue();
+        yield return new WaitForSeconds(1f);
+        GameObject mb = Instantiate(MissBang, new Vector3(0, 5, 0), new Quaternion());
+        while(usageCase.isGameEnd == false){
+            yield return null;
+        }
+        Debug.Log("bang");
+        mb.GetComponent<abstractBoss>().active();
+        background.start_bang();
     }
 
     IEnumerator walkchangefield(){
         while(stageTimer <= 77){
             yield return null;
         }
-        background.GetComponent<Background1>().start_walkchange();
+        background.start_walkchange();
     }
 }
