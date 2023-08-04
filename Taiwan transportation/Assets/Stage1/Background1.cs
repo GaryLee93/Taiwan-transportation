@@ -120,7 +120,7 @@ public class Background1 : MonoBehaviour
         StartCoroutine(walk_change());
     }
     IEnumerator walk_change(){
-        walkVp.loopPointReached += vpAfterloop;
+        walkVp.loopPointReached += (VideoPlayer vp) => vp.Stop(); 
         while(walkVp.isPlaying){
             yield return null;
         }
@@ -128,8 +128,11 @@ public class Background1 : MonoBehaviour
         nowPlaying = walkchangeVp;
         nowPlaying.loopPointReached += (VideoPlayer vp) => hasEnded=true;
     }
-    void vpAfterloop(VideoPlayer vp){
-        vp.Stop();
+
+    public void start_bang(){
+        walkchangeVp.Stop();
+        bangVp.Play();
+        nowPlaying = bangVp;
     }
 
     public void start_bang(){
