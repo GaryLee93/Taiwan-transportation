@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 public abstract class abstractBoss : MonoBehaviour
 {
     private bool MoveCheck,noDemageMode;
@@ -15,6 +14,7 @@ public abstract class abstractBoss : MonoBehaviour
     protected Rigidbody2D rb;
     protected Clock clock;
     protected Player player;
+    protected BonusInform bonusTitle;
     
     [SerializeField] hpBar healthBar;
     private void FixedUpdate() 
@@ -74,8 +74,11 @@ public abstract class abstractBoss : MonoBehaviour
         if(bonusCheck)
         {
             player.playerData.score += 10000;
-            player.refreshScoreText();
+            player.refreshScoreText(); 
+            bonusTitle.titleOutput(true);
         }
+        else bonusTitle.titleOutput(false);
+
     }
     protected void prepareNextAction(bool isSpellCard,bool nextSection,bool needRecover,int lowHp,float OPtime)
     {
@@ -113,6 +116,7 @@ public abstract class abstractBoss : MonoBehaviour
         sp = spellCardPerform.instance;
         clock = Clock.clockInstance;
         player = Player.instance;
+        bonusTitle = BonusInform.instance;
         section = 0;
         MaxHp = MaxHealth;
         currentHp = MaxHp;
