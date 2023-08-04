@@ -9,15 +9,15 @@ public abstract class abstractBoss : MonoBehaviour
     private Dictionary<string,float> timers;
     protected bool actionCheck,recoverCheck,useCard,bonusCheck;
     protected int currentHp,MaxHp,lowHp,section;
+    protected Vector2 oriPos = new Vector2(0,4);
     protected bossPicPerform bp;
     protected spellCardPerform sp;
     protected Rigidbody2D rb;
     protected Clock clock;
+    protected Player player;
+    
     [SerializeField] hpBar healthBar;
-    private void Awake() 
-    {
-        
-    }
+    
     private void FixedUpdate() 
     {
         #region countTimer
@@ -70,7 +70,17 @@ public abstract class abstractBoss : MonoBehaviour
     }
     
     protected abstract void die();
-    protected abstract void resetPos();
+    protected void prepareNextAction(bool isSpellCard,bool nextSection,bool needRecover,int lowHp,float OPtime)
+    {
+        StageObj.eraseAllBullet();
+        slowDownMove(oriPos-(Vector2)transform.position,0.5f);
+        clock.cancelSpellCardTimer();
+        if(nextSection) section++;
+        useCard = isSpellCard;
+        OPMode(OPtime);
+        if(needRecover) startRecover();
+        setLowHp(lowHp);
+    }
     protected bool checkTimer(string name)
     {
         return timers.ContainsKey(name);
@@ -94,6 +104,7 @@ public abstract class abstractBoss : MonoBehaviour
         bp = bossPicPerform.instance;
         sp = spellCardPerform.instance;
         clock = Clock.clockInstance;
+        player = Player.instance;
         section = 0;
         MaxHp = MaxHealth;
         currentHp = MaxHp;
@@ -103,6 +114,8 @@ public abstract class abstractBoss : MonoBehaviour
         actionCheck = false;
         recoverCheck = false;
         bonusCheck = false;
+        player.die += ()=> bonusCheck=false;
+        player.useBomb += ()=> bonusCheck=false;
         healthBar.setHpBar(MaxHp);
         healthBar.setHP(currentHp);
     }
@@ -129,7 +142,7 @@ public abstract class abstractBoss : MonoBehaviour
         noDemageMode = true;
         setTimer("OPMode",time);
     }
-
+    
     public abstract void active();
     public bool isRun()
     {

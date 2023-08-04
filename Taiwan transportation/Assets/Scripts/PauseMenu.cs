@@ -5,15 +5,13 @@ using UnityEngine.SceneManagement;
 public class PauseMenu : MonoBehaviour
 {
     public static bool gameIsPaused = false;
-    public delegate void pauseAllThing();
-    public delegate void resumeAllThing();
-    public pauseAllThing pause;
-    public resumeAllThing resume;
+    public delegate void PauseMenuEvent();
+    public PauseMenuEvent pause,resume;
     [SerializeField] GameObject pauseMenu;
     void Awake() 
     {
-        pause = new pauseAllThing(pauseTime); 
-        resume = new resumeAllThing(resumeTime);
+        pause = new PauseMenuEvent(pauseTime); 
+        resume = new PauseMenuEvent(resumeTime);
     }
     void Update()
     {

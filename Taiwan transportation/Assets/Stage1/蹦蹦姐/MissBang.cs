@@ -7,10 +7,13 @@ public class MissBang : abstractBoss
     [SerializeField] GameObject backMirror;
     VideoPlayer deadAnimation;
     Animator an;
-    Vector2 oriPos = new Vector2(0,4);
     private enum SpellCard {brockenCar,glassRain,spellCardNum}
     bool[,] sectionCheck = new bool[(int)SpellCard.spellCardNum,2]; 
     //check whether a spellCard is actived, 0 for normal attack,1 for spellcard itself 
+    private void Start() 
+    {
+        active();
+    }
     private void Update()
     {
         action();
@@ -28,9 +31,7 @@ public class MissBang : abstractBoss
     private void GlassRain()
     {
         if(!sectionCheck[(int)SpellCard.glassRain,1])
-        {
-            OPMode(2f); 
-            setLowHp(-1);           
+        {         
             bp.startMove("MissBang",0.75f,1f);
             sp.startSmallize("鏡符「萬元的玻璃雨」",0.75f,1f);
             StartCoroutine(glassRain(40f));
@@ -42,16 +43,13 @@ public class MissBang : abstractBoss
     {
         if(!sectionCheck[(int)SpellCard.brockenCar,0] && !useCard)
         {
-            StageObj.eraseAllBullet();
-            setLowHp(MaxHp/2);
+            prepareNextAction(false,false,false,MaxHp/2,0);
             StartCoroutine(normalAtk(30f));
             clock.setSpellCardTimer(30f);
             sectionCheck[(int)SpellCard.brockenCar,0] = true;
         }
         else if(!sectionCheck[(int)SpellCard.brockenCar,1] && useCard)
         {
-            OPMode(2f);
-            setLowHp(-1);
             bp.startMove("MissBang",0.75f,1f);
             sp.startSmallize("車符「破蓋天鳴掌」",0.75f,1f);
             StartCoroutine(brockenCar(35f));
@@ -59,14 +57,7 @@ public class MissBang : abstractBoss
             sectionCheck[(int)SpellCard.brockenCar,1] = true;
         }
     }
-    
-    protected override void resetPos() // not complete yet
-    {
-        clock.cancelSpellCardTimer();
-        if(useCard) sp.retriveTitle();
-        startRecover();
-        slowDownMove(oriPos-(Vector2)transform.position,0.5f);
-    }
+
     protected override void die()
     {
         deadAnimation.Play();
@@ -87,13 +78,10 @@ public class MissBang : abstractBoss
             sectionCheck[i,0] = false;
             sectionCheck[i,1] = false;
         }
-        oriPos = new Vector2(0,4);
-        init(2000);
-        resetPos();
-        
+        init(4500);
+        prepareNextAction(false,false,false,0,0);
         actionCheck = true;
     }
-    
     IEnumerator normalAtk(float time)
     {
         //wait for preset over
@@ -115,17 +103,17 @@ public class MissBang : abstractBoss
                 if(currentHp<lowHp) break; // early break to avoid take too many demage
                 else if(!isMove() && counts%2==0 ) 
                 {
-                    slowDownMove(new Vector2(6,0),1f);
+                    slowDownMove(new Vector2(6,0),1.5f);
                     counts++;
                 }
                 else if(!isMove() && counts%2==1) 
                 {
-                    slowDownMove(new Vector2(-6,0),1f);
+                    slowDownMove(new Vector2(-6,0),1.5f);
                     counts++;
                 }
                 yield return new WaitForSeconds(0.01f);
 
-                colone = objectPooler.spawnFromPool("circle_red",shooter.transform.position,
+                colone = objectPooler.spawnFromPool("red_mid_round",shooter.transform.position,
                 shooter.transform.rotation);
                 colone.GetComponent<SpriteRenderer>().sortingOrder = layer;
                 colone.GetComponent<Rigidbody2D>().velocity = 3*dire;
@@ -133,10 +121,9 @@ public class MissBang : abstractBoss
                 layer++;
             }
         }
-
+        yield return new WaitWhile(() => isMove()==true);
         //finish
-        useCard = true;
-        StageObj.eraseAllBullet();
+        prepareNextAction(true,false,false,-1,2);
     }
     IEnumerator glassRain(float time) 
     {
@@ -158,16 +145,13 @@ public class MissBang : abstractBoss
             if(chose==1) dire = ourTool.trans_matrix(dire,ourTool.eulerToRadian(Random.Range(30,80)));
             else if(chose==2) dire = ourTool.trans_matrix(dire,ourTool.eulerToRadian(Random.Range(100,150)));
             colone.GetComponent<Rigidbody2D>().velocity = dire;
+
+            if(currentHp>=0f) break;
             yield return new WaitForSeconds(2.5f);
         }
 
         //finish
-        resetPos();
-        section++;
-        useCard = false;
-        sp.retriveTitle();
-        StageObj.eraseAllBullet();
-        deadAnimation.Play();
+        prepareNextAction(true,true,false,0,0);
     }
     IEnumerator brockenCar(float time)
     {
@@ -213,11 +197,7 @@ public class MissBang : abstractBoss
         }
 
         //finish
-        resetPos();
-        section++;
-        useCard = false;
-        sp.retriveTitle();
-        StageObj.eraseAllBullet();
+        prepareNextAction(true,true,true,-1,2);
     }
        
 }

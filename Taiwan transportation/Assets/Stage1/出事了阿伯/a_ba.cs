@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.Video;
 public class a_ba : abstractBoss
 {
-    Vector2 oriPos;
     VideoPlayer deadAnimation;
     [SerializeField] GameObject red_middle;
     bool[,] sectionCheck = new bool[(int)SpellCard.spellCardNum,2]; 
@@ -17,16 +16,13 @@ public class a_ba : abstractBoss
     {
         if(!sectionCheck[(int)SpellCard.riceSea,0] && !useCard)
         {
-            setLowHp(MaxHp/2);
+            prepareNextAction(false,false,false,MaxHp/2,0);
             StartCoroutine(normalAttack(30f));
             clock.setSpellCardTimer(30f);
             sectionCheck[(int)SpellCard.riceSea,0] = true;
         }
         else if(!sectionCheck[(int)SpellCard.riceSea,1] && useCard)
         {
-            StageObj.eraseAllBullet();
-            OPMode(1f);
-            setLowHp(-1);
             bp.startMove("taxi",1f,0.75f);
             sp.startSmallize("稻符「黃金雨」",1f,0.75f);
             StartCoroutine(rice_sea(30f));
@@ -59,13 +55,6 @@ public class a_ba : abstractBoss
         summonDrop(30,"power");
         summonDrop(1,"bomb");
     }  
-    protected override void resetPos() // not complete yet
-    {
-        clock.cancelSpellCardTimer();
-        if(useCard) sp.retriveTitle();
-        startRecover();
-        slowDownMove(oriPos-(Vector2)transform.position,0.5f);
-    }
     
     public override void active()
     {
@@ -77,8 +66,8 @@ public class a_ba : abstractBoss
             sectionCheck[i,1] = false;
         }
         init(3000);
-        slowDownMove(oriPos-(Vector2)transform.position,0.5f);
-        useCard = false;
+        prepareNextAction(false,false,false,0,0);
+
         actionCheck = true;
     }
     IEnumerator normalAttack(float time)
@@ -131,7 +120,8 @@ public class a_ba : abstractBoss
             count++;
             yield return new WaitWhile(() => isMove()==true);
         }
-        useCard = true;
+
+        prepareNextAction(true,false,false,-1,1f);
     }
     IEnumerator rice_sea(float time)
     {
@@ -174,7 +164,6 @@ public class a_ba : abstractBoss
                 correct*=(-1);
             }   
         }
-        resetPos();
-        section++;
+        prepareNextAction(false,true,false,-1,1f);
     }
 }

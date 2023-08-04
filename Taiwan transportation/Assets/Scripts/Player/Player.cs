@@ -16,16 +16,17 @@ public class Player : MonoBehaviour{
 
     [Header("各種屬性")]
     [SerializeField] PlayerData playerData;
-    float current_speed;
     Rigidbody2D rb;
-    bool isBombing;
-    bool isRespawning;
-    float respawnTimer;
-    bool canShoot;
     GameObject bombObj = null;
     List<GameObject> shooterList;
+    float current_speed,respawnTimer;
+    bool isBombing,isRespawning,canShoot;
+    public delegate void playerEvent();
     public static Player instance;
+    public playerEvent useBomb,die;
     private void Awake(){
+        useBomb = new playerEvent(loudSparkBomb);
+        die = new playerEvent(be_hit);
         instance = this;
     }
 
