@@ -7,7 +7,7 @@ public abstract class abstractBoss : MonoBehaviour
     private bool MoveCheck,noDemageMode;
     private Vector2 moveAccel;
     private Dictionary<string,float> timers;
-    protected bool actionCheck,recoverCheck,useCard;
+    protected bool actionCheck,recoverCheck,useCard,bonusCheck;
     protected int currentHp,MaxHp,lowHp,section;
     protected bossPicPerform bp;
     protected spellCardPerform sp;
@@ -97,6 +97,7 @@ public abstract class abstractBoss : MonoBehaviour
         useCard = false;
         actionCheck = false;
         recoverCheck = false;
+        bonusCheck = false;
         healthBar.setHpBar(MaxHp);
         healthBar.setHP(currentHp);
     }

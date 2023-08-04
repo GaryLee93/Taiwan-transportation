@@ -7,14 +7,8 @@ public class a_ba : abstractBoss
     Vector2 oriPos;
     VideoPlayer deadAnimation;
     [SerializeField] GameObject red_middle;
-    [SerializeField] GameObject orange_middle;
     bool[,] sectionCheck = new bool[(int)SpellCard.spellCardNum,2]; 
     private enum SpellCard{riceSea,spellCardNum}
-    private void Start()
-    {
-        deadAnimation = GetComponent<VideoPlayer>();
-        active();
-    }
     private void Update() 
     {
         action();
@@ -75,6 +69,7 @@ public class a_ba : abstractBoss
     
     public override void active()
     {
+        deadAnimation = GetComponent<VideoPlayer>();
         oriPos = new Vector2(0,4);
         for(int i=0;i<(int)SpellCard.spellCardNum;i++)
         {
