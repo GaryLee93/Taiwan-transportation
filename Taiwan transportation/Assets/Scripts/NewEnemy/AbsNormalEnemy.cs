@@ -20,8 +20,8 @@ public abstract class AbsNormalEnemy : MonoBehaviour
         GameObject cb;
         for(int i=0; i<count; i++){
             cb = Instantiate(StageObj.Collectables[type], transform.position, transform.rotation);
-            cb.transform.Translate(Random.Range(-0.3f, 0.3f), 0, 0);
-            cb.GetComponent<Rigidbody2D>().velocity = new Vector2(Random.Range(-0.5f, 0.5f), Random.Range(2f, 5f));
+            cb.transform.Translate(Random.Range(-1f, 1f), 0, 0);
+            cb.GetComponent<Rigidbody2D>().velocity = new Vector2(Random.Range(-0.2f, 0.2f), Random.Range(3f, 5f));
         }
     }
     public abstract void die();

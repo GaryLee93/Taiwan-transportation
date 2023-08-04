@@ -27,6 +27,6 @@ public class manu : MonoBehaviour
             loadingAni.GetComponent<VideoPlayer>().Play();
         }
         yield return new WaitForSeconds(2f);
-        SceneManager.LoadScene("TestingStage");
+        SceneManager.LoadScene("Stage1");
     }
 }

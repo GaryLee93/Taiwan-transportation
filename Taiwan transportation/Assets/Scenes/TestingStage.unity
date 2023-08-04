@@ -2081,6 +2081,7 @@ MonoBehaviour:
   time_text: {fileID: 0}
   taxi: {fileID: 0}
   MissBang: {fileID: 0}
+  background: {fileID: 0}
   stageTimer: 0
 --- !u!4 &1316187510
 Transform:
@@ -2152,10 +2153,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 625242563735727783, guid: 9f960ea5843e8424b88a7a8ef608882f, type: 3}
-      propertyPath: red_middle
-      value: 
-      objectReference: {fileID: 8750712664212628694, guid: 0d560f73bd4c30b4dbb0f315bbf74a0b, type: 3}
     - target: {fileID: 3212738877185712733, guid: 9f960ea5843e8424b88a7a8ef608882f, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0

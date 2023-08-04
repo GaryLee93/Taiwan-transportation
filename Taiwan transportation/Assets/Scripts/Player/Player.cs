@@ -42,6 +42,7 @@ public class Player : MonoBehaviour{
         transform.position = new Vector3(0, -5, 0);
         canShoot = true;
         
+        playerData.dataInit();
         changePowerMod();
         refreshScoreText();
         refreshPowerText();
@@ -357,7 +358,7 @@ public class Player : MonoBehaviour{
     }
 
     void refreshPowerText(){
-        StageObj.StageTexts["power"].GetComponent<Text>().text = "Power: " + playerData.power;
+        StageObj.StageTexts["power"].GetComponent<Text>().text = "Power: " + playerData.power/100 + "." + (playerData.power%100).ToString("00");
     }
     void refreshBombText(){
         StageObj.StageTexts["bomb"].GetComponent<Text>().text = "Bomb: " + playerData.bomb_count;

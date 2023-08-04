@@ -10,14 +10,16 @@ public class PlayerBullet : MonoBehaviour, Ipooled{
     [SerializeField] float bulletSpeed;
     [SerializeField] int bulletDamage;
     [SerializeField] float turnSpeed;
+    AudioSource hitEnemy;
     private void Start() {
         GetComponent<Rigidbody2D>().velocity = new Vector2(0,bulletSpeed);
+        hitEnemy = Player.GetPlayer().GetComponent<AudioSource>();
     }
     private void Update(){
         if(hitBorder())
             poolDespawn();
     }
-    private void FixedUpdate() {
+    private void FixedUpdate(){
         if(bulletType == BType.Homing){
             GetComponent<Rigidbody2D>().velocity = transform.up * bulletSpeed;
             GameObject target = find_closest_enemy();
@@ -38,6 +40,8 @@ public class PlayerBullet : MonoBehaviour, Ipooled{
     private void OnTriggerEnter2D(Collider2D other){
         if(other.gameObject.tag == "enemy"){
             other.gameObject.GetComponent<AbsNormalEnemy>().takeDamage(bulletDamage);
+            if(this.bulletType == BType.Straight)
+                hitEnemy.Play();
             poolDespawn();
         }
         if(other.gameObject.tag == "boss")
@@ -49,6 +53,8 @@ public class PlayerBullet : MonoBehaviour, Ipooled{
                 return;
             }
             hitBoss.takeDamage(bulletDamage);
+            if(this.bulletType == BType.Straight)
+                hitEnemy.Play();
             poolDespawn();
         }
     }
