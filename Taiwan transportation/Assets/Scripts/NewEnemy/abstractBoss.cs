@@ -80,13 +80,13 @@ public abstract class abstractBoss : MonoBehaviour
     protected void prepareNextAction(bool isSpellCard,bool nextSection,bool needRecover,int lowHp,float OPtime)
     {
         StageObj.eraseAllBullet();
-        slowDownMove(oriPos-(Vector2)transform.position,0.5f);
-        clock.cancelSpellCardTimer();
         if(nextSection) section++;
         useCard = isSpellCard;
-        if(useCard) bonusCheck = true;
-        OPMode(OPtime);
+        if(OPtime>0) OPMode(OPtime);
         if(needRecover) startRecover();
+        if(useCard) bonusCheck = true;
+        slowDownMove(oriPos-(Vector2)transform.position,0.5f);
+        clock.cancelSpellCardTimer();
         setLowHp(lowHp);
     }
     protected bool checkTimer(string name)

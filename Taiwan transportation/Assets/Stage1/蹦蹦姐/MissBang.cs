@@ -10,6 +10,9 @@ public class MissBang : abstractBoss
     private enum SpellCard {brockenCar,glassRain,spellCardNum}
     bool[,] sectionCheck = new bool[(int)SpellCard.spellCardNum,2]; 
     //check whether a spellCard is actived, 0 for normal attack,1 for spellcard itself 
+    private void Start() {
+        active();
+    }
     private void Update()
     {
         action();
@@ -74,7 +77,7 @@ public class MissBang : abstractBoss
             sectionCheck[i,0] = false;
             sectionCheck[i,1] = false;
         }
-        init(4500);
+        init(2000);
         prepareNextAction(false,false,false,0,0);
         actionCheck = true;
     }
@@ -109,7 +112,7 @@ public class MissBang : abstractBoss
                 }
                 yield return new WaitForSeconds(0.01f);
 
-                colone = objectPooler.spawnFromPool("circle_red",shooter.transform.position,
+                colone = objectPooler.spawnFromPool("red_mid_round",shooter.transform.position,
                 shooter.transform.rotation);
                 colone.GetComponent<SpriteRenderer>().sortingOrder = layer;
                 colone.GetComponent<Rigidbody2D>().velocity = 3*dire;
@@ -127,13 +130,13 @@ public class MissBang : abstractBoss
         yield return new WaitWhile(() => recoverCheck==true);
         yield return new WaitWhile(() => isMove()==true);
         yield return new WaitWhile(() => isOP() == true);
-
+        Debug.Log("hAVE");
         GameObject shooter = transform.GetChild(0).gameObject;
         GameObject colone;
         shooter.transform.localPosition = new Vector3(0,0,0);
         
         setTimer("glassRain",time);
-        while(checkTimer("glassRain")&&currentHp>=0f)
+        while(checkTimer("glassRain")&&currentHp>=lowHp)
         {
             Vector2 dire = new Vector2(1,0)*7.5f;
             colone = Instantiate(backMirror,shooter.transform.position,shooter.transform.rotation);
@@ -142,7 +145,7 @@ public class MissBang : abstractBoss
             else if(chose==2) dire = ourTool.trans_matrix(dire,ourTool.eulerToRadian(Random.Range(100,150)));
             colone.GetComponent<Rigidbody2D>().velocity = dire;
 
-            if(currentHp>=0f) break;
+            if(currentHp<=lowHp) break;
             yield return new WaitForSeconds(2.5f);
         }
 
