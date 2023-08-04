@@ -10,10 +10,6 @@ public class MissBang : abstractBoss
     private enum SpellCard {brockenCar,glassRain,spellCardNum}
     bool[,] sectionCheck = new bool[(int)SpellCard.spellCardNum,2]; 
     //check whether a spellCard is actived, 0 for normal attack,1 for spellcard itself 
-    private void Start() 
-    {
-        active();
-    }
     private void Update()
     {
         action();
@@ -113,7 +109,7 @@ public class MissBang : abstractBoss
                 }
                 yield return new WaitForSeconds(0.01f);
 
-                colone = objectPooler.spawnFromPool("red_mid_round",shooter.transform.position,
+                colone = objectPooler.spawnFromPool("circle_red",shooter.transform.position,
                 shooter.transform.rotation);
                 colone.GetComponent<SpriteRenderer>().sortingOrder = layer;
                 colone.GetComponent<Rigidbody2D>().velocity = 3*dire;

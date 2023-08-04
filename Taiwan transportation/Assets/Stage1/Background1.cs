@@ -134,10 +134,4 @@ public class Background1 : MonoBehaviour
         bangVp.Play();
         nowPlaying = bangVp;
     }
-
-    public void start_bang(){
-        walkchangeVp.Stop();
-        bangVp.Play();
-        nowPlaying = bangVp;
-    }
 }
