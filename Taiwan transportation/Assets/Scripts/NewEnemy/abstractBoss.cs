@@ -75,10 +75,8 @@ public abstract class abstractBoss : MonoBehaviour
         {
             player.playerData.score += 10000;
             player.refreshScoreText(); 
-            bonusTitle.titleOutput(true);
         }
-        else bonusTitle.titleOutput(false);
-
+        bonusTitle.titleOutput(bonusCheck);
     }
     protected void prepareNextAction(bool isSpellCard,bool nextSection,bool needRecover,int lowHp,float OPtime)
     {

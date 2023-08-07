@@ -164,6 +164,7 @@ public class a_ba : abstractBoss
                 correct*=(-1);
             }   
         }
+        spellCardCalculate();
         prepareNextAction(false,true,false,-1,1f);
     }
 }

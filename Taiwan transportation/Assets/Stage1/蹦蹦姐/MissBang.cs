@@ -150,8 +150,9 @@ public class MissBang : abstractBoss
         }
 
         //finish
-        prepareNextAction(true,true,false,0,0);
         spellCardCalculate();
+        prepareNextAction(true,true,false,0,0);
+        
     }
     IEnumerator brockenCar(float time)
     {
@@ -197,8 +198,11 @@ public class MissBang : abstractBoss
         }
 
         //finish
-        prepareNextAction(true,true,true,-1,2);
+        summonDrop(15,"score");
+        summonDrop(15,"power");
         spellCardCalculate();
+        prepareNextAction(true,true,true,-1,2);
+        
     }
        
 }
