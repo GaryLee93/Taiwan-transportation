@@ -20,7 +20,7 @@ public class Player : MonoBehaviour{
     GameObject bombObj = null;
     List<GameObject> shooterList;
     float current_speed,respawnTimer;
-    bool isBombing,isRespawning,canShoot;
+    bool isBombing,isRespawning;
     public delegate void playerEvent();
     public static Player instance;
     public playerEvent useBomb,die;
@@ -41,7 +41,6 @@ public class Player : MonoBehaviour{
         shooterList = new List<GameObject>();
 
         transform.position = new Vector3(0, -5, 0);
-        canShoot = true;
         
         playerData.dataInit();
         changePowerMod();
