@@ -28,23 +28,7 @@ public class UsageCase : MonoBehaviour
     }
 
     void Update()
-    {
-        // ----- Integration DEMO -----
-        // Your own logic control.
-        /*if(pass.isPlaying&&t)
-        {
-            clock.setTimer("field",15f);
-            t=false;
-            w=true;
-        }
-        if(!clock.checkTimer("field")&&w)
-        {
-            flowerSys.SetupDialog();
-            progress=0;
-            w=false;
-        }*/
-
-        
+    {   
         if(flowerSys.isCompleted && !isGameEnd ){
             switch(progress){
                 case 0:

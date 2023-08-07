@@ -16,6 +16,7 @@ public class Player : MonoBehaviour{
 
     [Header("各種屬性")]
     public PlayerData playerData;
+    public bool canShoot;
     Rigidbody2D rb;
     GameObject bombObj = null;
     List<GameObject> shooterList;
@@ -28,12 +29,12 @@ public class Player : MonoBehaviour{
         useBomb = new playerEvent(loudSparkBomb);
         die = new playerEvent(be_hit);
         instance = this;
+        canShoot = true;
     }
 
     public static GameObject GetPlayer(){
         return instance.gameObject;
     }
-    
     void Start(){
         rb = GetComponent<Rigidbody2D>();
 
@@ -52,7 +53,7 @@ public class Player : MonoBehaviour{
     void Update(){
         player_move();
 
-        if(Input.GetKey(KeyCode.X) && !isBombing){
+        if(Input.GetKey(KeyCode.X) && !isBombing && canShoot){
             if(!isRespawning || isRespawning && respawnTimer >= 1.5f){
                 useBomb();
             }
@@ -315,7 +316,9 @@ public class Player : MonoBehaviour{
         if(playerData.remain_life < 0){
             playerData.remain_life = 0;
             Debug.Log("滿身瘡痍");
+#region stage continue 
             StartCoroutine(respawn());
+#endregion
         }
         else{
             StartCoroutine(respawn());

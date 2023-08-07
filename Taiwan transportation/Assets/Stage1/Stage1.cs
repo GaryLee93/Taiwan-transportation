@@ -11,9 +11,11 @@ public class Stage1 : MonoBehaviour
     [SerializeField] GameObject MissBang;
     [SerializeField] Background1 background;
     [SerializeField] UsageCase usageCase;
+    Player player;
     public float stageTimer;
     
     void Start(){
+        player = Player.instance;
         stageTimer = 0;
         StartCoroutine(firstWave());
         background.start_taxi();
@@ -287,12 +289,14 @@ public class Stage1 : MonoBehaviour
     }
 
     IEnumerator missBang(){
+        player.canShoot = false;
         usageCase.startDialogue();
         yield return new WaitForSeconds(1f);
         GameObject mb = Instantiate(MissBang, new Vector3(0, 5, 0), new Quaternion());
         while(usageCase.isGameEnd == false){
             yield return null;
         }
+        player.canShoot = true;
         Debug.Log("bang");
         mb.GetComponent<abstractBoss>().active();
         background.start_bang();

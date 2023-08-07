@@ -7,17 +7,17 @@ public class modeling_shoot : MonoBehaviour
     [SerializeField] GameObject bullet;
     [SerializeField] float shoot_interval;
     [SerializeField] AudioSource shootSound;
-    bool canShoot;
+    Player player;
     private float timer;
     void Start()
     {
+        player = Player.instance;
         timer = 0;
-        canShoot = true;
     }
     void FixedUpdate()
     {   
-        if(canShoot && Input.GetKey(KeyCode.Z)){
-            if(timer <=0){
+        if(player.canShoot && Input.GetKey(KeyCode.Z)){
+            if(player.canShoot && timer <=0){
                 shoot();
                 timer = shoot_interval;
             }
