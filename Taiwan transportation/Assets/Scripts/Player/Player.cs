@@ -54,7 +54,7 @@ public class Player : MonoBehaviour{
 
         if(Input.GetKey(KeyCode.X) && !isBombing){
             if(!isRespawning || isRespawning && respawnTimer >= 1.5f){
-                loudSparkBomb();
+                useBomb();
             }
         }
         if(isBombing && bombObj == null)
@@ -235,7 +235,7 @@ public class Player : MonoBehaviour{
     private void OnTriggerEnter2D(Collider2D other){
         if(other.gameObject.tag=="enemy" || other.gameObject.tag=="enemy_bullet"){
             if(!isBombing && !isRespawning)
-                be_hit();
+                die();
         }
         if(other.tag == "collectable"){
             Collectables cb = other.gameObject.GetComponent<Collectables>();
