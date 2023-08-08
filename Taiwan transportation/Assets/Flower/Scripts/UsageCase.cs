@@ -29,7 +29,9 @@ public class UsageCase : MonoBehaviour
 
     void Update()
     {   
-        if(flowerSys.isCompleted && !isGameEnd ){
+        if(flowerSys.isCompleted && !isGameEnd )
+        {
+             
             switch(progress){
                 case 0:
                     flowerSys.ReadTextFromResource("bang");

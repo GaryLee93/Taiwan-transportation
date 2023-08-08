@@ -18,7 +18,7 @@ public class PauseMenu : MonoBehaviour
         player = Player.instance; 
         temMenu = pauseMenu;
         pause = new PauseMenuEvent(pauseTime); 
-        resume = new PauseMenuEvent(resumeGame);
+        resume = new PauseMenuEvent(resumeTime);
         player.gameOver = new Player.playerEvent(callContinueMenu);
         loadingAni.GetComponent<VideoPlayer>().Prepare();
     }
@@ -39,14 +39,18 @@ public class PauseMenu : MonoBehaviour
     {
         temMenu.SetActive(false);
         player.gameContinue();
-        resumeGame();
+        resumeTime();
         temMenu = pauseMenu;
     } 
-    public void resumeGame()
+    public void resumeTime()
     {
         gameIsPaused = false;
         temMenu.SetActive(false);
         Time.timeScale = 1f;
+    }
+    public void Resume()
+    {
+        resume();
     }
     public void StartFromStage1()
     {

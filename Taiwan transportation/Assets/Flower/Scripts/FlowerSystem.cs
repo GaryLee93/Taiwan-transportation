@@ -108,11 +108,6 @@ namespace Flower{
         private Dictionary<string, string> prefabPathMap = new Dictionary<string, string>();
         private EventHandler<TextUpdateEventArgs> _defaultTextUpdateHandler;
         private bool _defaultLogEnable=false;
-        
-        void Start()
-        {
-
-        }
 
         private void Awake() {
             // Register Default Keyword-Functions.

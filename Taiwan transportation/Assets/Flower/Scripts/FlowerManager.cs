@@ -36,10 +36,12 @@ namespace Flower{
             }
             GameObject obj = new GameObject("FlowerSystem");
             FlowerSystem flowerSys = obj.AddComponent<FlowerSystem>();
+            /*
             if(!elementsDestroyOnLoad){
                 UnityEngine.Object.DontDestroyOnLoad(obj);
                 flowerSys.elementsDestroyOnLoad=false;
             }
+            */
             flowerSystemMap[key] = flowerSys;
             return flowerSys;
         }
