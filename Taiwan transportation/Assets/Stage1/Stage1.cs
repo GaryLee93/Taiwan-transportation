@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Video;
 using TMPro;
 public class Stage1 : MonoBehaviour
 {
@@ -9,15 +10,19 @@ public class Stage1 : MonoBehaviour
     [SerializeField] TMP_Text time_text;
     [SerializeField] GameObject taxi;
     [SerializeField] GameObject MissBang;
+    [SerializeField] GameObject Ending;
     [SerializeField] Background1 background;
     [SerializeField] UsageCase usageCase;
     Player player;
     public float stageTimer;
     
     void Start(){
+
+        Ending.GetComponent<VideoPlayer>().Prepare();
+
         player = Player.instance;
         stageTimer = 0;
-        StartCoroutine(firstWave());
+        StartCoroutine(missBang());
         background.start_taxi();
         background.display_title();
         StartCoroutine(walkchangefield());
@@ -300,6 +305,14 @@ public class Stage1 : MonoBehaviour
         Debug.Log("bang");
         mb.GetComponent<abstractBoss>().active();
         background.start_bang();
+
+        while(mb.GetComponent<abstractBoss>().isRun())
+        {
+            yield return null;
+        }
+
+        Ending.GetComponent<SpriteRenderer>().enabled = true;
+        Ending.GetComponent<VideoPlayer>().Play();
     }
 
     IEnumerator walkchangefield(){

@@ -48,8 +48,8 @@ public class spellCardPerform : MonoBehaviour
     {
         #region setIniValue
         title.GetComponent<Text>().text = CardName;
-        iniPos = new Vector2(3.2f,-6f);
-        Finalpos = new Vector2(3.2f,6f);
+        iniPos = new Vector2(0.85f,-6f);
+        Finalpos = new Vector2(0.85f,6f);
         title.transform.position = iniPos;
         title.transform.localScale = iniSize;
         #endregion

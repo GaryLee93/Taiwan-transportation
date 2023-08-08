@@ -129,7 +129,7 @@ public class MissBang : abstractBoss
         GameObject shooter = transform.GetChild(0).gameObject;
         GameObject clone;
         Transform tem = shooter.transform;
-        int bulletEachCircle=100,layer=0;
+        int bulletEachCircle=80,layer=0;
 
         setTimer("brockenCar",time);
         while(checkTimer("brockenCar")&&currentHp>=0f)
@@ -138,7 +138,7 @@ public class MissBang : abstractBoss
             int oritation = Random.Range(-2,2);
             for(int i=0;i<3;i++)
             {
-                yield return new WaitForSeconds(0.2f);
+                yield return new WaitForSeconds(0.3f);
                 for(int j=0;j<bulletEachCircle;j++)
                 {
                     if(j>2)
@@ -150,7 +150,8 @@ public class MissBang : abstractBoss
                     dire = ourTool.trans_matrix(dire,ourTool.eulerToRadian(360f/bulletEachCircle));
                     layer++;
                 }
-                if(oritation>0)
+                if(currentHp<0f) break;
+                else if(oritation>0)
                 {
                     dire = ourTool.trans_matrix(dire,ourTool.eulerToRadian(5));
                 }
@@ -159,6 +160,7 @@ public class MissBang : abstractBoss
                     dire = ourTool.trans_matrix(dire,ourTool.eulerToRadian(-5));
                 }
             }
+            if(currentHp<0f) break;
             yield return new WaitForSeconds(0.8f);
         }
 
