@@ -16,6 +16,7 @@ public class spellCardPerform : MonoBehaviour
     void Awake() 
     {
         instance = this;
+        title = transform.GetChild(0).gameObject;
     }    
     void FixedUpdate()
     {
@@ -33,7 +34,7 @@ public class spellCardPerform : MonoBehaviour
                     title.transform.localScale = (Vector3)(iniSize - (iniSize - FinalSize)*((desireTime[0]-textTime[0])/desireTime[0]));
                     if(title.transform.localScale.magnitude < FinalSize.magnitude) title.transform.localScale = FinalSize;
                 }
-                else transform.Translate(MoveSpeed*MoveDire*Time.fixedDeltaTime);
+                else title.transform.Translate(MoveSpeed*MoveDire*Time.fixedDeltaTime);
                 if(textTime[i]<=0f)
                 {
                     textMoveCheck[i]=false;
@@ -46,7 +47,6 @@ public class spellCardPerform : MonoBehaviour
     public void startSmallize(string CardName,float time,float moveTime)
     {
         #region setIniValue
-        title = transform.GetChild(0).gameObject;
         title.GetComponent<Text>().text = CardName;
         iniPos = new Vector2(3.2f,-6f);
         Finalpos = new Vector2(3.2f,6f);
@@ -70,7 +70,7 @@ public class spellCardPerform : MonoBehaviour
     public void retriveTitle()
     {
         title.SetActive(false);
-        transform.position = iniPos;
+        title.transform.position = iniPos;
         title.transform.localScale = iniSize;
     }
 }

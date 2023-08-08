@@ -54,7 +54,7 @@ public abstract class abstractBoss : MonoBehaviour
     {
         if(recoverCheck)
         {
-            float recoverValue = ((float)MaxHp)/0.5f;
+            float recoverValue = MaxHp/1f*Time.fixedDeltaTime;
             currentHp += (int)recoverValue;
             healthBar.setHP(currentHp);
             if(currentHp>=MaxHp)
@@ -62,9 +62,9 @@ public abstract class abstractBoss : MonoBehaviour
                 currentHp = MaxHp;
                 healthBar.setHP(MaxHp);
                 recoverCheck = false;
-                noDemageMode = false;
             }
         }
+        if(noDemageMode && !checkTimer("OPMode")) noDemageMode = false;
         else return;
     }
     
@@ -81,6 +81,8 @@ public abstract class abstractBoss : MonoBehaviour
     protected void prepareNextAction(bool isSpellCard,bool nextSection,bool needRecover,int lowHp,float OPtime)
     {
         StageObj.eraseAllBullet();
+        sp.retriveTitle();
+        clock.cancelSpellCardTimer();
         if(nextSection) section++;
         useCard = isSpellCard;
         if(OPtime>0) OPMode(OPtime);

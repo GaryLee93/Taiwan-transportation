@@ -24,7 +24,7 @@ public class Player : MonoBehaviour{
     bool isBombing,isRespawning;
     public delegate void playerEvent();
     public static Player instance;
-    public playerEvent useBomb,die;
+    public playerEvent useBomb,die,gameOver;
     private void Awake(){
         useBomb = new playerEvent(loudSparkBomb);
         die = new playerEvent(be_hit);
@@ -317,7 +317,7 @@ public class Player : MonoBehaviour{
             playerData.remain_life = 0;
             Debug.Log("滿身瘡痍");
 #region stage continue 
-            StartCoroutine(respawn());
+            gameOver();
 #endregion
         }
         else{
@@ -340,6 +340,12 @@ public class Player : MonoBehaviour{
             else
                 eb.poolDespawn();
         }
+    }
+    public void gameContinue()
+    {
+        playerData.remain_life = 3;
+        playerData.bomb_count = 4;
+        StartCoroutine(respawn());
     }
 
     void loudSparkBomb(){

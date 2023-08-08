@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: 7127380755122180708}
   - component: {fileID: 7127380755122180707}
   - component: {fileID: 7127380755122180706}
-  - component: {fileID: 7127380755122180710}
   - component: {fileID: 1085182500}
   m_Layer: 0
   m_Name: "\u8E66\u8E66\u59D0"
@@ -79,7 +78,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1735066751
-  m_SortingLayer: 6
+  m_SortingLayer: -2
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 4ce838650c252d54297323fcb87700a0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -173,18 +172,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthBar: {fileID: 7127380755510945113}
   backMirror: {fileID: 3005354162642553636, guid: 3c49f2afe32d462408b6ca9940c34556, type: 3}
---- !u!114 &7127380755122180710
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7127380755122180719}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c8c1f6ae2dd545d4eb3be1457c2820f8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  redMidRound: {fileID: 4835463618115493887, guid: c039c760771c0054fafd12833c2b6ad3, type: 3}
 --- !u!328 &1085182500
 VideoPlayer:
   m_ObjectHideFlags: 0

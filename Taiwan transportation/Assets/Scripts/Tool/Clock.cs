@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
 using UnityEngine.UI;
 public class Clock : MonoBehaviour
 {
@@ -10,7 +9,7 @@ public class Clock : MonoBehaviour
     private float spellCardTimer;
     private bool spellCardCount,upCheck,downCheck;
     private int upRatio;
-    [SerializeField] TMP_Text remainTime;
+    [SerializeField] Text remainTime;
     
     #region singleton
     public static Clock clockInstance;

@@ -8,12 +8,18 @@ public class PauseMenu : MonoBehaviour
     public static bool gameIsPaused = false;
     public delegate void PauseMenuEvent();
     public PauseMenuEvent pause,resume;
+    [SerializeField] GameObject ContinueMenu;
     [SerializeField] GameObject pauseMenu;
     [SerializeField] GameObject loadingAni;
+    GameObject temMenu;
+    Player player;
     void Awake() 
     {
+        player = Player.instance; 
+        temMenu = pauseMenu;
         pause = new PauseMenuEvent(pauseTime); 
         resume = new PauseMenuEvent(resumeGame);
+        player.gameOver = new Player.playerEvent(callContinueMenu);
         loadingAni.GetComponent<VideoPlayer>().Prepare();
     }
     void Update()
@@ -24,11 +30,22 @@ public class PauseMenu : MonoBehaviour
             else pause();
         }
     }
-
+    void callContinueMenu()
+    {
+        temMenu = ContinueMenu;
+        pause();
+    }
+    public void gameContinue()
+    {
+        temMenu.SetActive(false);
+        player.gameContinue();
+        resumeGame();
+        temMenu = pauseMenu;
+    } 
     public void resumeGame()
     {
         gameIsPaused = false;
-        pauseMenu.SetActive(false);
+        temMenu.SetActive(false);
         Time.timeScale = 1f;
     }
     public void StartFromStage1()
@@ -47,7 +64,7 @@ public class PauseMenu : MonoBehaviour
     public void pauseTime()
     {
         Time.timeScale = 0f;
-        pauseMenu.SetActive(true);
+        temMenu.SetActive(true);
         gameIsPaused = true;
     }
     IEnumerator loadingStart()
