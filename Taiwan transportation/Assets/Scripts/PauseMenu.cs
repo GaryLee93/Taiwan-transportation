@@ -33,13 +33,15 @@ public class PauseMenu : MonoBehaviour
     void callContinueMenu()
     {
         temMenu = ContinueMenu;
+        gameIsPaused = true;
         pause();
     }
     public void gameContinue()
     {
         temMenu.SetActive(false);
         player.gameContinue();
-        resumeTime();
+        gameIsPaused = false;
+        resume();
         temMenu = pauseMenu;
     } 
     public void resumeTime()

@@ -130,8 +130,10 @@ public class Background1 : MonoBehaviour
     }
 
     public void start_bang(){
+        hasEnded = false;
         walkchangeVp.Stop();
         bangVp.Play();
         nowPlaying = bangVp;
+        nowPlaying.loopPointReached += (VideoPlayer vp) => hasEnded=true;
     }
 }

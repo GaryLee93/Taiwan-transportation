@@ -345,6 +345,8 @@ public class Player : MonoBehaviour{
     {
         playerData.remain_life = 3;
         playerData.bomb_count = 4;
+        refreshLifeText();
+        refreshBombText();
         StartCoroutine(respawn());
     }
 
