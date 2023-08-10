@@ -65,6 +65,9 @@ TagManager:
   - name: Enemy Bullet
     uniqueID: 3259124125
     locked: 0
+  - name: DialogueUI
+    uniqueID: 1041199495
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0
