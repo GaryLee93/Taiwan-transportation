@@ -141,7 +141,7 @@ public class MissBang : abstractBoss
                 yield return new WaitForSeconds(0.3f);
                 for(int j=0;j<bulletEachCircle;j++)
                 {
-                    if(j>2)
+                    if(j>1)
                     {
                         clone = objectPooler.spawnFromPool("aqua_bullet",(Vector2)tem.position+dire*(i),tem.rotation);
                         clone.GetComponent<SpriteRenderer>().sortingOrder = layer;
@@ -195,7 +195,9 @@ public class MissBang : abstractBoss
             colone.GetComponent<Rigidbody2D>().velocity = dire;
 
             if(currentHp<=lowHp) break;
-            yield return new WaitForSeconds(2.5f);
+            yield return new WaitForSeconds(1f);
+            if(currentHp<=lowHp) break;
+            yield return new WaitForSeconds(1f);
         }
 
         //finish

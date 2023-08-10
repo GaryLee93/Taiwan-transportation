@@ -22,7 +22,7 @@ public class Stage1 : MonoBehaviour
 
         player = Player.instance;
         stageTimer = 0;
-        StartCoroutine(missBang());
+        StartCoroutine(firstWave());
         background.start_taxi();
         background.display_title();
         StartCoroutine(walkchangefield());
@@ -310,7 +310,7 @@ public class Stage1 : MonoBehaviour
         {
             yield return null;
         }
-
+        yield return new WaitForSeconds(2f);
         Ending.GetComponent<SpriteRenderer>().enabled = true;
         Ending.GetComponent<VideoPlayer>().Play();
     }
