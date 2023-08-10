@@ -22,7 +22,7 @@ public class Stage1 : MonoBehaviour
 
         player = Player.instance;
         stageTimer = 0;
-        StartCoroutine(firstWave());
+        StartCoroutine(missBang());
         background.start_taxi();
         background.display_title();
         StartCoroutine(walkchangefield());

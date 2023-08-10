@@ -112,8 +112,8 @@ public class MissBang : abstractBoss
                 layer++;
             }
         }
-        yield return new WaitWhile(() => isMove()==true);
         //finish
+        stopMove();
         prepareNextAction(true,false,false,-1,1);
     }
     IEnumerator brockenCar(float time)
@@ -143,7 +143,7 @@ public class MissBang : abstractBoss
                 {
                     if(j>1)
                     {
-                        clone = objectPooler.spawnFromPool("aqua_bullet",(Vector2)tem.position+dire*(i),tem.rotation);
+                        clone = objectPooler.spawnFromPool("aqua_bullet",(Vector2)tem.position+dire*(i+0.5f),tem.rotation);
                         clone.GetComponent<SpriteRenderer>().sortingOrder = layer;
                         clone.GetComponent<Rigidbody2D>().velocity = dire*2;
                     }

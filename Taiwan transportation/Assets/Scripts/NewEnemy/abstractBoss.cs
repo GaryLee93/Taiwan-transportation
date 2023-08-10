@@ -168,6 +168,12 @@ public abstract class abstractBoss : MonoBehaviour
     {
         return noDemageMode;
     }
+    public void stopMove()
+    {
+        MoveCheck = false;
+        timers.Remove("Move");
+        GetComponent<Rigidbody2D>().velocity = new Vector2(0,0);
+    }
     public void takeDamage(int damage)
     {
         if(noDemageMode) return;
