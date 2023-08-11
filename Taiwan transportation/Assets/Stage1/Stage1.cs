@@ -12,19 +12,20 @@ public class Stage1 : MonoBehaviour
     [SerializeField] GameObject taxi;
     [SerializeField] GameObject MissBang;
     [SerializeField] GameObject Ending;
+    [SerializeField] GameObject EndingSpin;
     [SerializeField] Background1 background;
     [SerializeField] DialogueSystem dsOne;
     [SerializeField] DialogueSystem dsTwo;
     [SerializeField] GameObject endButton;
     [SerializeField] AudioSource bangMusic;
     [SerializeField] AudioSource midMusic;
-    [SerializeField] AudioSource frogMusic;
     Player player;
     public float stageTimer;
     
     void Start(){
         Ending.GetComponent<VideoPlayer>().Prepare();
         Ending.GetComponent<VideoPlayer>().Stop();
+        EndingSpin.GetComponent<VideoPlayer>().Prepare();
         endButton.SetActive(false);
         midMusic.Play();
 
@@ -45,6 +46,14 @@ public class Stage1 : MonoBehaviour
         }
         else{
             time_text.text = "" + (int)stageTimer;
+        }
+
+        if(Ending.GetComponent<SpriteRenderer>().enabled && (Input.GetKeyDown(KeyCode.Keypad0) || Input.GetKeyDown(KeyCode.Alpha0)))
+        {
+            Ending.GetComponent<SpriteRenderer>().enabled = false;
+            Ending.GetComponent<AudioSource>().Pause();
+            EndingSpin.GetComponent<SpriteRenderer>().enabled = true;
+            EndingSpin.GetComponent<VideoPlayer>().Play();
         }
     }
 
@@ -330,8 +339,8 @@ public class Stage1 : MonoBehaviour
         esr.enabled = true;
         bangMusic.Stop();
         yield return new WaitForSeconds(1f);
-        frogMusic.Play();
         Ending.GetComponent<VideoPlayer>().Play();
+        Ending.GetComponent<AudioSource>().Play();
         float timer=0f, fadeTimer=5f;
         while(timer < fadeTimer){
             timer += Time.deltaTime;

@@ -25,7 +25,7 @@ public class PauseMenu : MonoBehaviour
     }
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Escape))
+        if(Input.GetKeyDown(KeyCode.Escape) && player.playerData.remain_life>=0)
         {
             if(gameIsPaused) resume();
             else pause();
