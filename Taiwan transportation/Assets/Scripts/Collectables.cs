@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Collectables : MonoBehaviour
 {
-    public enum ColType{ Power, BigPower, Score, OneUP, Bomb}
+    public enum ColType{ Power, BigPower, Score, OneUP, Bomb, grayScore}
     public ColType Type;
     static float collectRange = 3f;
     static float collectSpeed = 10f;
@@ -16,12 +16,14 @@ public class Collectables : MonoBehaviour
     {
         rb = gameObject.GetComponent<Rigidbody2D>();
         playerTF = Player.GetPlayer().transform;
-
-        isCollected = false;
+        if(Type == ColType.grayScore) isCollected = true;
+        else isCollected = false;
     }
     void Update()
     {
+        if(Type == ColType.grayScore) farSuck();
         suck();
+
         if(hitBorder())
             Destroy(gameObject);
     }
@@ -41,6 +43,24 @@ public class Collectables : MonoBehaviour
             }
         }
         else if(isCollected){
+            isCollected = false;
+            rb.velocity = Vector2.zero;
+        }
+    }
+    void farSuck()
+    {
+        if(Player.GetPlayer().GetComponent<Rigidbody2D>().simulated == true)
+        {
+            Vector2 diff = (Vector2)playerTF.position-(Vector2)transform.position;
+            float dis = diff.sqrMagnitude;
+            diff.Normalize();
+            if(isCollected)
+            {
+                rb.velocity=diff*collectSpeed*2f;
+            }
+        }
+        else if(isCollected)
+        {
             isCollected = false;
             rb.velocity = Vector2.zero;
         }

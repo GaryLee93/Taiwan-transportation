@@ -317,6 +317,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fcd26dac4c69ba544ad17db3c25b860a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ContinueMenu: {fileID: 0}
   pauseMenu: {fileID: 1238871226}
   loadingAni: {fileID: 927401483}
 --- !u!1 &226420722
@@ -2423,6 +2424,8 @@ MonoBehaviour:
     gameobj: {fileID: 2338708239875281767, guid: c88eea7505530d345bb32a7c29ecf911, type: 3}
   - name: 1up
     gameobj: {fileID: 1759627277923657827, guid: 9bebaaaf1a2494040af373079bb8506d, type: 3}
+  - name: grayScore
+    gameobj: {fileID: 9080923045748176150, guid: 7e5fd1706c5722144becacebfcfeafcd, type: 3}
   text_arr:
   - name: score
     gameobj: {fileID: 2030943132}
@@ -2446,7 +2449,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: adccd939e3af933409cb5c47483b9fd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  remainTime: {fileID: 1040725327}
+  remainTime: {fileID: 0}
 --- !u!114 &1316187509
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2463,6 +2466,7 @@ MonoBehaviour:
   time_text: {fileID: 0}
   taxi: {fileID: 0}
   MissBang: {fileID: 0}
+  Ending: {fileID: 0}
   background: {fileID: 0}
   usageCase: {fileID: 0}
   stageTimer: 0

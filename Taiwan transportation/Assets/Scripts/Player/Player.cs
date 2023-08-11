@@ -279,7 +279,7 @@ public class Player : MonoBehaviour{
                 refreshPowerText();
                 Destroy(other.gameObject);
             }
-            else if(cb.Type == Collectables.ColType.Score){
+            else if(cb.Type == Collectables.ColType.Score || cb.Type == Collectables.ColType.grayScore){
                 playerData.score++;
                 refreshScoreText();
                 Destroy(other.gameObject);

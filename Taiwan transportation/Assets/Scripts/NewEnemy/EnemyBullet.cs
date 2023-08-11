@@ -22,4 +22,9 @@ public class EnemyBullet : MonoBehaviour, Ipooled
     public void poolDespawn(){
         gameObject.SetActive(false);
     }
+    public void transformIntoScore()
+    {
+        Instantiate(StageObj.Collectables["grayScore"],transform.position,transform.rotation);
+        gameObject.SetActive(false);
+    }
 }

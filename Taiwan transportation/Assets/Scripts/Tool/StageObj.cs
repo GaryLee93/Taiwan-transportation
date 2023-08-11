@@ -52,6 +52,14 @@ public class StageObj : MonoBehaviour
             bullet.GetComponent<EnemyBullet>().poolDespawn();
         }
     }
+    public static void transformAllBullet()
+    {
+        GameObject[] bullets = GameObject.FindGameObjectsWithTag("enemy_bullet");
+        foreach(var bullet in bullets)
+        {
+            bullet.GetComponent<EnemyBullet>().transformIntoScore();
+        }
+    }
     /*
     How to use:
         example:

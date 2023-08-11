@@ -141,9 +141,9 @@ public class MissBang : abstractBoss
                 yield return new WaitForSeconds(0.3f);
                 for(int j=0;j<bulletEachCircle;j++)
                 {
-                    if(j>1)
+                    if(j>0)
                     {
-                        clone = objectPooler.spawnFromPool("aqua_bullet",(Vector2)tem.position+dire*(i+0.5f),tem.rotation);
+                        clone = objectPooler.spawnFromPool("aqua_bullet",(Vector2)tem.position+dire*(i+1.5f),tem.rotation);
                         clone.GetComponent<SpriteRenderer>().sortingOrder = layer;
                         clone.GetComponent<Rigidbody2D>().velocity = dire*2;
                     }
@@ -153,11 +153,11 @@ public class MissBang : abstractBoss
                 if(currentHp<0f) break;
                 else if(oritation>0)
                 {
-                    dire = ourTool.trans_matrix(dire,ourTool.eulerToRadian(5));
+                    dire = ourTool.trans_matrix(dire,ourTool.eulerToRadian(2));
                 }
                 else 
                 {
-                    dire = ourTool.trans_matrix(dire,ourTool.eulerToRadian(-5));
+                    dire = ourTool.trans_matrix(dire,ourTool.eulerToRadian(-2));
                 }
             }
             if(currentHp<0f) break;
@@ -167,7 +167,7 @@ public class MissBang : abstractBoss
         summonDrop(15,"score");
         summonDrop(15,"power");
         spellCardCalculate();
-        prepareNextAction(true,true,true,-1,1.5f);
+        prepareNextAction(true,true,true,-1,2.5f);
         
     }
     IEnumerator glassRain(float time) 

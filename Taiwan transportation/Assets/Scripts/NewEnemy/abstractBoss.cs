@@ -80,7 +80,7 @@ public abstract class abstractBoss : MonoBehaviour
     }
     protected void prepareNextAction(bool isSpellCard,bool nextSection,bool needRecover,int lowHp,float OPtime)
     {
-        StageObj.eraseAllBullet();
+        StageObj.transformAllBullet();
         sp.retriveTitle();
         clock.cancelSpellCardTimer();
         if(nextSection) section++;
