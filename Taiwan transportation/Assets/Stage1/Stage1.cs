@@ -31,7 +31,7 @@ public class Stage1 : MonoBehaviour
 
         player = Player.instance;
         stageTimer = 0;
-        StartCoroutine(missBang());
+        StartCoroutine(firstWave());
         background.start_taxi();
         background.display_title();
         StartCoroutine(walkchangefield());

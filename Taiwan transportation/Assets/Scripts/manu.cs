@@ -5,10 +5,42 @@ using UnityEngine.Video;
 using UnityEngine.SceneManagement;
 public class manu : MonoBehaviour
 {
+    [System.Serializable] 
+    public class Button
+    {
+        public string name;
+        public GameObject button;
+        public Sprite normalImg;
+        public Sprite selectedImg;
+    }
+    [SerializeField] private List<Button> buttons; 
     [SerializeField] GameObject loadingAni;
+    int nowSelected = 0;
     void Start() 
     {
-        loadingAni.GetComponent<VideoPlayer>().Prepare(); 
+        loadingAni.GetComponent<VideoPlayer>().Prepare();
+        buttons[nowSelected].button.GetComponent<SpriteRenderer>().sprite = buttons[nowSelected].selectedImg; 
+    }
+    void Update() 
+    {
+        if(Input.GetKeyDown(KeyCode.UpArrow) && nowSelected>0) 
+        {
+            buttons[nowSelected].button.GetComponent<SpriteRenderer>().sprite = buttons[nowSelected].normalImg;
+            nowSelected = (nowSelected-1)%buttons.Count;
+            buttons[nowSelected].button.GetComponent<SpriteRenderer>().sprite = buttons[nowSelected].selectedImg;
+        }
+        if(Input.GetKeyDown(KeyCode.DownArrow) && nowSelected<(buttons.Count-1)) 
+        {
+            buttons[nowSelected].button.GetComponent<SpriteRenderer>().sprite = buttons[nowSelected].normalImg;
+            nowSelected = (nowSelected+1)%buttons.Count;
+            buttons[nowSelected].button.GetComponent<SpriteRenderer>().sprite = buttons[nowSelected].selectedImg;
+        } 
+
+        if(Input.GetKeyDown(KeyCode.Z))
+        {
+            if(nowSelected==0) StartGame();
+            else if(nowSelected==2) QuitGame();
+        }   
     }
     public void StartGame()
     {
