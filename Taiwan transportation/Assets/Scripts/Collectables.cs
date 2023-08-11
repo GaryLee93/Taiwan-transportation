@@ -9,20 +9,26 @@ public class Collectables : MonoBehaviour
     static float collectRange = 3f;
     static float collectSpeed = 10f;
     static float collect_line_height = 3f;
-    bool isCollected;
+    bool isCollected, isFarSuck;
     Rigidbody2D rb;
     Transform playerTF;
     void Start()
     {
         rb = gameObject.GetComponent<Rigidbody2D>();
         playerTF = Player.GetPlayer().transform;
-        if(Type == ColType.grayScore) isCollected = true;
-        else isCollected = false;
+        if(Type == ColType.grayScore){
+            isCollected = true;
+            isFarSuck = true;
+        } 
+        else{
+            isCollected = false;
+            isFarSuck = false;
+        } 
     }
     void Update()
     {
-        if(Type == ColType.grayScore) farSuck();
-        suck();
+        if(isFarSuck) farSuck();
+        else suck();
 
         if(hitBorder())
             Destroy(gameObject);
@@ -47,8 +53,7 @@ public class Collectables : MonoBehaviour
             rb.velocity = Vector2.zero;
         }
     }
-    void farSuck()
-    {
+    void farSuck(){
         if(Player.GetPlayer().GetComponent<Rigidbody2D>().simulated == true)
         {
             Vector2 diff = (Vector2)playerTF.position-(Vector2)transform.position;
@@ -59,6 +64,7 @@ public class Collectables : MonoBehaviour
         else if(isCollected)
         {
             isCollected = false;
+            isFarSuck = false;
             rb.velocity = Vector2.zero;
         }
     }

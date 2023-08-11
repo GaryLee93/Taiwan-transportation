@@ -7,6 +7,7 @@ public class MissBang : abstractBoss
     [SerializeField] GameObject backMirror;
     [SerializeField] GameObject redMidRound;
     [SerializeField] AudioSource doYouKnowWhoAmI;
+    [SerializeField] AudioSource backMirrorSound;
     VideoPlayer deadAnimation;
     Animator an;
     private enum SpellCard {brockenCar,glassRain,spellCardNum}
@@ -52,7 +53,8 @@ public class MissBang : abstractBoss
 
     protected override void die()
     {
-        deadAnimation.Play();
+        //deadAnimation.Play();
+        Instantiate(explosionEffect, transform.position, transform.rotation);
         actionCheck = false;
         StageObj.eraseAllBullet();
         transform.Find("HpCanva").gameObject.SetActive(false);
@@ -197,6 +199,8 @@ public class MissBang : abstractBoss
             else if(chose==2) dire = ourTool.trans_matrix(dire,ourTool.eulerToRadian(Random.Range(100,150)));
             colone.GetComponent<Rigidbody2D>().velocity = dire;
 
+            backMirrorSound.Play();
+            
             if(currentHp<=lowHp) break;
             yield return new WaitForSeconds(1f);
             if(currentHp<=lowHp) break;

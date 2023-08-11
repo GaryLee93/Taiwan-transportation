@@ -13,6 +13,16 @@ public class backMirrorBehavior : MonoBehaviour
         objInstance = objectPooler.instance;
         transform.Rotate(new Vector3(0f, 0f, Random.Range(0f, 180f)));
     }
+    void Update(){
+        if(hitBorder()) 
+            Destroy(gameObject);
+    }
+    bool hitBorder(){
+        if(Mathf.Abs(transform.position.x) > 7.5f || Mathf.Abs(transform.position.y) > 7.5f) 
+            return true;
+        else 
+            return false;
+    }
     private void OnTriggerEnter2D(Collider2D other) 
     {
         if(other.gameObject.tag == "border")

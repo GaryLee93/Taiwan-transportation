@@ -19,6 +19,10 @@ public class Stage1 : MonoBehaviour
     [SerializeField] AudioSource bangMusic;
     [SerializeField] AudioSource midMusic;
     [SerializeField] AudioSource frogMusic;
+    [SerializeField] StartPos startPos;
+    [SerializeField] GameObject explosion;
+
+    enum StartPos{First, Mid, Second, Boss}
     Player player;
     public float stageTimer;
     
@@ -30,7 +34,18 @@ public class Stage1 : MonoBehaviour
 
         player = Player.instance;
         stageTimer = 0;
-        StartCoroutine(missBang());
+        if(startPos == StartPos.First){
+            StartCoroutine(firstWave());
+        }
+        else if(startPos == StartPos.Mid){
+            StartCoroutine(midBoss());
+        }
+        else if(startPos == StartPos.Second){
+            StartCoroutine(secondWave());
+        }
+        else if(startPos == StartPos.Boss){
+            StartCoroutine(missBang());
+        }
         background.start_taxi();
         background.display_title();
         StartCoroutine(walkchangefield());
@@ -50,6 +65,8 @@ public class Stage1 : MonoBehaviour
 
     IEnumerator firstWave(){
         yield return new WaitForSeconds(summonTime);
+
+        Instantiate(explosion, new Vector3(0,3,0), transform.rotation);
         GameObject enemy;
         YieldInstruction delayTime, delayOneSec;
         delayOneSec = new WaitForSeconds(1);
@@ -304,8 +321,9 @@ public class Stage1 : MonoBehaviour
     IEnumerator missBang(){
         player.canShoot = false;
         dsOne.ActivateDialogue();
-        yield return new WaitForSeconds(1f);
         GameObject mb = Instantiate(MissBang, new Vector3(0, 5, 0), new Quaternion());
+        yield return new WaitForSeconds(1f);
+
         while(dsOne.IsRunning()){
             yield return null;
         }
@@ -319,6 +337,8 @@ public class Stage1 : MonoBehaviour
         {
             yield return null;
         }
+
+        mb.SetActive(false);
         dsTwo.ActivateDialogue();
         while(dsTwo.IsRunning()){
             yield return null;

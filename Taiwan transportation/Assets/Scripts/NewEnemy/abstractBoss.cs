@@ -17,6 +17,7 @@ public abstract class abstractBoss : MonoBehaviour
     protected BonusInform bonusTitle;
     
     [SerializeField] hpBar healthBar;
+    [SerializeField] protected GameObject explosionEffect;
     private void FixedUpdate() 
     {
         #region countTimer

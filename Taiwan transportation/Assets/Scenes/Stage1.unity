@@ -1051,7 +1051,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.8490566, g: 0.3155927, b: 0.3155927, a: 1}
+  m_Color: {r: 1, g: 0.96598476, b: 0.2679245, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -3871,6 +3871,10 @@ PrefabInstance:
       propertyPath: m_audioClip
       value: 
       objectReference: {fileID: 8300000, guid: 029b2d442c2a48f46834579dbce3915f, type: 3}
+    - target: {fileID: 247664851, guid: 60a4be4025a61b4478e1c91803abf434, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 4f9ff4e9b22fb3d4998e85647ca2519f, type: 3}
     - target: {fileID: 3909308229628790362, guid: 60a4be4025a61b4478e1c91803abf434, type: 3}
       propertyPath: collectSound
       value: 
@@ -3989,7 +3993,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1614234321
 GameObject:
@@ -5171,6 +5175,8 @@ MonoBehaviour:
   bangMusic: {fileID: 1964752499}
   midMusic: {fileID: 1964752500}
   frogMusic: {fileID: 1964752501}
+  startPos: 3
+  explosion: {fileID: 9071892050584740712, guid: 79b3a762f0e52d345bb835e8bcce367f, type: 3}
   stageTimer: 0
 --- !u!4 &1964752495
 Transform:
@@ -5697,7 +5703,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6005623694135470337, guid: 81d22740f007fb74b804149733f10ecd, type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6005623694135470337, guid: 81d22740f007fb74b804149733f10ecd, type: 3}
       propertyPath: m_LocalScale.x
