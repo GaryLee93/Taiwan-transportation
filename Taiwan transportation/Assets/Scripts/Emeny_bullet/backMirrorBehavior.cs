@@ -33,7 +33,7 @@ public class backMirrorBehavior : MonoBehaviour
             if(bounce)
             {
                 
-                transform.Rotate(new Vector3(0f, 0f, Random.Range(0f, 180f)));
+                transform.Rotate(new Vector3(0f, 0f, Random.Range(60f, 120f)));
                 rb.velocity = new Vector2(new_x,new_y);
                 GameObject shooter = transform.GetChild(0).gameObject;
                 GameObject colone;
