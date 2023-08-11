@@ -13,6 +13,10 @@ public class Player : MonoBehaviour{
     [SerializeField] Sprite middleSprite;
     [SerializeField] Sprite leftSprite;
     [SerializeField] Sprite rightSprite;
+    [SerializeField] AudioSource deadSound;
+    [SerializeField] AudioSource oneUPSound;
+    [SerializeField] AudioSource getBombSound;
+    [SerializeField] AudioSource changePowerSound;
 
     [Header("各種屬性")]
     public PlayerData playerData;
@@ -242,11 +246,13 @@ public class Player : MonoBehaviour{
             Collectables cb = other.gameObject.GetComponent<Collectables>();
             
             if(cb.Type == Collectables.ColType.OneUP){
+                oneUPSound.Play();
                 playerData.remain_life++;
                 refreshLifeText();
                 Destroy(other.gameObject);
             }
             else if(cb.Type == Collectables.ColType.Bomb){
+                getBombSound.Play();
                 playerData.bomb_count++;
                 refreshBombText();
                 Destroy(other.gameObject);
@@ -259,6 +265,7 @@ public class Player : MonoBehaviour{
                 int newPowerMode = playerData.power /100;
 
                 if(newPowerMode != playerData.powerMode){
+                    changePowerSound.Play();
                     playerData.powerMode = newPowerMode;
                     changePowerMod();
                 }
@@ -289,6 +296,7 @@ public class Player : MonoBehaviour{
     }
     void be_hit(){
         Debug.Log("被彈");
+        deadSound.Play();
         this.playerData.power -= 100;
         if(this.playerData.power < 0){
             this.playerData.power = 0;

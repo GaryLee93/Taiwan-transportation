@@ -54,10 +54,7 @@ public class Collectables : MonoBehaviour
             Vector2 diff = (Vector2)playerTF.position-(Vector2)transform.position;
             float dis = diff.sqrMagnitude;
             diff.Normalize();
-            if(isCollected)
-            {
-                rb.velocity=diff*collectSpeed*2f;
-            }
+            if(isCollected) rb.velocity=diff*collectSpeed*2f;
         }
         else if(isCollected)
         {

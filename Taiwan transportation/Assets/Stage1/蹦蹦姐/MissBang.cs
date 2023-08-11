@@ -6,6 +6,7 @@ public class MissBang : abstractBoss
 {
     [SerializeField] GameObject backMirror;
     [SerializeField] GameObject redMidRound;
+    [SerializeField] AudioSource doYouKnowWhoAmI;
     VideoPlayer deadAnimation;
     Animator an;
     private enum SpellCard {brockenCar,glassRain,spellCardNum}
@@ -126,6 +127,7 @@ public class MissBang : abstractBoss
         sp.startSmallize("車符「破蓋天鳴掌」",0.75f,1f);
         clock.setSpellCardTimer(35f);
 
+        doYouKnowWhoAmI.Play();
         GameObject shooter = transform.GetChild(0).gameObject;
         GameObject clone;
         Transform tem = shooter.transform;
@@ -180,6 +182,7 @@ public class MissBang : abstractBoss
         sp.startSmallize("鏡符「萬元的玻璃雨」",0.75f,1f);
         clock.setSpellCardTimer(40f);
 
+        doYouKnowWhoAmI.Play();
         GameObject shooter = transform.GetChild(0).gameObject;
         GameObject colone;
         shooter.transform.localPosition = new Vector3(0,0,0);

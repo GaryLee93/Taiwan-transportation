@@ -11,6 +11,7 @@ public class PauseMenu : MonoBehaviour
     [SerializeField] GameObject ContinueMenu;
     [SerializeField] GameObject pauseMenu;
     [SerializeField] GameObject loadingAni;
+    [SerializeField] AudioSource pauseSound;
     GameObject temMenu;
     Player player;
     void Awake() 
@@ -69,6 +70,7 @@ public class PauseMenu : MonoBehaviour
     }
     public void pauseTime()
     {
+        pauseSound.Play();
         Time.timeScale = 0f;
         temMenu.SetActive(true);
         gameIsPaused = true;
