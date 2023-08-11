@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Video;
+using UnityEngine.UI;
 using TMPro;
 public class Stage1 : MonoBehaviour
 {
@@ -12,13 +13,19 @@ public class Stage1 : MonoBehaviour
     [SerializeField] GameObject MissBang;
     [SerializeField] GameObject Ending;
     [SerializeField] Background1 background;
-    [SerializeField] UsageCase usageCase;
+    [SerializeField] DialogueSystem dsOne;
+    [SerializeField] DialogueSystem dsTwo;
+    [SerializeField] GameObject endButton;
+    [SerializeField] AudioSource bangMusic;
+    [SerializeField] AudioSource midMusic;
     Player player;
     public float stageTimer;
     
     void Start(){
-
         Ending.GetComponent<VideoPlayer>().Prepare();
+        Ending.GetComponent<VideoPlayer>().Stop();
+        endButton.SetActive(false);
+        midMusic.Play();
 
         player = Player.instance;
         stageTimer = 0;
@@ -287,7 +294,7 @@ public class Stage1 : MonoBehaviour
         enemy.GetComponent<S1Scooter>().setStraightMove(new Vector2(0, -2f));
         enemy.GetComponent<S1Scooter>().setShootSector(new Vector2(0, -3f), 1, 10f, true, 1f, 1.4f, 5);
         
-        while(stageTimer <= 90){
+        while(stageTimer <= 95){
             yield return null;
         }
         StartCoroutine(missBang());
@@ -295,14 +302,15 @@ public class Stage1 : MonoBehaviour
 
     IEnumerator missBang(){
         player.canShoot = false;
-        usageCase.startDialogue();
+        dsOne.ActivateDialogue();
         yield return new WaitForSeconds(1f);
         GameObject mb = Instantiate(MissBang, new Vector3(0, 5, 0), new Quaternion());
-        while(usageCase.isGameEnd == false){
+        while(dsOne.IsRunning()){
             yield return null;
         }
         player.canShoot = true;
-        Debug.Log("bang");
+        midMusic.Stop();
+        bangMusic.Play();
         mb.GetComponent<abstractBoss>().active();
         background.start_bang();
 
@@ -310,11 +318,27 @@ public class Stage1 : MonoBehaviour
         {
             yield return null;
         }
-        yield return new WaitForSeconds(2f);
-        Ending.GetComponent<SpriteRenderer>().enabled = true;
-        Ending.GetComponent<VideoPlayer>().Play();
+        dsTwo.ActivateDialogue();
+        while(dsTwo.IsRunning()){
+            yield return null;
+        }
+        StartCoroutine(ending());
     }
-
+    IEnumerator ending(){
+        SpriteRenderer esr = Ending.GetComponent<SpriteRenderer>();
+        esr.enabled = true;
+        Ending.GetComponent<VideoPlayer>().Play();
+        float timer=0f, fadeTimer=5f;
+        while(timer < fadeTimer){
+            timer += Time.deltaTime;
+            if(timer >= fadeTimer){
+                timer = fadeTimer;
+            }
+            esr.color = new Color(timer/fadeTimer, timer/fadeTimer, timer/fadeTimer, timer/fadeTimer);
+            yield return null;
+        }
+        endButton.SetActive(true);
+    }
     IEnumerator walkchangefield(){
         while(stageTimer <= 77f){
             yield return null;

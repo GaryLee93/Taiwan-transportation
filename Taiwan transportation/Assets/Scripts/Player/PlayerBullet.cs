@@ -53,10 +53,8 @@ public class PlayerBullet : MonoBehaviour, Ipooled{
                 return;
             }
             hitBoss.takeDamage(bulletDamage);
-            /*
             if(this.bulletType == BType.Straight)
                 hitEnemy.Play();
-            */
             poolDespawn();
         }
     }
