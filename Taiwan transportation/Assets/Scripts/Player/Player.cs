@@ -17,6 +17,7 @@ public class Player : MonoBehaviour{
     [SerializeField] AudioSource oneUPSound;
     [SerializeField] AudioSource getBombSound;
     [SerializeField] AudioSource changePowerSound;
+    [SerializeField] AudioSource collectSound;
 
     [Header("各種屬性")]
     public PlayerData playerData;
@@ -244,7 +245,7 @@ public class Player : MonoBehaviour{
         }
         if(other.tag == "collectable"){
             Collectables cb = other.gameObject.GetComponent<Collectables>();
-            
+            collectSound.Play();
             if(cb.Type == Collectables.ColType.OneUP){
                 oneUPSound.Play();
                 playerData.remain_life++;

@@ -11,6 +11,7 @@ public class backMirrorBehavior : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         objInstance = objectPooler.instance;
+        transform.Rotate(new Vector3(0f, 0f, Random.Range(0f, 180f)));
     }
     private void OnTriggerEnter2D(Collider2D other) 
     {
@@ -31,11 +32,14 @@ public class backMirrorBehavior : MonoBehaviour
             
             if(bounce)
             {
+                
+                transform.Rotate(new Vector3(0f, 0f, Random.Range(0f, 180f)));
                 rb.velocity = new Vector2(new_x,new_y);
                 GameObject shooter = transform.GetChild(0).gameObject;
                 GameObject colone;
                 shooter.transform.localPosition = new Vector3(0,0,0);
                 Vector2 dire = new Vector2(1,0);
+                
                 for(int i=0;i<=15;i++)
                 {
                     shooter.transform.Rotate(new Vector3(0,0,(360/20)));

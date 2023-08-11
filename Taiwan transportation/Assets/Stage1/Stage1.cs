@@ -18,6 +18,7 @@ public class Stage1 : MonoBehaviour
     [SerializeField] GameObject endButton;
     [SerializeField] AudioSource bangMusic;
     [SerializeField] AudioSource midMusic;
+    [SerializeField] AudioSource frogMusic;
     Player player;
     public float stageTimer;
     
@@ -294,7 +295,7 @@ public class Stage1 : MonoBehaviour
         enemy.GetComponent<S1Scooter>().setStraightMove(new Vector2(0, -2f));
         enemy.GetComponent<S1Scooter>().setShootSector(new Vector2(0, -3f), 1, 10f, true, 1f, 1.4f, 5);
         
-        while(stageTimer <= 95){
+        while(stageTimer <= 93){
             yield return null;
         }
         StartCoroutine(missBang());
@@ -327,6 +328,9 @@ public class Stage1 : MonoBehaviour
     IEnumerator ending(){
         SpriteRenderer esr = Ending.GetComponent<SpriteRenderer>();
         esr.enabled = true;
+        bangMusic.Stop();
+        yield return new WaitForSeconds(1f);
+        frogMusic.Play();
         Ending.GetComponent<VideoPlayer>().Play();
         float timer=0f, fadeTimer=5f;
         while(timer < fadeTimer){
