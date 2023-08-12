@@ -25,8 +25,10 @@ public class manu : MonoBehaviour
     [SerializeField] GameObject rain;
     Vector2 titlePos = new Vector2(0,2.7f);
     int nowSelected = 0;
+    bool cnaChose = false;
     void Start() 
     {
+        cnaChose = false;
         rain.GetComponent<VideoPlayer>().Prepare();
         menuMusic.Play();
         StartCoroutine(loadMenu());
@@ -36,14 +38,15 @@ public class manu : MonoBehaviour
     }
     void Update() 
     {
-        if(Input.GetKeyDown(KeyCode.UpArrow) && nowSelected>0) 
+        if(Input.GetKeyDown(KeyCode.UpArrow) && cnaChose) 
         {
             choseSound.Play();
             buttons[nowSelected].button.GetComponent<SpriteRenderer>().sprite = buttons[nowSelected].normalImg;
             nowSelected = (nowSelected-1)%buttons.Count;
+            if(nowSelected<0) nowSelected = (nowSelected+buttons.Count)%buttons.Count;
             buttons[nowSelected].button.GetComponent<SpriteRenderer>().sprite = buttons[nowSelected].selectedImg;
         }
-        if(Input.GetKeyDown(KeyCode.DownArrow) && nowSelected<(buttons.Count-1)) 
+        if(Input.GetKeyDown(KeyCode.DownArrow) && cnaChose) 
         {
             choseSound.Play();
             buttons[nowSelected].button.GetComponent<SpriteRenderer>().sprite = buttons[nowSelected].normalImg;
@@ -137,5 +140,6 @@ public class manu : MonoBehaviour
             }
             timer = 0f;
         }
+        cnaChose = true;
     }
 }

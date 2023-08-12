@@ -84,7 +84,10 @@ public class Player : MonoBehaviour{
             changePowerMod();
         }
     }
-    
+    void FixedUpdate()
+    {
+        
+    }
     void player_move(){
         if(Input.GetKey(KeyCode.LeftShift)){
             current_speed = playerData.slow_speed;
@@ -382,5 +385,9 @@ public class Player : MonoBehaviour{
     }
     void refreshBombText(){
         StageObj.StageTexts["bomb"].GetComponent<Text>().text = "Bomb: " + playerData.bomb_count;
+    }
+    void informPowerUp()
+    {
+
     }
 }

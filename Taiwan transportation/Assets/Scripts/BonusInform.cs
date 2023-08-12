@@ -14,11 +14,9 @@ public class BonusInform : MonoBehaviour
     void FixedUpdate() 
     {
         if(timer>0) timer -= Time.fixedDeltaTime;
-        output();
-        stay();
-        retrive();
+        inform();
     }
-    void output()
+    void inform()
     {
         if(outputCheck)
         {
@@ -30,9 +28,6 @@ public class BonusInform : MonoBehaviour
                 stayCheck = true;
             }
         }
-    }
-    void stay()
-    {
         if(stayCheck)
         {
             if(timer<=0)
@@ -42,9 +37,6 @@ public class BonusInform : MonoBehaviour
                 timer = 0.5f;
             }
         }
-    }
-    void retrive()
-    {
         if(retriveCheck)
         {
             transform.Translate((new Vector2(15,4)-new Vector2(0,4))/0.5f*Time.fixedDeltaTime);
