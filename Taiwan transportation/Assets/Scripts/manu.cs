@@ -22,10 +22,12 @@ public class manu : MonoBehaviour
     [SerializeField] GameObject backGround;
     [SerializeField] GameObject title;
     [SerializeField] GameObject weiShadow;
+    [SerializeField] GameObject rain;
     Vector2 titlePos = new Vector2(0,2.7f);
     int nowSelected = 0;
     void Start() 
     {
+        rain.GetComponent<VideoPlayer>().Prepare();
         menuMusic.Play();
         StartCoroutine(loadMenu());
         StartCoroutine(loadButton());
@@ -55,6 +57,12 @@ public class manu : MonoBehaviour
             if(nowSelected==0) StartGame();
             else if(nowSelected==2) QuitGame();
         }   
+
+        if(rain.GetComponent<VideoPlayer>().isPrepared && !rain.GetComponent<VideoPlayer>().isPlaying) 
+        {
+            rain.GetComponent<SpriteRenderer>().enabled = true;
+            rain.GetComponent<VideoPlayer>().Play();
+        }
     }
     public void StartGame()
     {
