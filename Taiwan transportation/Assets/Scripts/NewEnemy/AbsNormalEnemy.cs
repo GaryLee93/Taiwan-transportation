@@ -11,6 +11,7 @@ public abstract class AbsNormalEnemy : MonoBehaviour
         if(health <= 0){
             health = 0;
             die();
+            explode();
         }
     }
     public void setHealth(int hp){
@@ -23,6 +24,9 @@ public abstract class AbsNormalEnemy : MonoBehaviour
             cb.transform.Translate(Random.Range(-1f, 1f), 0, 0);
             cb.GetComponent<Rigidbody2D>().velocity = new Vector2(Random.Range(-0.2f, 0.2f), Random.Range(3f, 5f));
         }
+    }
+    public void explode(){
+        Instantiate(StageObj.NormalExplode, transform.position, transform.rotation);
     }
     public abstract void die();
     public abstract bool hitBorder();

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5610469672764695259}
   - component: {fileID: 5610469672764695261}
   - component: {fileID: 5610469672764695258}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -86,7 +86,7 @@ GameObject:
   - component: {fileID: 5610469674048784009}
   - component: {fileID: 5610469674048784011}
   - component: {fileID: 5610469674048784008}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: HPbar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -189,7 +189,7 @@ GameObject:
   - component: {fileID: 2172660364918384652}
   - component: {fileID: 8077570037211199754}
   - component: {fileID: 4933999035879346928}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: HpCanva
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -234,7 +234,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
-  m_SortingLayerID: 0
+  m_SortingLayerID: -1735066751
   m_SortingOrder: 0
   m_TargetDisplay: 0
 --- !u!114 &8077570037211199754

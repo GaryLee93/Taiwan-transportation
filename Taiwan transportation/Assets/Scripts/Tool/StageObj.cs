@@ -15,6 +15,11 @@ public class StageObj : MonoBehaviour
     [SerializeField] private NamePair[] collectable_arr;
     [SerializeField] private NamePair[] text_arr;
 
+    public GameObject normalExplode;
+    public static GameObject NormalExplode{get{return instance.normalExplode;}}
+    public GameObject bossExplode;
+    public static GameObject BossExplode{get{return instance.bossExplode;}}
+
     public static Dictionary<string, GameObject> Enemies;
     public static Dictionary<string, GameObject> Bullets;
     public static Dictionary<string, GameObject> Collectables;
