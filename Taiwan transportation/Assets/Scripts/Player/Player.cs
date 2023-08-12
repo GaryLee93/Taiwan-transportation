@@ -242,7 +242,7 @@ public class Player : MonoBehaviour{
         shooterList = new List<GameObject>();
     }
     private void OnTriggerEnter2D(Collider2D other){
-        if(other.gameObject.tag=="enemy" || other.gameObject.tag=="enemy_bullet"){
+        if(other.gameObject.tag=="enemy" || other.gameObject.tag=="enemy_bullet" || other.gameObject.tag=="boss"){
             if(!isBombing && !isRespawning)
                 die();
         }

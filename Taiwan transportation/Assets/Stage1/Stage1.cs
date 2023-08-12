@@ -21,6 +21,12 @@ public class Stage1 : MonoBehaviour
     [SerializeField] AudioSource midMusic;
     PauseMenu pauseMenu;
     AudioSource nowPlaying;
+    [SerializeField] AudioSource frogMusic;
+    [SerializeField] AudioSource taxiDie;
+    [SerializeField] StartPos startPos;
+    [SerializeField] GameObject explosion;
+
+    enum StartPos{First, Mid, Second, Boss}
     Player player;
     public float stageTimer;
     
@@ -36,7 +42,18 @@ public class Stage1 : MonoBehaviour
         pauseMenu = PauseMenu.instance;
         player = Player.instance;
         stageTimer = 0;
-        StartCoroutine(firstWave());
+        if(startPos == StartPos.First){
+            StartCoroutine(firstWave());
+        }
+        else if(startPos == StartPos.Mid){
+            StartCoroutine(midBoss());
+        }
+        else if(startPos == StartPos.Second){
+            StartCoroutine(secondWave());
+        }
+        else if(startPos == StartPos.Boss){
+            StartCoroutine(missBang());
+        }
         background.start_taxi();
         background.display_title();
         StartCoroutine(walkchangefield());
@@ -198,14 +215,15 @@ public class Stage1 : MonoBehaviour
             yield return null;
         }
 
-        
+        Destroy(midBoss);
+        taxiDie.Play();
         background.start_change();
         StartCoroutine(fillWave());
 
         while(stageTimer <= 70f){
             yield return null;
         }
-        Destroy(midBoss);
+        
         StartCoroutine(secondWave());
     }
     IEnumerator fillWave(){
@@ -327,8 +345,9 @@ public class Stage1 : MonoBehaviour
     IEnumerator missBang(){
         player.canShoot = false;
         dsOne.ActivateDialogue();
-        yield return new WaitForSeconds(1f);
         GameObject mb = Instantiate(MissBang, new Vector3(0, 5, 0), new Quaternion());
+        yield return new WaitForSeconds(1f);
+
         while(dsOne.IsRunning()){
             yield return null;
         }
@@ -343,7 +362,11 @@ public class Stage1 : MonoBehaviour
         {
             yield return null;
         }
+        mb.SetActive(false);
+
+        yield return new WaitForSeconds(1.5f);
         dsTwo.ActivateDialogue();
+
         while(dsTwo.IsRunning()){
             yield return null;
         }
@@ -353,6 +376,7 @@ public class Stage1 : MonoBehaviour
         SpriteRenderer esr = Ending.GetComponent<SpriteRenderer>();
         esr.enabled = true;
         bangMusic.Stop();
+        player.canShoot = false;
         yield return new WaitForSeconds(1f);
         Ending.GetComponent<VideoPlayer>().Play();
         Ending.GetComponent<AudioSource>().Play();

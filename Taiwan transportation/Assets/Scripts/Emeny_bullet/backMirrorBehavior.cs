@@ -6,12 +6,24 @@ public class backMirrorBehavior : MonoBehaviour
 {
     Rigidbody2D rb;
     [SerializeField] GameObject glass;
+    AudioSource splashSound;
     objectPooler objInstance;
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        splashSound = GetComponent<AudioSource>();
         objInstance = objectPooler.instance;
         transform.Rotate(new Vector3(0f, 0f, Random.Range(0f, 180f)));
+    }
+    void Update(){
+        if(hitBorder()) 
+            Destroy(gameObject);
+    }
+    bool hitBorder(){
+        if(Mathf.Abs(transform.position.x) > 7.5f || Mathf.Abs(transform.position.y) > 7.5f) 
+            return true;
+        else 
+            return false;
     }
     private void OnTriggerEnter2D(Collider2D other) 
     {
@@ -32,7 +44,7 @@ public class backMirrorBehavior : MonoBehaviour
             
             if(bounce)
             {
-                
+                splashSound.Play();
                 transform.Rotate(new Vector3(0f, 0f, Random.Range(60f, 120f)));
                 rb.velocity = new Vector2(new_x,new_y);
                 GameObject shooter = transform.GetChild(0).gameObject;
