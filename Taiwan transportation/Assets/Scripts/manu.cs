@@ -85,12 +85,11 @@ public class manu : MonoBehaviour
     }
     IEnumerator loadMenu()
     {
-        float timer=0f, fadeTimer=0.5f;
-        title.GetComponent<SpriteRenderer>().color = new Color(timer/fadeTimer, timer/fadeTimer, timer/fadeTimer, timer/fadeTimer);
-        weiShadow.GetComponent<SpriteRenderer>().color = new Color(timer/fadeTimer, timer/fadeTimer, timer/fadeTimer, timer/fadeTimer);
+        
+        title.GetComponent<SpriteRenderer>().color = new Color();
+        weiShadow.GetComponent<SpriteRenderer>().color = new Color();
 
-        timer = 0f;
-        fadeTimer = 0.5f;
+        float timer=0f, fadeTimer=1.5f;
         Vector2 diff = new Vector2(0,2.7f) - new Vector2(0,6f); 
         while(timer < fadeTimer){
             timer += Time.deltaTime;
@@ -103,7 +102,7 @@ public class manu : MonoBehaviour
         }
 
         timer = 0f;
-        fadeTimer = 0.5f;
+        fadeTimer = 1f;
         while(timer < fadeTimer){
             timer += Time.deltaTime;
             if(timer >= fadeTimer){
