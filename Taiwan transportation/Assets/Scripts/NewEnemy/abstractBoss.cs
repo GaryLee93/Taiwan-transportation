@@ -14,7 +14,7 @@ public abstract class abstractBoss : MonoBehaviour
     protected Rigidbody2D rb;
     protected Clock clock;
     protected Player player;
-    protected BonusInform bonusTitle;
+    protected Informer bonusTitle;
     
     [SerializeField] hpBar healthBar;
     [SerializeField] protected GameObject explosionEffect;
@@ -76,8 +76,9 @@ public abstract class abstractBoss : MonoBehaviour
         {
             player.playerData.score += 10000;
             player.refreshScoreText(); 
+            Informer.titleOutput(Informer.Infromation.bonusGet);
         }
-        bonusTitle.titleOutput(bonusCheck);
+        else Informer.titleOutput(Informer.Infromation.bounsFailed);
     }
     protected void prepareNextAction(bool isSpellCard,bool nextSection,bool needRecover,int lowHp,float OPtime)
     {
@@ -122,7 +123,7 @@ public abstract class abstractBoss : MonoBehaviour
         sp = spellCardPerform.instance;
         clock = Clock.clockInstance;
         player = Player.instance;
-        bonusTitle = BonusInform.instance;
+        bonusTitle = Informer.instance;
         section = 0;
         MaxHp = MaxHealth;
         currentHp = MaxHp;

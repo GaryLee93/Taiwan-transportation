@@ -27,6 +27,7 @@ public class Player : MonoBehaviour{
     List<GameObject> shooterList;
     float current_speed,respawnTimer;
     bool isBombing,isRespawning;
+
     public delegate void playerEvent();
     public static Player instance;
     public playerEvent useBomb,die,gameOver;
@@ -83,10 +84,6 @@ public class Player : MonoBehaviour{
             playerData.powerMode = playerData.power/100;
             changePowerMod();
         }
-    }
-    void FixedUpdate()
-    {
-        
     }
     void player_move(){
         if(Input.GetKey(KeyCode.LeftShift)){
@@ -269,6 +266,8 @@ public class Player : MonoBehaviour{
                 int newPowerMode = playerData.power /100;
 
                 if(newPowerMode != playerData.powerMode){
+                    if(playerData.power/100 == 4) Informer.titleOutput(Informer.Infromation.powerFull);
+                    else if(playerData.power/100 > playerData.powerMode) Informer.titleOutput(Informer.Infromation.powerUp);
                     changePowerSound.Play();
                     playerData.powerMode = newPowerMode;
                     changePowerMod();
@@ -284,6 +283,9 @@ public class Player : MonoBehaviour{
                 int newPowerMode = playerData.power /100;
 
                 if(newPowerMode != playerData.powerMode){
+                    if(playerData.power/100 == 4) Informer.titleOutput(Informer.Infromation.powerFull);
+                    else if(playerData.power/100 > playerData.powerMode) Informer.titleOutput(Informer.Infromation.powerUp);
+                    changePowerSound.Play();
                     playerData.powerMode = newPowerMode;
                     changePowerMod();
                 }
