@@ -8,6 +8,10 @@ public class a_ba : abstractBoss
     [SerializeField] GameObject red_middle;
     bool[,] sectionCheck = new bool[(int)SpellCard.spellCardNum,2]; 
     private enum SpellCard{riceSea,spellCardNum}
+
+    [SerializeField] AudioSource startSound;
+    [SerializeField] AudioSource spellSound;
+
     private void Update() 
     {
         action();
@@ -47,7 +51,7 @@ public class a_ba : abstractBoss
     
     protected override void die()
     {
-        deadAnimation.Play();
+        Instantiate(explosionEffect, transform.position, transform.rotation);
         actionCheck = false;
         StageObj.eraseAllBullet();
         transform.Find("HpCanva").gameObject.SetActive(false);
@@ -59,6 +63,7 @@ public class a_ba : abstractBoss
     public override void active()
     {
         deadAnimation = GetComponent<VideoPlayer>();
+        startSound.Play();
         oriPos = new Vector2(0,4);
         for(int i=0;i<(int)SpellCard.spellCardNum;i++)
         {
@@ -125,6 +130,8 @@ public class a_ba : abstractBoss
     }
     IEnumerator rice_sea(float time)
     {
+        spellSound.Play();
+        
         slowDownMove(oriPos-(Vector2)transform.position,0.5f);
         yield return new WaitWhile(() => recoverCheck==true);
         yield return new WaitWhile(() => isMove()==true);

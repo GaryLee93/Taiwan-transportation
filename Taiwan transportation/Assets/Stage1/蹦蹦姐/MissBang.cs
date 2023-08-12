@@ -8,6 +8,7 @@ public class MissBang : abstractBoss
     [SerializeField] GameObject redMidRound;
     [SerializeField] AudioSource doYouKnowWhoAmI;
     [SerializeField] AudioSource backMirrorSound;
+    [SerializeField] AudioSource breakCarFour;
     VideoPlayer deadAnimation;
     Animator an;
     private enum SpellCard {brockenCar,glassRain,spellCardNum}
@@ -140,6 +141,8 @@ public class MissBang : abstractBoss
         {
             Vector2 dire = new Vector2(0,-1);
             int oritation = Random.Range(-2,2);
+
+            breakCarFour.Play();
             for(int i=0;i<3;i++)
             {
                 yield return new WaitForSeconds(0.3f);

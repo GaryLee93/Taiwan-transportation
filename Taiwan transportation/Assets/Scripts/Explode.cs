@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Video;
 
-public class BossExplode : MonoBehaviour{
+public class Explode : MonoBehaviour{
+    enum ExType{Boss, Normal}
+    [SerializeField] ExType type;
     VideoPlayer vp;
     SpriteRenderer sr;
     void Start(){
@@ -11,8 +13,13 @@ public class BossExplode : MonoBehaviour{
         vp.Prepare();
         
         sr = GetComponent<SpriteRenderer>();
-        StartCoroutine(enlarge());
-        StartCoroutine(fadeOut());
+        if(type == ExType.Boss){
+            StartCoroutine(enlarge());
+            StartCoroutine(longfadeOut());
+        }
+        else if(type == ExType.Normal){
+            StartCoroutine(shortfadeOut());
+        }
     }
     IEnumerator enlarge(){
         while(!vp.isPrepared){
@@ -31,9 +38,32 @@ public class BossExplode : MonoBehaviour{
         }
     }
 
-    IEnumerator fadeOut(){
+    IEnumerator longfadeOut(){
         yield return new WaitForSeconds(1f);
         float timer = 0f, fadeTime = 0.5f;
+        while(timer < fadeTime){
+            timer += Time.deltaTime;
+            if(timer >= fadeTime)
+                timer = fadeTime;
+            float rate = 1- (timer / fadeTime);
+            
+            Color tmp = sr.color;
+            tmp.a = rate;
+            sr.color = tmp;
+
+            yield return null;
+        }
+        Destroy(gameObject);
+    }
+    IEnumerator shortfadeOut(){
+        Vector2 initScale = transform.localScale;
+        while(!vp.isPrepared){
+            transform.localScale = Vector2.zero;
+            yield return null;
+        }
+        transform.localScale = initScale;
+        vp.Play();
+        float timer = 0f, fadeTime = 1f;
         while(timer < fadeTime){
             timer += Time.deltaTime;
             if(timer >= fadeTime)

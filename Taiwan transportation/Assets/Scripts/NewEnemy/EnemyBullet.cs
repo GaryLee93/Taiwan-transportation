@@ -24,7 +24,7 @@ public class EnemyBullet : MonoBehaviour, Ipooled
     }
     public void transformIntoScore()
     {
-        Instantiate(StageObj.Collectables["grayScore"],transform.position,transform.rotation);
+        Instantiate(StageObj.Collectables["grayScore"],transform.position,new Quaternion());
         gameObject.SetActive(false);
     }
 }

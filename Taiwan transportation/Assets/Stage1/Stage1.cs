@@ -19,6 +19,7 @@ public class Stage1 : MonoBehaviour
     [SerializeField] AudioSource bangMusic;
     [SerializeField] AudioSource midMusic;
     [SerializeField] AudioSource frogMusic;
+    [SerializeField] AudioSource taxiDie;
     [SerializeField] StartPos startPos;
     [SerializeField] GameObject explosion;
 
@@ -65,8 +66,6 @@ public class Stage1 : MonoBehaviour
 
     IEnumerator firstWave(){
         yield return new WaitForSeconds(summonTime);
-
-        Instantiate(explosion, new Vector3(0,3,0), transform.rotation);
         GameObject enemy;
         YieldInstruction delayTime, delayOneSec;
         delayOneSec = new WaitForSeconds(1);
@@ -192,14 +191,15 @@ public class Stage1 : MonoBehaviour
             yield return null;
         }
 
-        
+        Destroy(midBoss);
+        taxiDie.Play();
         background.start_change();
         StartCoroutine(fillWave());
 
         while(stageTimer <= 70f){
             yield return null;
         }
-        Destroy(midBoss);
+        
         StartCoroutine(secondWave());
     }
     IEnumerator fillWave(){
@@ -337,9 +337,11 @@ public class Stage1 : MonoBehaviour
         {
             yield return null;
         }
-
         mb.SetActive(false);
+
+        yield return new WaitForSeconds(1.5f);
         dsTwo.ActivateDialogue();
+
         while(dsTwo.IsRunning()){
             yield return null;
         }
@@ -349,6 +351,7 @@ public class Stage1 : MonoBehaviour
         SpriteRenderer esr = Ending.GetComponent<SpriteRenderer>();
         esr.enabled = true;
         bangMusic.Stop();
+        player.canShoot = false;
         yield return new WaitForSeconds(1f);
         frogMusic.Play();
         Ending.GetComponent<VideoPlayer>().Play();
