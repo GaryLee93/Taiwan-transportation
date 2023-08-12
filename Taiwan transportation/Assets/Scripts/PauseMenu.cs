@@ -6,6 +6,7 @@ using UnityEngine.Video;
 public class PauseMenu : MonoBehaviour
 {
     public static bool gameIsPaused = false;
+    public static PauseMenu instance;
     public delegate void PauseMenuEvent();
     public PauseMenuEvent pause,resume;
     [SerializeField] GameObject ContinueMenu;
@@ -16,6 +17,7 @@ public class PauseMenu : MonoBehaviour
     Player player;
     void Awake() 
     {
+        instance = this;
         player = Player.instance; 
         temMenu = pauseMenu;
         pause = new PauseMenuEvent(pauseTime); 

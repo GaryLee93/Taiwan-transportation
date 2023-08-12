@@ -103,6 +103,11 @@ public abstract class abstractBoss : MonoBehaviour
             Debug.LogWarning("can't set");
             return ;
         }
+        else if(timers == null) 
+        {
+            Debug.LogWarning("not initail");
+            return ;
+        }
         setTimer("Move",time);
         moveAccel = displace*(-2f)/(time*time);
         rb.velocity = new Vector2(moveAccel.x*(-time),moveAccel.y*(-time));
@@ -110,7 +115,7 @@ public abstract class abstractBoss : MonoBehaviour
     } 
     protected void init(int MaxHealth) // initiate boss and set maxHp to maxHealth
     {
-        timers = new Dictionary<string, float>();
+        if(timers==null)timers = new Dictionary<string, float>();
         rb = GetComponent<Rigidbody2D>();
         bp = bossPicPerform.instance;
         sp = spellCardPerform.instance;
@@ -171,7 +176,7 @@ public abstract class abstractBoss : MonoBehaviour
     public void stopMove()
     {
         MoveCheck = false;
-        timers.Remove("Move");
+        if(checkTimer("Move")) timers.Remove("Move");
         GetComponent<Rigidbody2D>().velocity = new Vector2(0,0);
     }
     public void takeDamage(int damage)
@@ -187,6 +192,8 @@ public abstract class abstractBoss : MonoBehaviour
     }
     public void showUp()
     {
+        if(timers==null)timers = new Dictionary<string, float>();
+        rb = GetComponent<Rigidbody2D>();
         slowDownMove(new Vector2(0,4)-(Vector2)transform.position,0.5f);
     }
     public void summonDrop(int count, string type){

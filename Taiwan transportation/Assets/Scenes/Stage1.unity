@@ -3516,7 +3516,6 @@ MonoBehaviour:
   bangfield: {fileID: 2087353876}
   blackfield: {fileID: 1410387564}
   titlePic: {fileID: 1207964274}
-  pauseMenu: {fileID: 147729701}
   nowPlaying: {fileID: 0}
 --- !u!1 &1196472503
 GameObject:
@@ -4475,7 +4474,7 @@ AudioSource:
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0

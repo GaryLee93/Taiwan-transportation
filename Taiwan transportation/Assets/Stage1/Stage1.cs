@@ -19,22 +19,29 @@ public class Stage1 : MonoBehaviour
     [SerializeField] GameObject endButton;
     [SerializeField] AudioSource bangMusic;
     [SerializeField] AudioSource midMusic;
+    PauseMenu pauseMenu;
+    AudioSource nowPlaying;
     Player player;
     public float stageTimer;
     
     void Start(){
+        
         Ending.GetComponent<VideoPlayer>().Prepare();
         Ending.GetComponent<VideoPlayer>().Stop();
         EndingSpin.GetComponent<VideoPlayer>().Prepare();
         endButton.SetActive(false);
-        midMusic.Play();
+        nowPlaying = midMusic;
+        nowPlaying.Play();
 
+        pauseMenu = PauseMenu.instance;
         player = Player.instance;
         stageTimer = 0;
-        StartCoroutine(missBang());
+        StartCoroutine(firstWave());
         background.start_taxi();
         background.display_title();
         StartCoroutine(walkchangefield());
+        pauseMenu.pause += pause;
+        pauseMenu.resume += resume;
     }
     void Update(){
         stageTimer += Time.deltaTime;
@@ -56,7 +63,14 @@ public class Stage1 : MonoBehaviour
             EndingSpin.GetComponent<VideoPlayer>().Play();
         }
     }
-
+    void resume()
+    {
+        if(nowPlaying !=null && !PauseMenu.gameIsPaused) nowPlaying.Play();
+    }
+    void pause()
+    {
+        if(nowPlaying != null && PauseMenu.gameIsPaused) nowPlaying.Pause();
+    }
     IEnumerator firstWave(){
         yield return new WaitForSeconds(summonTime);
         GameObject enemy;
@@ -319,8 +333,9 @@ public class Stage1 : MonoBehaviour
             yield return null;
         }
         player.canShoot = true;
-        midMusic.Stop();
-        bangMusic.Play();
+        nowPlaying.Stop();
+        nowPlaying = bangMusic;
+        nowPlaying.Play();
         mb.GetComponent<abstractBoss>().active();
         background.start_bang();
 

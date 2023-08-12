@@ -12,7 +12,7 @@ public class Background1 : MonoBehaviour
     [SerializeField] GameObject bangfield;
     [SerializeField] GameObject blackfield;
     [SerializeField] GameObject titlePic;
-    [SerializeField] PauseMenu pauseMenu;
+    PauseMenu pauseMenu;
     VideoPlayer taxiVp;
     VideoPlayer changeVp;
     VideoPlayer walkVp;
@@ -22,6 +22,7 @@ public class Background1 : MonoBehaviour
     public VideoPlayer nowPlaying;
 
     void Start(){
+        pauseMenu = PauseMenu.instance;
         taxiVp = taxifield.GetComponent<VideoPlayer>();
         walkVp = walkfield.GetComponent<VideoPlayer>();
         changeVp = changefield.GetComponent<VideoPlayer>();

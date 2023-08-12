@@ -14,7 +14,10 @@ public class manu : MonoBehaviour
         public Sprite selectedImg;
     }
     [SerializeField] private List<Button> buttons;
-    [SerializeField] private List<GameObject> buttonImgs; 
+    [SerializeField] private List<GameObject> buttonImgs;
+    [SerializeField] AudioSource choseSound; 
+    [SerializeField] AudioSource pressSound;
+    [SerializeField] AudioSource menuMusic;
     [SerializeField] GameObject loadingAni;
     [SerializeField] GameObject backGround;
     [SerializeField] GameObject title;
@@ -23,6 +26,7 @@ public class manu : MonoBehaviour
     int nowSelected = 0;
     void Start() 
     {
+        menuMusic.Play();
         StartCoroutine(loadMenu());
         StartCoroutine(loadButton());
         loadingAni.GetComponent<VideoPlayer>().Prepare();
@@ -32,12 +36,14 @@ public class manu : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.UpArrow) && nowSelected>0) 
         {
+            choseSound.Play();
             buttons[nowSelected].button.GetComponent<SpriteRenderer>().sprite = buttons[nowSelected].normalImg;
             nowSelected = (nowSelected-1)%buttons.Count;
             buttons[nowSelected].button.GetComponent<SpriteRenderer>().sprite = buttons[nowSelected].selectedImg;
         }
         if(Input.GetKeyDown(KeyCode.DownArrow) && nowSelected<(buttons.Count-1)) 
         {
+            choseSound.Play();
             buttons[nowSelected].button.GetComponent<SpriteRenderer>().sprite = buttons[nowSelected].normalImg;
             nowSelected = (nowSelected+1)%buttons.Count;
             buttons[nowSelected].button.GetComponent<SpriteRenderer>().sprite = buttons[nowSelected].selectedImg;
@@ -45,6 +51,7 @@ public class manu : MonoBehaviour
 
         if(Input.GetKeyDown(KeyCode.Z))
         {
+            pressSound.Play();
             if(nowSelected==0) StartGame();
             else if(nowSelected==2) QuitGame();
         }   
@@ -71,17 +78,8 @@ public class manu : MonoBehaviour
     IEnumerator loadMenu()
     {
         float timer=0f, fadeTimer=0.5f;
-        backGround.GetComponent<SpriteRenderer>().color = new Color(timer/fadeTimer, timer/fadeTimer, timer/fadeTimer, timer/fadeTimer);
         title.GetComponent<SpriteRenderer>().color = new Color(timer/fadeTimer, timer/fadeTimer, timer/fadeTimer, timer/fadeTimer);
         weiShadow.GetComponent<SpriteRenderer>().color = new Color(timer/fadeTimer, timer/fadeTimer, timer/fadeTimer, timer/fadeTimer);
-        while(timer < fadeTimer){
-            timer += Time.deltaTime;
-            if(timer >= fadeTimer){
-                timer = fadeTimer;
-            }
-            backGround.GetComponent<SpriteRenderer>().color = new Color(timer/fadeTimer, timer/fadeTimer, timer/fadeTimer, timer/fadeTimer);
-            yield return null;
-        }
 
         timer = 0f;
         fadeTimer = 0.5f;
@@ -110,15 +108,23 @@ public class manu : MonoBehaviour
     IEnumerator loadButton()
     {
         float timer=0f, fadeTimer=0.2f;
-        for(int i=0;i<buttonImgs.Count;i++) buttonImgs[i].GetComponent<SpriteRenderer>().color = new Color(timer/fadeTimer, timer/fadeTimer, timer/fadeTimer, timer/fadeTimer);
+        Color color;
+        for(int i=0;i<buttonImgs.Count;i++) 
+        {
+            color = buttonImgs[i].GetComponent<SpriteRenderer>().color;
+            color.a = 0;
+            buttonImgs[i].GetComponent<SpriteRenderer>().color = color;
+        }
         for(int i=0;i<buttonImgs.Count;i++)
         {
+            color = buttonImgs[i].GetComponent<SpriteRenderer>().color;
             while(timer < fadeTimer){
                 timer += Time.deltaTime;
                 if(timer >= fadeTimer){
                     timer = fadeTimer;
                 }
-                buttonImgs[i].GetComponent<SpriteRenderer>().color = new Color(timer/fadeTimer, timer/fadeTimer, timer/fadeTimer, timer/fadeTimer);
+                color.a = timer/fadeTimer;
+                buttonImgs[i].GetComponent<SpriteRenderer>().color = color;
                 yield return null;
             }
             timer = 0f;
