@@ -20,6 +20,7 @@ public class Stage1 : MonoBehaviour
     [SerializeField] AudioSource bangMusic;
     [SerializeField] AudioSource midMusic;
     PauseMenu pauseMenu;
+    GameOverMenu gameOverMenu;
     AudioSource nowPlaying;
     [SerializeField] AudioSource frogMusic;
     [SerializeField] AudioSource taxiDie;
@@ -40,6 +41,7 @@ public class Stage1 : MonoBehaviour
         nowPlaying.Play();
 
         pauseMenu = PauseMenu.instance;
+        gameOverMenu = GameOverMenu.instance;
         player = Player.instance;
         stageTimer = 0;
         if(startPos == StartPos.First){
@@ -59,6 +61,8 @@ public class Stage1 : MonoBehaviour
         StartCoroutine(walkchangefield());
         pauseMenu.pause += pause;
         pauseMenu.resume += resume;
+        gameOverMenu.Continue += resume;
+        player.gameOver += pause;
     }
     void Update(){
         stageTimer += Time.deltaTime;
@@ -82,7 +86,7 @@ public class Stage1 : MonoBehaviour
     }
     void resume()
     {
-        if(nowPlaying !=null && !PauseMenu.gameIsPaused) nowPlaying.Play();
+        if(nowPlaying != null && !PauseMenu.gameIsPaused) nowPlaying.Play();
     }
     void pause()
     {

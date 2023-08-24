@@ -1,15 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.Video;
-public class PauseMenu : absMenu
+using UnityEngine.SceneManagement;
+
+public class GameOverMenu : absMenu
 {
-    public static bool gameIsPaused = false;
-    public static PauseMenu instance;
-    public delegate void PauseMenuEvent();
-    public PauseMenuEvent pause,resume;
-    [SerializeField] GameObject pauseMenu;
+    public static GameOverMenu instance;
+    public delegate void GameOverEvent();
+    public GameOverEvent Continue;
+    [SerializeField] GameObject gameOverMenu;
     [SerializeField] GameObject loadingAni;
     [SerializeField] AudioSource pauseSound;
     Player player;
@@ -17,19 +17,12 @@ public class PauseMenu : absMenu
     {
         instance = this;
         player = Player.instance;
-        pause = new PauseMenuEvent(pauseTime); 
-        resume = new PauseMenuEvent(resumeTime);
-        loadingAni.GetComponent<VideoPlayer>().Prepare();
+        player.gameOver += pauseTime;
+        Continue = new GameOverEvent(resumeTime); 
     }
-    void Update()
+    void Update() 
     {
-        if(Input.GetKeyDown(KeyCode.Escape) && player.playerData.remain_life>=0)
-        {
-            if(gameIsPaused) resume();
-            else pause();
-        }
-
-        chose();
+        chose();    
     }
     protected override void chose()
     {
@@ -52,47 +45,44 @@ public class PauseMenu : absMenu
         if(Input.GetKeyDown(KeyCode.Z) && canChose)
         {
             pressSound.Play();
-            if(nowSelected==0) resume();
+            if(nowSelected==0) Continue();
             else if(nowSelected==1) StartFromStage1();
             else if(nowSelected==2)  exitGame();
         }
     }
-    public void gameContinue()
-    {
-        pauseMenu.SetActive(false);
-        player.gameContinue();
-        gameIsPaused = false;
-        resume();
-    } 
-    public void resumeTime()
-    {
-        gameIsPaused = false;
-        pauseMenu.SetActive(false);
-        Time.timeScale = 1f;
-        canChose = false;
-    }
-    public void StartFromStage1()
-    {
-        pauseMenu.SetActive(false);
-        StartCoroutine(loadingStart());
-        gameIsPaused = false;
-        Time.timeScale = 1f;
-    }
     public void exitGame()
     {
-        gameIsPaused = false;
+        PauseMenu.gameIsPaused = false;
         Time.timeScale = 1f;
         SceneManager.LoadScene("StartMenu");
     }
-    public void pauseTime()
+    void resumeTime()
+    {
+        player.playerData.remain_life = 3;
+        player.playerData.score = 0;
+        player.refreshLifeText();
+        player.refreshScoreText();
+        PauseMenu.gameIsPaused = false;
+        gameOverMenu.SetActive(false);
+        Time.timeScale = 1f;
+        canChose = false;
+    }
+    void pauseTime()
     {
         pauseSound.Play();
         nowSelected = 0;
         buttons[nowSelected].button.GetComponent<SpriteRenderer>().sprite = buttons[nowSelected].selectedImg;
         Time.timeScale = 0f;
-        pauseMenu.SetActive(true);
-        gameIsPaused = true;
+        gameOverMenu.SetActive(true);
+        PauseMenu.gameIsPaused = true;
         canChose = true;
+    }
+    public void StartFromStage1()
+    {
+        gameOverMenu.SetActive(false);
+        StartCoroutine(loadingStart());
+        PauseMenu.gameIsPaused = false;
+        Time.timeScale = 1f;
     }
     IEnumerator loadingStart()
     {

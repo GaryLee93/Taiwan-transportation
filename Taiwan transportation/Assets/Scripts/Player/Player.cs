@@ -32,10 +32,11 @@ public class Player : MonoBehaviour{
     public static Player instance;
     public playerEvent useBomb,die,gameOver;
     private void Awake(){
-        useBomb = new playerEvent(loudSparkBomb);
-        die = new playerEvent(be_hit);
         instance = this;
         canShoot = true;
+        useBomb = new playerEvent(loudSparkBomb);
+        die = new playerEvent(be_hit);
+        gameOver = new playerEvent(()=> playerData.remain_life=0);
     }
 
     public static GameObject GetPlayer(){
@@ -327,7 +328,7 @@ public class Player : MonoBehaviour{
                 tmp.GetComponent<Rigidbody2D>().velocity += new Vector2(3f, 0f);
             }
         }
-        if(playerData.remain_life < 0){
+        if(playerData.remain_life < 0){ // remember to recover
             playerData.remain_life = 0;
             Debug.Log("滿身瘡痍");
 #region stage continue 
@@ -378,7 +379,7 @@ public class Player : MonoBehaviour{
         StageObj.StageTexts["score"].GetComponent<Text>().text = "Score: " + playerData.score;
     }
 
-    void refreshLifeText()  {
+    public void refreshLifeText()  {
         StageObj.StageTexts["remainlife"].GetComponent<Text>().text = "Life: " + playerData.remain_life;
     }
 

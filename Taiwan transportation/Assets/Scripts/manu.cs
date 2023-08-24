@@ -3,20 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Video;
 using UnityEngine.SceneManagement;
-public class manu : MonoBehaviour
+public class manu : absMenu
 {
-    [System.Serializable] 
-    public class Button
-    {
-        public string name;
-        public GameObject button;
-        public Sprite normalImg;
-        public Sprite selectedImg;
-    }
-    [SerializeField] private List<Button> buttons;
-    [SerializeField] private List<GameObject> buttonImgs;
-    [SerializeField] AudioSource choseSound; 
-    [SerializeField] AudioSource pressSound;
     [SerializeField] AudioSource menuMusic;
     [SerializeField] GameObject loadingAni;
     [SerializeField] GameObject backGround;
@@ -24,11 +12,10 @@ public class manu : MonoBehaviour
     [SerializeField] GameObject weiShadow;
     [SerializeField] GameObject rain;
     Vector2 titlePos = new Vector2(0,2.7f);
-    int nowSelected = 0;
-    bool cnaChose = false;
+
     void Start() 
     {
-        cnaChose = false;
+        canChose = false;
         rain.GetComponent<VideoPlayer>().Prepare();
         menuMusic.Play();
         StartCoroutine(loadMenu());
@@ -38,7 +25,16 @@ public class manu : MonoBehaviour
     }
     void Update() 
     {
-        if(Input.GetKeyDown(KeyCode.UpArrow) && cnaChose) 
+        chose();
+        if(rain.GetComponent<VideoPlayer>().isPrepared && !rain.GetComponent<VideoPlayer>().isPlaying) 
+        {
+            rain.GetComponent<SpriteRenderer>().enabled = true;
+            rain.GetComponent<VideoPlayer>().Play();
+        }
+    }
+    protected override void chose()
+    {
+        if(Input.GetKeyDown(KeyCode.UpArrow) && canChose) 
         {
             choseSound.Play();
             buttons[nowSelected].button.GetComponent<SpriteRenderer>().sprite = buttons[nowSelected].normalImg;
@@ -46,7 +42,7 @@ public class manu : MonoBehaviour
             if(nowSelected<0) nowSelected = (nowSelected+buttons.Count)%buttons.Count;
             buttons[nowSelected].button.GetComponent<SpriteRenderer>().sprite = buttons[nowSelected].selectedImg;
         }
-        if(Input.GetKeyDown(KeyCode.DownArrow) && cnaChose) 
+        if(Input.GetKeyDown(KeyCode.DownArrow) && canChose) 
         {
             choseSound.Play();
             buttons[nowSelected].button.GetComponent<SpriteRenderer>().sprite = buttons[nowSelected].normalImg;
@@ -59,12 +55,6 @@ public class manu : MonoBehaviour
             pressSound.Play();
             if(nowSelected==0) StartGame();
             else if(nowSelected==2) QuitGame();
-        }   
-
-        if(rain.GetComponent<VideoPlayer>().isPrepared && !rain.GetComponent<VideoPlayer>().isPlaying) 
-        {
-            rain.GetComponent<SpriteRenderer>().enabled = true;
-            rain.GetComponent<VideoPlayer>().Play();
         }
     }
     public void StartGame()
@@ -139,6 +129,8 @@ public class manu : MonoBehaviour
             }
             timer = 0f;
         }
-        cnaChose = true;
+        canChose = true;
     }
+
+
 }

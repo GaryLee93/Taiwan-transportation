@@ -13,6 +13,8 @@ public class Background1 : MonoBehaviour
     [SerializeField] GameObject blackfield;
     [SerializeField] GameObject titlePic;
     PauseMenu pauseMenu;
+    GameOverMenu gameOverMenu;
+    Player player;
     VideoPlayer taxiVp;
     VideoPlayer changeVp;
     VideoPlayer walkVp;
@@ -23,6 +25,8 @@ public class Background1 : MonoBehaviour
 
     void Start(){
         pauseMenu = PauseMenu.instance;
+        gameOverMenu = GameOverMenu.instance;
+        player = Player.instance;
         taxiVp = taxifield.GetComponent<VideoPlayer>();
         walkVp = walkfield.GetComponent<VideoPlayer>();
         changeVp = changefield.GetComponent<VideoPlayer>();
@@ -38,6 +42,8 @@ public class Background1 : MonoBehaviour
         bangVp.Prepare();
         pauseMenu.pause += pause;
         pauseMenu.resume += resume;
+        gameOverMenu.Continue += resume;
+        player.gameOver += pause;
     }
     void pause()
     {
