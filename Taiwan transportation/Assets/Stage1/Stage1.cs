@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 using UnityEngine.Video;
 using UnityEngine.UI;
 using TMPro;
+using UnityEditor;
+
 public class Stage1 : MonoBehaviour
 {
     [SerializeField] float summonTime;
@@ -79,7 +81,7 @@ public class Stage1 : MonoBehaviour
         if(Ending.GetComponent<SpriteRenderer>().enabled && (Input.GetKeyDown(KeyCode.Keypad0) || Input.GetKeyDown(KeyCode.Alpha0)))
         {
             Ending.GetComponent<SpriteRenderer>().enabled = false;
-            Ending.GetComponent<AudioSource>().Pause();
+            Ending.GetComponent<AudioSource>().Stop();
             EndingSpin.GetComponent<SpriteRenderer>().enabled = true;
             EndingSpin.GetComponent<VideoPlayer>().Play();
         }

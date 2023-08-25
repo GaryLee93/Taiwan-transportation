@@ -21,16 +21,16 @@ public class a_ba : abstractBoss
         if(!sectionCheck[(int)SpellCard.riceSea,0] && !useCard)
         {
             prepareNextAction(false,false,false,MaxHp/2,0);
-            StartCoroutine(normalAttack(30f));
-            clock.setSpellCardTimer(30f);
+            StartCoroutine(normalAttack(20f));
+            clock.setSpellCardTimer(20f);
             sectionCheck[(int)SpellCard.riceSea,0] = true;
         }
         else if(!sectionCheck[(int)SpellCard.riceSea,1] && useCard)
         {
             bp.startMove("taxi",1f,0.75f);
             sp.startSmallize("稻符「黃金雨」",1f,0.75f);
-            StartCoroutine(rice_sea(30f));
-            clock.setSpellCardTimer(30f);
+            StartCoroutine(rice_sea(20f));
+            clock.setSpellCardTimer(20f);
             sectionCheck[(int)SpellCard.riceSea,1] = true;
         }
     }

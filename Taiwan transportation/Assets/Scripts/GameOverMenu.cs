@@ -16,12 +16,15 @@ public class GameOverMenu : absMenu
     void Awake() 
     {
         instance = this;
-        player = Player.instance;
-        player.gameOver += pauseTime;
         Continue = new GameOverEvent(resumeTime); 
     }
     void Update() 
     {
+        if(Player.instance!=null)
+        {
+            player = Player.instance;
+            player.gameOver += pauseTime;
+        }
         chose();    
     }
     protected override void chose()

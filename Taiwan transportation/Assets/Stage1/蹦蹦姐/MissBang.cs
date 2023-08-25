@@ -54,7 +54,6 @@ public class MissBang : abstractBoss
 
     protected override void die()
     {
-        //deadAnimation.Play();
         Instantiate(explosionEffect, transform.position, transform.rotation);
         actionCheck = false;
         StageObj.eraseAllBullet();
@@ -62,6 +61,7 @@ public class MissBang : abstractBoss
         summonDrop(30,"score");
         summonDrop(30,"power");
         summonDrop(1,"bomb");
+        Destroy(this);
     }
     
     public override void active()
