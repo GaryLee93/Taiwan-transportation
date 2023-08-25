@@ -25,6 +25,11 @@ public class PauseMenu : absMenu
     {
         if(Input.GetKeyDown(KeyCode.Escape) && player.playerData.remain_life>=0)
         {
+            if(pauseMenu==null)
+            {
+                Debug.Log("miss");
+                return;
+            }
             if(gameIsPaused) resume();
             else pause();
         }
