@@ -54,7 +54,7 @@ public class manu : absMenu
         {
             pressSound.Play();
             if(nowSelected==0) StartGame();
-            else if(nowSelected==2) QuitGame();
+            else if(nowSelected==1) QuitGame();
         }
     }
     public void StartGame()
