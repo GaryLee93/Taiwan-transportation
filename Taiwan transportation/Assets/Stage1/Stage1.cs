@@ -216,6 +216,8 @@ public class Stage1 : MonoBehaviour
         }
 
         Destroy(midBoss);
+        yield return new WaitForSeconds(1f);
+        
         taxiDie.Play();
         background.start_change();
         StartCoroutine(fillWave());

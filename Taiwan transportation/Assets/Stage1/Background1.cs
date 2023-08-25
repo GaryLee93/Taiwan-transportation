@@ -82,6 +82,7 @@ public class Background1 : MonoBehaviour
     }
     public void display_title(){
         StartCoroutine(title());
+        StartCoroutine(title_move());
     }
     IEnumerator title(){
         yield return new WaitForSeconds(2f);
@@ -99,6 +100,14 @@ public class Background1 : MonoBehaviour
             if(a_rate <= 0)
                 a_rate = 0;
             titlePic.GetComponent<SpriteRenderer>().color = new Color(1,1,1,a_rate);
+            yield return null;
+        }
+        titlePic.SetActive(false);
+    }
+    IEnumerator title_move(){
+        yield return new WaitForSeconds(2f);
+        while(titlePic.activeSelf){
+            titlePic.transform.Translate(-0.5f*Time.deltaTime, 0f, 0f);
             yield return null;
         }
     }
