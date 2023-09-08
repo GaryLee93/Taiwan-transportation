@@ -1187,7 +1187,7 @@ SpriteRenderer:
   m_SortingLayerID: 1464191091
   m_SortingLayer: 1
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: 0de28cdbac8f56342bbae67dcc926578, type: 3}
+  m_Sprite: {fileID: 21300000, guid: b5d03474daf0ec24ab7a28897970c363, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1206,7 +1206,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 375898006}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.63, y: -3.5, z: 0}
+  m_LocalPosition: {x: -1.67, y: -3.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1491728334}
@@ -1756,7 +1756,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 591201091}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.7, y: -3.5, z: 0}
+  m_LocalPosition: {x: -1.76, y: -3.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 285733495}
@@ -1802,7 +1802,7 @@ SpriteRenderer:
   m_SortingLayerID: 1464191091
   m_SortingLayer: 1
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: 3723f4e8120532946afc1149a7857f93, type: 3}
+  m_Sprite: {fileID: 21300000, guid: aac06dc57cb77e94680d5fcb93981e84, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1884,7 +1884,7 @@ SpriteRenderer:
   m_SortingLayerID: 1464191091
   m_SortingLayer: 1
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: 6217d0f6e6a618f49bc7ab842ac52089, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 0be7d41ee2861544f911be59547c90fb, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -2987,7 +2987,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 6a4e5dc020807b54295eb081d09d466f, type: 3}
+  m_Sprite: {fileID: 21300000, guid: cd6b3e9493338974a80bc9aa3c4b2a0a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -3006,7 +3006,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1089748032}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.15, y: -5, z: 0}
+  m_LocalPosition: {x: -1.07, y: -5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1491728334}
@@ -3554,7 +3554,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1389644992}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.2, y: -5, z: 0}
+  m_LocalPosition: {x: -1.17, y: -5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 285733495}
@@ -3600,7 +3600,7 @@ SpriteRenderer:
   m_SortingLayerID: 1464191091
   m_SortingLayer: 1
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: bc25715f6de7e8a488db4ec89831dce8, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f9b44225872f8c84aa9b7ed91c958325, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -3886,7 +3886,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1635177793
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4126,7 +4126,7 @@ SpriteRenderer:
   m_SortingLayerID: 1464191091
   m_SortingLayer: 1
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: 0819a17df4629ee4786a35781d282348, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 316c681323d3a3a49902a7789643bb2a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -4666,7 +4666,7 @@ MonoBehaviour:
   midMusic: {fileID: 1964752500}
   frogMusic: {fileID: 1964752501}
   taxiDie: {fileID: 1964752502}
-  startPos: 3
+  startPos: 0
   explosion: {fileID: 9071892050584740712, guid: 79b3a762f0e52d345bb835e8bcce367f, type: 3}
   stageTimer: 0
 --- !u!4 &1964752495
@@ -5674,16 +5674,16 @@ MonoBehaviour:
   buttons:
   - name: resume
     button: {fileID: 1750919002}
-    normalImg: {fileID: 21300000, guid: 0819a17df4629ee4786a35781d282348, type: 3}
-    selectedImg: {fileID: 21300000, guid: b829ba5346625484c9a3b1b5cee6880a, type: 3}
+    normalImg: {fileID: 21300000, guid: 316c681323d3a3a49902a7789643bb2a, type: 3}
+    selectedImg: {fileID: 21300000, guid: 8b4c0c0b44e2d1449a2c87ae4f0bb6fc, type: 3}
   - name: retry
     button: {fileID: 591201091}
-    normalImg: {fileID: 21300000, guid: 3723f4e8120532946afc1149a7857f93, type: 3}
-    selectedImg: {fileID: 21300000, guid: d3d21a140fed9c24abed57ed41ee35c0, type: 3}
+    normalImg: {fileID: 21300000, guid: aac06dc57cb77e94680d5fcb93981e84, type: 3}
+    selectedImg: {fileID: 21300000, guid: 26b9f88cee765a04898db52154113998, type: 3}
   - name: quit
     button: {fileID: 1389644992}
-    normalImg: {fileID: 21300000, guid: bc25715f6de7e8a488db4ec89831dce8, type: 3}
-    selectedImg: {fileID: 21300000, guid: 5ae19a7db64b75843813c21959ad2bb3, type: 3}
+    normalImg: {fileID: 21300000, guid: f9b44225872f8c84aa9b7ed91c958325, type: 3}
+    selectedImg: {fileID: 21300000, guid: f2f08806f9681054d91a530a040b989f, type: 3}
   buttonImgs:
   - {fileID: 1750919002}
   - {fileID: 591201091}
@@ -5724,16 +5724,16 @@ MonoBehaviour:
   buttons:
   - name: Continue
     button: {fileID: 594632666}
-    normalImg: {fileID: 21300000, guid: 6217d0f6e6a618f49bc7ab842ac52089, type: 3}
-    selectedImg: {fileID: 21300000, guid: 728b721475147684f8bf056509564a3c, type: 3}
+    normalImg: {fileID: 21300000, guid: 0be7d41ee2861544f911be59547c90fb, type: 3}
+    selectedImg: {fileID: 21300000, guid: 10b0d5461900f9f4bba53eead2fe3500, type: 3}
   - name: Retry
     button: {fileID: 375898006}
-    normalImg: {fileID: 21300000, guid: 0de28cdbac8f56342bbae67dcc926578, type: 3}
-    selectedImg: {fileID: 21300000, guid: 8413e27275ad0364f8e55a7bff90cca8, type: 3}
+    normalImg: {fileID: 21300000, guid: b5d03474daf0ec24ab7a28897970c363, type: 3}
+    selectedImg: {fileID: 21300000, guid: 8375498bc88be7e4aaf4222e935b7895, type: 3}
   - name: Quit
     button: {fileID: 1089748032}
-    normalImg: {fileID: 21300000, guid: 6a4e5dc020807b54295eb081d09d466f, type: 3}
-    selectedImg: {fileID: 21300000, guid: 026aa84613ff8864984643063a50f16c, type: 3}
+    normalImg: {fileID: 21300000, guid: cd6b3e9493338974a80bc9aa3c4b2a0a, type: 3}
+    selectedImg: {fileID: 21300000, guid: f2f08806f9681054d91a530a040b989f, type: 3}
   buttonImgs:
   - {fileID: 594632666}
   - {fileID: 375898006}
