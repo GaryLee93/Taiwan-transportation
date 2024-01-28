@@ -7,7 +7,6 @@ using UnityEngine.UI;
 using TMPro;
 public class Stage1 : MonoBehaviour
 {
-    [SerializeField] float summonTime;
     [SerializeField] TMP_Text time_text;
     [SerializeField] GameObject taxi;
     [SerializeField] GameObject MissBang;
@@ -36,8 +35,6 @@ public class Stage1 : MonoBehaviour
         Ending.GetComponent<VideoPlayer>().Stop();
         EndingSpin.GetComponent<VideoPlayer>().Prepare();
         endButton.SetActive(false);
-        nowPlaying = midMusic;
-        nowPlaying.Play();
 
         pauseMenu = PauseMenu.instance;
         player = Player.instance;
@@ -89,7 +86,14 @@ public class Stage1 : MonoBehaviour
         if(nowPlaying != null && PauseMenu.gameIsPaused) nowPlaying.Pause();
     }
     IEnumerator firstWave(){
-        yield return new WaitForSeconds(summonTime);
+
+
+        yield return new WaitForSeconds(1f);
+        nowPlaying = midMusic;
+        nowPlaying.Play();
+        yield return new WaitForSeconds(2f);
+        
+        
         GameObject enemy;
         YieldInstruction delayTime, delayOneSec;
         delayOneSec = new WaitForSeconds(1);
